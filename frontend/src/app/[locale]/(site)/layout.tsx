@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Home, ShoppingBag, Sparkles, Package, Image as ImageIcon, Phone, Compass, ShieldCheck } from "lucide-react";
@@ -9,6 +8,7 @@ import { Footer } from "@/components/shared/Footer";
 import { WhatsAppFloatingButton } from "@/components/shared/WhatsAppFloatingButton";
 import { ShrinkHeaderWrapper } from "@/components/shared/ScrollEffects";
 import { AdaptiveSidebarShell, SidebarNavItem } from "@/components/shared/AdaptiveSidebar";
+import { LayersBackground } from "@/components/shared/LayersBackground";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
@@ -35,21 +35,24 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   ];
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#faf9f6] text-zinc-900 dark:bg-[#07050c] dark:text-zinc-100 transition-colors duration-300 relative">
-      <ShrinkHeaderWrapper className="sticky top-0 z-40">
+    <div className="min-h-screen flex flex-col justify-between bg-[#faf9f6] text-zinc-900 dark:bg-[#04100b] dark:text-zinc-100 transition-colors duration-300 relative">
+      <LayersBackground />
+
+      <ShrinkHeaderWrapper className="sticky top-0 z-40 relative">
         <Header />
       </ShrinkHeaderWrapper>
 
       <AdaptiveSidebarShell
         brandName="Shivam Full Ghar"
-        brandSubtitle="Curved Purple Glass • Keshod"
+        brandSubtitle="Emerald & Royal Red • Keshod"
         logoUrl="/icon.svg"
         navItems={siteNavItems}
         currentPath={pathname}
-        defaultTheme="purple-glass"
+        defaultTheme="emerald-green"
         defaultStyle="floating"
+        asDrawer={true}
       >
-        <main className="flex-1 w-full">{children}</main>
+        <main className="flex-1 w-full relative z-10">{children}</main>
       </AdaptiveSidebarShell>
 
       <WhatsAppFloatingButton />

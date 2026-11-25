@@ -27,7 +27,8 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
   const [category, setCategory] = useState("All");
   const [index, setIndex] = useState(0);
   const [sizeIdx, setSizeIdx] = useState(1);
-  const [hue, setHue] = useState(340);
+  const [hue, setHue] = useState(152);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [bagOpen, setBagOpen] = useState(false);
   const [bag, setBag] = useState<{ item: ShowcaseItem; size: string }[]>([]);
   const { notify } = useNotifications();
@@ -37,6 +38,13 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
   const list = filtered.length > 0 ? filtered : items;
   const active = list[index % list.length];
   const sizes = ["3.5 ft", "4.5 ft", "5.5 ft", "6.5 ft"];
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const rx = ((e.clientY - rect.top) / rect.height - 0.5) * -14;
+    const ry = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+    setTilt({ x: rx, y: ry });
+  };
 
   const handleAdd = () => {
     setBag((prev) => [...prev, { item: active, size: sizes[sizeIdx] }]);
@@ -51,13 +59,13 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
   };
 
   return (
-    <section className="relative rounded-[36px] p-6 md:p-10 glass-purple text-white overflow-hidden">
+    <section className="relative rounded-[36px] p-6 md:p-10 glass-emerald text-white overflow-hidden">
       <div className="flex flex-col lg:flex-row gap-8 items-center">
-        {/* Left: 3D Interactive Garment/Garland Stage */}
+        {/* Left: Interactive 3D Pedestal Scene */}
         <div className="flex-1 w-full space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono-tech bg-purple-500/20 text-purple-200 border border-purple-400/30">
-              <Sparkles className="w-3.5 h-3.5" /> 3D Virtual Floral Preview
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono-tech bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
+              <Sparkles className="w-3.5 h-3.5" /> Interactive 3D Floral Scene
             </span>
             <div className="flex flex-wrap gap-1.5">
               {categories.map((cat) => (
@@ -70,7 +78,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
                   }}
                   className={`px-3 py-1 rounded-full text-xs font-geometric font-semibold transition-all ${
                     category === cat
-                      ? "bg-gradient-to-r from-purple-500 to-rose-500 text-white shadow-md"
+                      ? "bg-gradient-to-r from-emerald-500 to-rose-600 text-white shadow-md"
                       : "bg-white/10 text-zinc-300 hover:bg-white/20"
                   }`}
                 >
@@ -80,25 +88,33 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             </div>
           </div>
 
-          <div className="relative h-72 sm:h-88 rounded-[24px] bg-gradient-to-b from-purple-950/60 to-black/70 border border-purple-400/20 flex items-center justify-center overflow-hidden">
+          <div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+            style={{ perspective: "1000px" }}
+            className="relative h-72 sm:h-88 rounded-[24px] bg-gradient-to-b from-emerald-950/75 via-[#041811] to-rose-950/45 border border-emerald-400/25 flex items-center justify-center overflow-hidden"
+          >
+            {/* 3D Pedestal Ring */}
+            <div className="absolute bottom-6 w-52 h-10 rounded-full bg-gradient-to-r from-emerald-500/25 via-rose-500/30 to-orange-500/25 blur-md" />
+
             <AnimatePresence mode="wait">
               <motion.img
                 key={active.id}
                 src={active.image}
                 alt={active.name}
-                initial={{ opacity: 0, rotateY: -22, scale: 0.9 }}
-                animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-                exit={{ opacity: 0, rotateY: 22, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                style={{ filter: `drop-shadow(0 20px 35px hsla(${hue}, 80%, 50%, 0.35))` }}
-                className="h-56 sm:h-72 w-auto object-contain rounded-2xl"
+                initial={{ opacity: 0, rotateY: -20, scale: 0.9 }}
+                animate={{ opacity: 1, rotateX: tilt.x, rotateY: tilt.y, scale: 1 }}
+                exit={{ opacity: 0, rotateY: 20, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                style={{ filter: `drop-shadow(0 20px 35px hsla(${hue}, 82%, 45%, 0.4))` }}
+                className="h-56 sm:h-72 w-auto object-contain rounded-2xl will-change-transform"
               />
             </AnimatePresence>
 
             <button
               type="button"
               onClick={() => setIndex((i) => (i - 1 + list.length) % list.length)}
-              className="absolute left-3 p-2.5 rounded-full bg-black/60 hover:bg-purple-600 text-white border border-white/15 transition-colors"
+              className="absolute left-3 p-2.5 rounded-full bg-black/60 hover:bg-emerald-600 text-white border border-white/15 transition-colors"
               aria-label="Previous design"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -106,7 +122,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             <button
               type="button"
               onClick={() => setIndex((i) => (i + 1) % list.length)}
-              className="absolute right-3 p-2.5 rounded-full bg-black/60 hover:bg-purple-600 text-white border border-white/15 transition-colors"
+              className="absolute right-3 p-2.5 rounded-full bg-black/60 hover:bg-rose-600 text-white border border-white/15 transition-colors"
               aria-label="Next design"
             >
               <ArrowRight className="w-4 h-4" />
@@ -117,7 +133,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
         {/* Right: Controls + Same-Page Bag */}
         <div className="w-full lg:w-96 space-y-5">
           <div>
-            <span className="text-[11px] font-mono-tech text-purple-300">{active.code} • {active.category}</span>
+            <span className="text-[11px] font-mono-tech text-emerald-300">{active.code} • {active.category}</span>
             <h3 className="font-display text-2xl font-extrabold mt-1">{active.name}</h3>
             <p className="font-mono-tech text-lg text-rose-300 font-bold mt-1">
               ₹{active.price.toLocaleString("en-IN")}
@@ -134,7 +150,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
           <button
             type="button"
             onClick={handleAdd}
-            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-rose-600 hover:opacity-95 text-white font-geometric font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-purple-700/30 transition-all"
+            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-rose-600 hover:opacity-95 text-white font-geometric font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-emerald-900/35 transition-all"
           >
             <ShoppingBag className="w-4 h-4" />
             <span>Add to Bag ({bag.length})</span>
@@ -150,7 +166,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 24, stiffness: 260 }}
-            className="fixed top-0 right-0 bottom-0 z-[80] w-80 max-w-[90vw] glass-purple text-white p-6 flex flex-col justify-between border-l border-purple-500/30"
+            className="fixed top-0 right-0 bottom-0 z-[80] w-80 max-w-[90vw] glass-emerald text-white p-6 flex flex-col justify-between border-l border-emerald-500/30"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -165,7 +181,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
                     <img src={b.item.image} alt={b.item.name} className="w-11 h-11 rounded-xl object-cover" />
                     <div className="min-w-0 flex-1">
                       <p className="font-bold truncate">{b.item.name}</p>
-                      <p className="text-purple-300 font-mono-tech">{b.size} • ₹{b.item.price}</p>
+                      <p className="text-emerald-300 font-mono-tech">{b.size} • ₹{b.item.price}</p>
                     </div>
                   </div>
                 ))}
@@ -174,7 +190,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             <button
               type="button"
               onClick={() => setBagOpen(false)}
-              className="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold flex items-center justify-center gap-1.5"
+              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-rose-600 text-xs font-bold flex items-center justify-center gap-1.5"
             >
               <Check className="w-4 h-4" />
               <span>Continue Browsing</span>

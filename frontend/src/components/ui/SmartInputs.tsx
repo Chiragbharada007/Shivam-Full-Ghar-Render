@@ -27,9 +27,9 @@ export function FloatingLabelInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder=" "
-        className="peer w-full px-4 pt-5 pb-2 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 text-sm text-zinc-900 dark:text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-hidden transition-all"
+        className="peer w-full px-4 pt-5 pb-2 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 text-sm text-zinc-900 dark:text-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-hidden transition-all"
       />
-      <label className="pointer-events-none absolute left-4 top-3.5 text-xs text-zinc-500 dark:text-zinc-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-purple-500 peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:text-[10px]">
+      <label className="pointer-events-none absolute left-4 top-3.5 text-xs text-zinc-500 dark:text-zinc-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] peer-focus:text-emerald-500 peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:text-[10px]">
         {label}
       </label>
     </div>
@@ -59,7 +59,7 @@ export function PasswordInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={label}
-          className="w-full px-4 py-3 pr-11 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 text-sm text-zinc-900 dark:text-white focus:border-purple-500 focus:outline-hidden"
+          className="w-full px-4 py-3 pr-11 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 text-sm text-zinc-900 dark:text-white focus:border-emerald-500 focus:outline-hidden"
         />
         <button
           type="button"
@@ -103,7 +103,7 @@ export function SearchInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-10 pr-16 py-2.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 text-sm text-zinc-900 dark:text-white focus:border-purple-500 focus:outline-hidden"
+        className="w-full pl-10 pr-16 py-2.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 text-sm text-zinc-900 dark:text-white focus:border-emerald-500 focus:outline-hidden"
       />
       {value ? (
         <button
@@ -194,7 +194,7 @@ export function OtpCodeInput({
           maxLength={1}
           value={d}
           onChange={(e) => updateDigit(idx, e.target.value)}
-          className="w-10 h-12 rounded-xl bg-white/80 dark:bg-white/10 border border-black/15 dark:border-white/20 text-center font-mono-tech font-bold text-base focus:border-purple-500 focus:outline-hidden"
+          className="w-10 h-12 rounded-xl bg-white/80 dark:bg-white/10 border border-black/15 dark:border-white/20 text-center font-mono-tech font-bold text-base focus:border-emerald-500 focus:outline-hidden"
         />
       ))}
     </div>
@@ -221,7 +221,7 @@ export function StepperInput({
       <button
         type="button"
         onClick={() => onChange(Math.max(min, value - 1))}
-        className="w-7 h-7 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center hover:bg-purple-500 hover:text-white transition-colors"
+        className="w-7 h-7 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
       >
         <Minus className="w-3.5 h-3.5" />
       </button>
@@ -229,7 +229,7 @@ export function StepperInput({
       <button
         type="button"
         onClick={() => onChange(Math.min(max, value + 1))}
-        className="w-7 h-7 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center hover:bg-purple-500 hover:text-white transition-colors"
+        className="w-7 h-7 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
       >
         <Plus className="w-3.5 h-3.5" />
       </button>
@@ -262,7 +262,7 @@ export function TagsInput({
       {tags.map((tag) => (
         <span
           key={tag}
-          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-semibold bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30"
+          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30"
         >
           <span>{tag}</span>
           <button type="button" onClick={() => onChange(tags.filter((t) => t !== tag))}>
@@ -307,7 +307,7 @@ export function DateMaskInput({
 
   return (
     <div className="relative">
-      <Calendar className="w-4 h-4 text-purple-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+      <Calendar className="w-4 h-4 text-emerald-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
       <input
         type="text"
         inputMode="numeric"
@@ -315,7 +315,7 @@ export function DateMaskInput({
         onChange={(e) => handleInput(e.target.value)}
         placeholder={label}
         maxLength={10}
-        className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 font-mono-tech text-sm text-zinc-900 dark:text-white focus:border-purple-500 focus:outline-hidden"
+        className="w-full pl-10 pr-4 py-3 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/15 dark:border-white/15 font-mono-tech text-sm text-zinc-900 dark:text-white focus:border-emerald-500 focus:outline-hidden"
       />
     </div>
   );

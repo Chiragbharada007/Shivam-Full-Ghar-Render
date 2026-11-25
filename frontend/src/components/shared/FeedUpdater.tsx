@@ -56,7 +56,7 @@ export function FeedUpdaterBar({
       {/* 01 Pull down + 02 Elastic pull + 03 Release cue */}
       {pullDistance > 6 && (
         <div
-          className="flex items-center justify-center text-xs font-medium text-purple-400 transition-all"
+          className="flex items-center justify-center text-xs font-medium text-emerald-400 transition-all"
           style={{ height: `${pullDistance}px` }}
         >
           <ArrowDown className={`w-4 h-4 mr-1.5 transition-transform ${pullDistance >= 52 ? "rotate-180 text-emerald-400" : ""}`} />
@@ -75,7 +75,7 @@ export function FeedUpdaterBar({
           {newItemsCount > 0 && onShowNew && (
             <button
               onClick={onShowNew}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-purple-600 text-white shadow-lg shadow-purple-600/30 hover:bg-purple-500 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 hover:bg-emerald-500 transition-colors"
             >
               <Sparkles className="w-3 h-3" />
               <span>{newItemsCount} New Updates</span>
@@ -100,7 +100,7 @@ export function FeedUpdaterBar({
           <button
             type="button"
             onClick={onLoadMore}
-            className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-rose-600 text-white text-xs font-bold shadow-md hover:opacity-90 transition-opacity"
+            className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-rose-600 text-white text-xs font-bold shadow-md hover:opacity-90 transition-opacity"
           >
             Load More Items
           </button>

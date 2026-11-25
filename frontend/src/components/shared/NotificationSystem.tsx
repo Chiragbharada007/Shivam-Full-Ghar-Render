@@ -81,13 +81,13 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
             className="fixed top-4 left-1/2 -translate-x-1/2 z-[90] max-w-lg w-[92%] glass-purple text-white rounded-2xl px-4 py-3 flex items-center justify-between gap-3"
           >
             <div className="flex items-center gap-2.5 text-xs">
-              <Bell className="w-4 h-4 text-purple-300 shrink-0" />
+              <Bell className="w-4 h-4 text-emerald-300 shrink-0" />
               <div>
                 <span className="font-bold block">{bannerItem.title}</span>
-                {bannerItem.message && <span className="text-purple-200/80">{bannerItem.message}</span>}
+                {bannerItem.message && <span className="text-emerald-200/80">{bannerItem.message}</span>}
               </div>
             </div>
-            <button onClick={() => dismiss(bannerItem.id)} className="text-purple-200 hover:text-white">
+            <button onClick={() => dismiss(bannerItem.id)} className="text-emerald-200 hover:text-white">
               <X className="w-4 h-4" />
             </button>
           </motion.div>
@@ -105,14 +105,14 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
               initial={{ opacity: 0, y: 24, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 - idx * 0.02 }}
               exit={{ opacity: 0, x: 40 }}
-              className="pointer-events-auto rounded-2xl p-4 glass-purple text-white shadow-2xl border border-purple-400/30"
+              className="pointer-events-auto rounded-2xl p-4 glass-purple text-white shadow-2xl border border-emerald-400/30"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-start gap-2.5">
                   {item.variant === "error" ? (
                     <AlertTriangle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
                   ) : item.variant === "info" ? (
-                    <Info className="w-4 h-4 text-purple-300 mt-0.5 shrink-0" />
+                    <Info className="w-4 h-4 text-emerald-300 mt-0.5 shrink-0" />
                   ) : (
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
                   )}
@@ -131,7 +131,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
                     item.onUndo?.();
                     dismiss(item.id);
                   }}
-                  className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-purple-300 hover:text-white"
+                  className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-300 hover:text-white"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>{item.undoLabel}</span>
@@ -140,7 +140,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
               {item.kind === "progress" && typeof item.progress === "number" && (
                 <div className="mt-2.5 h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-purple-400 to-rose-400 transition-all duration-300"
+                    className="h-full bg-gradient-to-r from-emerald-400 to-rose-400 transition-all duration-300"
                     style={{ width: `${Math.min(100, Math.max(0, item.progress))}%` }}
                   />
                 </div>
@@ -179,7 +179,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
                     dialog.onConfirm();
                     setDialog(null);
                   }}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-rose-600 text-xs font-bold"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-rose-600 text-xs font-bold"
                 >
                   Confirm
                 </button>
@@ -224,7 +224,7 @@ export function InlineAlert({
   variant?: "info" | "success" | "warning" | "error";
 }) {
   const styles = {
-    info: "bg-purple-500/10 border-purple-500/30 text-purple-700 dark:text-purple-200",
+    info: "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-200",
     success: "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-200",
     warning: "bg-amber-500/10 border-amber-500/30 text-amber-800 dark:text-amber-200",
     error: "bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-200",

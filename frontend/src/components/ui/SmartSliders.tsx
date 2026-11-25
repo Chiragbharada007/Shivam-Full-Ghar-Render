@@ -26,7 +26,7 @@ export function RangeHistogramSlider({
               key={i}
               style={{ height: `${h}%` }}
               className={`flex-1 rounded-t-md transition-colors ${
-                inRange ? "bg-gradient-to-t from-purple-600 to-rose-500" : "bg-zinc-200 dark:bg-zinc-800"
+                inRange ? "bg-gradient-to-t from-emerald-600 to-rose-500" : "bg-zinc-200 dark:bg-zinc-800"
               }`}
             />
           );
@@ -40,7 +40,7 @@ export function RangeHistogramSlider({
           step={250}
           value={value[0]}
           onChange={(e) => onChange([Math.min(Number(e.target.value), value[1] - 250), value[1]])}
-          className="w-full accent-purple-600 cursor-pointer"
+          className="w-full accent-emerald-600 cursor-pointer"
         />
         <input
           type="range"
@@ -79,7 +79,7 @@ export function SteppedSlider({
         step={1}
         value={index}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-purple-600 cursor-pointer"
+        className="w-full accent-emerald-600 cursor-pointer"
       />
       <div className="flex justify-between text-[11px] font-mono-tech">
         {steps.map((label, i) => (
@@ -88,7 +88,7 @@ export function SteppedSlider({
             type="button"
             onClick={() => onChange(i)}
             className={`px-2 py-0.5 rounded-lg transition-colors ${
-              i === index ? "bg-purple-600 text-white font-bold" : "text-zinc-400 hover:text-zinc-200"
+              i === index ? "bg-emerald-600 text-white font-bold" : "text-zinc-400 hover:text-zinc-200"
             }`}
           >
             {label}
@@ -117,7 +117,7 @@ export function ValueBubbleSlider({
   return (
     <div className="relative pt-7">
       <div
-        className="absolute top-0 -translate-x-1/2 px-2 py-0.5 rounded-lg bg-purple-600 text-white font-mono-tech text-[11px] font-bold shadow-md pointer-events-none"
+        className="absolute top-0 -translate-x-1/2 px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-mono-tech text-[11px] font-bold shadow-md pointer-events-none"
         style={{ left: `${pct}%` }}
       >
         {value}
@@ -129,7 +129,7 @@ export function ValueBubbleSlider({
         max={max}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-purple-600 cursor-pointer"
+        className="w-full accent-emerald-600 cursor-pointer"
       />
     </div>
   );
@@ -154,7 +154,7 @@ export function VerticalSlider({
           max={100}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-24 -rotate-90 accent-purple-600 cursor-pointer"
+          className="w-24 -rotate-90 accent-emerald-600 cursor-pointer"
         />
       </div>
       <span className="text-[10px] font-mono-tech text-zinc-400">
@@ -241,7 +241,7 @@ export function RotaryKnobSlider({
         type="button"
         onClick={() => onChange((value + 20) % 120)}
         title="Click to adjust"
-        className="relative w-14 h-14 rounded-full bg-zinc-900 border-2 border-purple-500/50 flex items-center justify-center shadow-lg cursor-pointer"
+        className="relative w-14 h-14 rounded-full bg-zinc-900 border-2 border-emerald-500/50 flex items-center justify-center shadow-lg cursor-pointer"
       >
         <div
           className="w-1 h-5 bg-rose-400 rounded-full origin-bottom transition-transform"
@@ -273,7 +273,7 @@ export function VideoScrubberSlider({
       onMouseLeave={() => setHovering(false)}
     >
       {hovering && (
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-lg bg-black/85 text-white text-[10px] font-mono-tech border border-purple-500/40">
+        <div className="absolute -top-6 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-lg bg-black/85 text-white text-[10px] font-mono-tech border border-emerald-500/40">
           Angle {frame + 1}/{totalFrames}
         </div>
       )}
@@ -284,7 +284,7 @@ export function VideoScrubberSlider({
         step={1}
         value={frame}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-purple-500 cursor-pointer"
+        className="w-full accent-emerald-500 cursor-pointer"
       />
     </div>
   );

@@ -22,7 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const locale = useLocale();
   const pathname = usePathname();
   const [logoUrl, setLogoUrl] = useState<string>("/icon.svg");
-  const [shopName, setShopName] = useState<string>("Ember Admin V29");
+  const [shopName, setShopName] = useState<string>("Shivam Admin");
 
   useEffect(() => {
     try {
@@ -62,24 +62,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <AdaptiveSidebarShell
       brandName={shopName}
-      brandSubtitle="Ember Coral • Bhat Simroli"
+      brandSubtitle="Emerald & Royal Red • Console"
       logoUrl={logoUrl}
       navItems={navItems}
       currentPath={pathname}
-      defaultTheme="ember-coral"
+      defaultTheme="emerald-green"
       defaultStyle="floating"
+      asDrawer={false}
       footerSlot={
         <div className="space-y-2 text-xs">
           <Link
             href={`/${locale}`}
             target="_blank"
-            className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-rose-500/10 transition-colors"
+            className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-emerald-500/15 transition-colors"
           >
             <span className="flex items-center gap-2">
               <ExternalLink className="w-3.5 h-3.5" />
               <span>View Public Site</span>
             </span>
-            <span className="text-[10px] font-mono-tech text-emerald-500 font-bold">Live</span>
+            <span className="text-[10px] font-mono-tech text-emerald-400 font-bold">Live</span>
           </Link>
           <button
             type="button"
@@ -87,7 +88,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               await fetch("/api/auth/logout", { method: "POST" });
               window.location.href = `/${locale}/admin/login`;
             }}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-500 hover:bg-rose-500/10 transition-colors font-semibold text-left"
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-400 hover:bg-rose-500/15 transition-colors font-semibold text-left"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>

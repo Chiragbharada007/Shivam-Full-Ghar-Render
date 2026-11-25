@@ -72,21 +72,37 @@
     font-family: var(--font-mono), ui-monospace, monospace;
   }
 
-  /* Curved Glassmorphism Surfaces */
-  .glass-purple {
-    background: linear-gradient(145deg, rgba(24, 14, 42, 0.88), rgba(10, 7, 18, 0.94));
+  /* Curved Glassmorphism Surfaces (Emerald Green & Royal Red Theme) */
+  .glass-emerald {
+    background: linear-gradient(145deg, rgba(6, 46, 33, 0.9), rgba(4, 22, 16, 0.95));
     backdrop-filter: blur(22px);
     -webkit-backdrop-filter: blur(22px);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    box-shadow: 0 20px 50px rgba(88, 28, 135, 0.28);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    box-shadow: 0 20px 50px rgba(4, 47, 46, 0.35);
+  }
+
+  .glass-royal-red {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 241, 242, 0.92));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(225, 29, 72, 0.22);
+    box-shadow: 0 18px 42px rgba(225, 29, 72, 0.12);
+  }
+
+  .glass-purple {
+    background: linear-gradient(145deg, rgba(6, 46, 33, 0.9), rgba(4, 22, 16, 0.95));
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    box-shadow: 0 20px 50px rgba(4, 47, 46, 0.35);
   }
 
   .glass-coral {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 241, 242, 0.92));
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 241, 242, 0.92));
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(244, 63, 94, 0.22);
-    box-shadow: 0 18px 42px rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(225, 29, 72, 0.22);
+    box-shadow: 0 18px 42px rgba(225, 29, 72, 0.12);
   }
 
   /* Multi-lingual Typography Optimization */

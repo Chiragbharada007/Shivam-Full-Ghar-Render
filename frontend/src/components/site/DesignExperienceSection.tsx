@@ -82,7 +82,7 @@ export function DesignExperienceSection({
     <div className="space-y-16 py-10 max-w-7xl mx-auto px-4 sm:px-6">
       {/* 1. Expressive Multi-Font Hero Stats & 8 Scroll Effects */}
       <ZoomOutReveal>
-        <div className="rounded-[36px] p-8 md:p-10 glass-purple text-white space-y-6">
+        <div className="rounded-[36px] p-8 md:p-10 glass-emerald text-white space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <LiveStatusPill label="Keshod Fresh Morning Dispatch Active" />
             <button
@@ -97,7 +97,7 @@ export function DesignExperienceSection({
               }}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold"
             >
-              <Bell className="w-3.5 h-3.5 text-purple-300" />
+              <Bell className="w-3.5 h-3.5 text-emerald-300" />
               <span>Alerts</span>
               <NotificationBadge count={unreadCount} />
             </button>
@@ -105,13 +105,13 @@ export function DesignExperienceSection({
 
           <MaskRevealText>
             <h2 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              Crafted in <span className="font-editorial italic text-purple-300">Royal Blooms</span>,
-              Engineered for Speed.
+              Crafted in <span className="font-editorial italic text-rose-300">Royal Blooms</span>,
+              Engineered in Emerald & Crimson.
             </h2>
           </MaskRevealText>
 
           <BlurInReveal delay={0.1}>
-            <p className="font-geometric text-sm text-zinc-300 max-w-2xl">
+            <p className="font-geometric text-sm text-emerald-100/85 max-w-2xl">
               Explore handcrafted varmalas, bridal car decor, and custom wedding garlands with real-time 3D preview and instant Keshod boutique pickup.
             </p>
           </BlurInReveal>
@@ -123,9 +123,9 @@ export function DesignExperienceSection({
               { label: "Morning Delivery", val: 100, suffix: "%" },
               { label: "Boutique Rating", val: 99, suffix: "%" },
             ].map((stat) => (
-              <TiltInCard key={stat.label} className="p-5 rounded-3xl bg-white/5 border border-white/10">
-                <CountUpNumber target={stat.val} suffix={stat.suffix} className="text-2xl sm:text-3xl font-bold text-purple-300 block" />
-                <span className="text-xs font-geometric text-zinc-400 mt-1 block">{stat.label}</span>
+              <TiltInCard key={stat.label} className="p-5 rounded-3xl bg-white/5 border border-emerald-400/20">
+                <CountUpNumber target={stat.val} suffix={stat.suffix} className="text-2xl sm:text-3xl font-bold text-emerald-300 block" />
+                <span className="text-xs font-geometric text-zinc-300 mt-1 block">{stat.label}</span>
               </TiltInCard>
             ))}
           </div>
@@ -222,7 +222,7 @@ export function DesignExperienceSection({
                   }),
               })
             }
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-rose-600 text-white font-geometric font-bold text-xs shadow-lg"
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-rose-600 text-white font-geometric font-bold text-xs shadow-lg"
           >
             Preview Inquiry Confirmation
           </button>
@@ -230,7 +230,7 @@ export function DesignExperienceSection({
 
         {/* Right: Stacking Cards + 8 Page Transitions Switcher */}
         <div className="space-y-4">
-          <div className="p-6 rounded-[32px] bg-white dark:bg-[#110d1b] border border-black/10 dark:border-purple-500/20 space-y-4">
+          <div className="p-6 rounded-[32px] bg-white dark:bg-[#071a13] border border-emerald-500/20 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="font-display text-lg font-bold flex items-center gap-2">
                 <Layers className="w-4 h-4 text-rose-500" />
@@ -259,7 +259,7 @@ export function DesignExperienceSection({
                   type="button"
                   onClick={() => setActiveTab(tab)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-colors ${
-                    activeTab === tab ? "bg-purple-600 text-white" : "bg-black/5 dark:bg-white/10"
+                    activeTab === tab ? "bg-emerald-600 text-white" : "bg-black/5 dark:bg-white/10"
                   }`}
                 >
                   {tab}
@@ -268,8 +268,8 @@ export function DesignExperienceSection({
             </div>
 
             <PageTransitionWrapper mode={transitionMode} transitionKey={activeTab}>
-              <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-950/60 to-rose-950/40 border border-purple-500/20 text-white space-y-2">
-                <span className="font-mono-tech text-[11px] text-purple-300 uppercase">{activeTab} highlight</span>
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/85 to-rose-950/75 border border-emerald-400/25 text-white space-y-2">
+                <span className="font-mono-tech text-[11px] text-emerald-300 uppercase">{activeTab} highlight</span>
                 <h4 className="font-editorial text-2xl font-bold">
                   {activeTab === "varmala"
                     ? "Hand-Tied Fresh Rose & Lotus Varmalas"
@@ -277,7 +277,7 @@ export function DesignExperienceSection({
                     ? "Bespoke Bridal Sedan Floral Styling"
                     : "Grand Marigold & Jasmine Mandap Setups"}
                 </h4>
-                <p className="text-xs text-zinc-300">
+                <p className="text-xs text-zinc-200">
                   Crafted at dawn in Bhat Simroli, Keshod for maximum fragrance and longevity.
                 </p>
               </div>
@@ -286,15 +286,15 @@ export function DesignExperienceSection({
             <InlineAlert
               title="Store Pickup Available"
               message="Zero delivery fee when picked up directly from our Bhat Simroli, Keshod boutique."
-              variant="info"
+              variant="success"
             />
           </div>
 
-          <StackingCard index={0} className="p-5 rounded-3xl glass-purple text-white">
-            <span className="font-mono-tech text-[10px] text-purple-300">STEP 01 • 5:00 AM</span>
+          <StackingCard index={0} className="p-5 rounded-3xl glass-emerald text-white">
+            <span className="font-mono-tech text-[10px] text-emerald-300">STEP 01 • 5:00 AM</span>
             <p className="font-display font-bold text-sm mt-1">Dawn Farm Harvest & Quality Sort</p>
           </StackingCard>
-          <StackingCard index={1} className="p-5 rounded-3xl glass-coral text-zinc-900">
+          <StackingCard index={1} className="p-5 rounded-3xl glass-royal-red text-zinc-900">
             <span className="font-mono-tech text-[10px] text-rose-600">STEP 02 • ARTISAN WEAVE</span>
             <p className="font-display font-bold text-sm mt-1">Hand-Knotted & Mist-Hydrated for Your Ceremony</p>
           </StackingCard>

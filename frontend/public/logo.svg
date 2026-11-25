@@ -1,66 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" width="500" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F5D77F"/>
-      <stop offset="35%" stop-color="#D4AF37"/>
-      <stop offset="70%" stop-color="#AA771C"/>
-      <stop offset="100%" stop-color="#80540B"/>
+    <linearGradient id="emeraldBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065F46"/>
+      <stop offset="55%" stop-color="#064E3B"/>
+      <stop offset="100%" stop-color="#022C22"/>
     </linearGradient>
-    <linearGradient id="goldText" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#E5C158"/>
-      <stop offset="50%" stop-color="#F7E7A9"/>
-      <stop offset="100%" stop-color="#D4AF37"/>
+    <linearGradient id="royalRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="55%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#9F1239"/>
     </linearGradient>
-    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#B91C1C"/>
-      <stop offset="45%" stop-color="#881337"/>
-      <stop offset="100%" stop-color="#4C0519"/>
+    <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.35"/>
-    </filter>
-    <filter id="textGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.4"/>
-    </filter>
   </defs>
 
-  <!-- Flower Emblem Icon Badge -->
-  <g transform="translate(15, 10)">
-    <!-- Outer Shield / Circle -->
-    <rect x="0" y="0" width="100" height="100" rx="28" fill="url(#roseGrad)" filter="url(#shadow)"/>
-    <rect x="3" y="3" width="94" height="94" rx="25" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <rect x="4" y="4" width="120" height="120" rx="34" fill="url(#emeraldBg)"/>
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="none" stroke="url(#goldRim)" stroke-width="2.5" stroke-dasharray="7,4"/>
 
-    <!-- Central Floral Lotus / Rose Sacred Blossom -->
-    <g transform="translate(50, 50) scale(0.85)">
-      <!-- Central Petal -->
-      <path d="M 0,-32 C 14,-16 16,10 0,26 C -16,10 -14,-16 0,-32 Z" fill="url(#goldGrad)"/>
-      <!-- Left Petal -->
-      <path d="M -8,-22 C -28,-10 -30,16 -4,24 C -8,12 -8,-4 -8,-22 Z" fill="#F7E7A9" opacity="0.95"/>
-      <!-- Right Petal -->
-      <path d="M 8,-22 C 28,-10 30,16 4,24 C 8,12 8,-4 8,-22 Z" fill="#F7E7A9" opacity="0.95"/>
-      <!-- Lower Base Leaves -->
-      <path d="M -22,8 C -32,24 -14,34 0,30 C 14,34 32,24 22,8 C 10,20 -10,20 -22,8 Z" fill="url(#goldGrad)"/>
-      <!-- Core Auspicious Dot / Bindi -->
-      <circle cx="0" cy="2" r="4.5" fill="#B91C1C"/>
-      <circle cx="0" cy="2" r="2" fill="#FFFFFF"/>
-    </g>
+  <g transform="translate(64, 54)">
+    <path d="M 0,-30 C 14,-16 15,10 0,24 C -15,10 -14,-16 0,-30 Z" fill="url(#royalRed)"/>
+    <path d="M -9,-22 C -28,-10 -29,16 -4,22 C -8,11 -8,-5 -9,-22 Z" fill="#FB7185" opacity="0.92"/>
+    <path d="M 9,-22 C 28,-10 29,16 4,22 C 8,11 8,-5 9,-22 Z" fill="#FB7185" opacity="0.92"/>
+    <path d="M -26,8 C -30,24 -14,32 0,28 C 14,32 30,24 26,8 C 12,20 -12,20 -26,8 Z" fill="#10B981"/>
+    <circle cx="0" cy="-2" r="4.5" fill="#FDE68A"/>
   </g>
 
-  <!-- Typography with Gold Radiant Gradient for Dark & Light Backdrop Clarity -->
-  <g transform="translate(132, 22)">
-    <!-- English / Global Brand Name in Radiant Royal Gold -->
-    <text x="0" y="36" font-family="'Cinzel', 'Playfair Display', 'Georgia', serif" font-weight="900" font-size="33" fill="url(#goldText)" letter-spacing="0.2" filter="url(#textGlow)">
-      Shivam Full Ghar
-    </text>
-
-    <!-- Gujarati Calligraphy Subtitle -->
-    <text x="2" y="62" font-family="'Noto Sans Gujarati', sans-serif" font-weight="700" font-size="16" fill="#F43F5E" letter-spacing="1">
-      શિવમ ફૂલ ઘર • ભાટ સિમરોલી
-    </text>
-
-    <!-- Tagline & Established in Warm Amber -->
-    <text x="2" y="80" font-family="'Cinzel', sans-serif" font-weight="600" font-size="10.5" fill="#EAB308" letter-spacing="2">
-      FRESH WEDDING VARMALA • ESTD 2026
-    </text>
-  </g>
+  <text x="64" y="106" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="800" font-size="18" letter-spacing="3" fill="#FDE68A">SFG</text>
 </svg>

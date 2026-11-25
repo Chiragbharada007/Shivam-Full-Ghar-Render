@@ -113,7 +113,7 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#faf9f6] text-zinc-900 dark:bg-[#07050c] dark:text-zinc-100 selection:bg-purple-500/30 selection:text-white transition-colors duration-300">
+      <body className="min-h-screen flex flex-col bg-[#faf9f6] text-zinc-900 dark:bg-[#07050c] dark:text-zinc-100 selection:bg-emerald-500/30 selection:text-white transition-colors duration-300">
         <DynamicFavicon />
         <NextIntlClientProvider messages={messages}>
           <NotificationProvider>
