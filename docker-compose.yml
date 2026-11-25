@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: shivam_admin
+      POSTGRES_PASSWORD: shivam_dev_password
+      POSTGRES_DB: shivam_full_ghar
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://shivam_admin:shivam_dev_password@db:5432/shivam_full_ghar
+      JWT_SECRET: local-dev-secret-change-in-production
+      ADMIN_NOTIFY_EMAIL: chiragcaret09@gmail.com
+    depends_on:
+      - db
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      BACKEND_URL: http://backend:8000
+      CORS_ORIGIN: http://localhost:3000
+    depends_on:
+      - backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      GATEWAY_URL: http://gateway:4000
+      NEXT_PUBLIC_GATEWAY_URL: http://localhost:4000
+    depends_on:
+      - gateway
+
+volumes:
+  pgdata:

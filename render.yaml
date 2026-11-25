@@ -1,0 +1,74 @@
+# Render.com Blueprint — Shivam Full Ghar (3-Tier: Next.js + Express.js + Python FastAPI + PostgreSQL)
+
+databases:
+  - name: shivam-full-ghar-db
+    databaseName: shivam_full_ghar
+    user: shivam_admin
+    plan: free
+
+services:
+  # Tier 3: Python FastAPI Core Backend
+  - type: web
+    name: shivam-full-ghar-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python seed.py && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shivam-full-ghar-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RESEND_API_KEY
+        sync: false
+      - key: ADMIN_NOTIFY_EMAIL
+        value: chiragcaret09@gmail.com
+      - key: PYTHON_VERSION
+        value: 3.12.3
+
+  # Tier 2: Express.js API Gateway & Cache Layer
+  - type: web
+    name: shivam-full-ghar-gateway
+    runtime: node
+    rootDir: gateway
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: shivam-full-ghar-api
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: JWT_SECRET
+        sync: false
+
+  # Tier 1: Next.js Storefront & Admin Frontend
+  - type: web
+    name: shivam-full-ghar-web
+    runtime: node
+    rootDir: frontend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /en
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GATEWAY_URL
+        fromService:
+          type: web
+          name: shivam-full-ghar-gateway
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: NEXT_PUBLIC_GATEWAY_URL
+        fromService:
+          type: web
+          name: shivam-full-ghar-gateway
+          envVarKey: RENDER_EXTERNAL_URL
