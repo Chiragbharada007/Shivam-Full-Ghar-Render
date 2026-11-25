@@ -1,5 +1,12 @@
 import { Suspense } from "react";
-import { Inter, Playfair_Display, Noto_Sans_Gujarati, Noto_Sans_Devanagari } from "next/font/google";
+import {
+  Plus_Jakarta_Sans,
+  Cormorant_Garamond,
+  Syne,
+  JetBrains_Mono,
+  Noto_Sans_Gujarati,
+  Noto_Sans_Devanagari,
+} from "next/font/google";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -8,16 +15,33 @@ import { DynamicFavicon } from "@/components/shared/DynamicFavicon";
 import { SmoothScrollProvider } from "@/components/shared/SmoothScrollProvider";
 import { VisitorTracker } from "@/components/shared/VisitorTracker";
 import { GlobalNavigationLoader } from "@/components/shared/GlobalNavigationLoader";
+import { NotificationProvider } from "@/components/shared/NotificationSystem";
+import { Metadata } from "next";
 
-const inter = Inter({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
   variable: "--font-serif",
+  display: "swap",
+});
+
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -35,63 +59,21 @@ const notoSansDevanagari = Noto_Sans_Devanagari({
   display: "swap",
 });
 
-import { Metadata } from "next";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://shivam-full-ghar.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://shivam-full-ghar.onrender.com"),
   title: {
     default: "Shivam Full Ghar (શિવમ ફૂલ ઘર) • Bhat Simroli Fresh Wedding Flowers",
     template: "%s | Shivam Full Ghar",
   },
   description:
     "Authentic Gujarati wedding garlands (વરમાળા), bridal hair veni (વેણી), fresh mogra gajra, and floral car decorations in Bhat Simroli, Keshod, Gujarat.",
-  keywords: [
-    "શિવમ ફૂલ ઘર",
-    "Shivam Full Ghar",
-    "Bhat Simroli flowers",
-    "Keshod wedding flowers",
-    "વરમાળા",
-    "ગજરા",
-    "વેણી",
-    "કાર સજાવટ",
-    "Gujarati wedding varmala",
-    "Saurashtra florist",
-  ],
-  authors: [{ name: "Shivam Full Ghar Bhat Simroli" }],
-  openGraph: {
-    title: "Shivam Full Ghar (શિવમ ફૂલ ઘર) • Bhat Simroli Fresh Wedding Flowers",
-    description:
-      "Authentic Gujarati wedding garlands, bridal hair veni, and floral decorations in Bhat Simroli, Gujarat. WhatsApp: +91 98241 32014.",
-    url: "https://shivam-full-ghar.vercel.app",
-    siteName: "Shivam Full Ghar",
-    locale: "gu_IN",
-    type: "website",
-    images: [
-      {
-        url: "/products/hero-wedding.webp",
-        width: 1200,
-        height: 630,
-        alt: "Shivam Full Ghar Fresh Wedding Flowers",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Shivam Full Ghar (શિવમ ફૂલ ઘર)",
-    description:
-      "Authentic Gujarati wedding garlands, bridal hair veni, and floral decorations in Bhat Simroli, Gujarat.",
-    images: ["/products/hero-wedding.webp"],
-  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -118,7 +100,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`dark ${inter.variable} ${playfair.variable} ${notoSansGujarati.variable} ${notoSansDevanagari.variable} antialiased`}
+      className={`dark ${plusJakarta.variable} ${cormorant.variable} ${syne.variable} ${jetbrainsMono.variable} ${notoSansGujarati.variable} ${notoSansDevanagari.variable} antialiased`}
       style={{ colorScheme: "dark" }}
     >
       <head>
@@ -131,14 +113,16 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 selection:bg-rose-500/30 selection:text-white transition-colors duration-300">
+      <body className="min-h-screen flex flex-col bg-[#faf9f6] text-zinc-900 dark:bg-[#07050c] dark:text-zinc-100 selection:bg-purple-500/30 selection:text-white transition-colors duration-300">
         <DynamicFavicon />
         <NextIntlClientProvider messages={messages}>
-          <Suspense fallback={null}>
-            <GlobalNavigationLoader />
-          </Suspense>
-          <VisitorTracker />
-          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          <NotificationProvider>
+            <Suspense fallback={null}>
+              <GlobalNavigationLoader />
+            </Suspense>
+            <VisitorTracker />
+            <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          </NotificationProvider>
         </NextIntlClientProvider>
       </body>
     </html>

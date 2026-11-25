@@ -7,6 +7,7 @@ import { getStorefrontCategories } from "@/lib/categories";
 import { HomeBannerSlider } from "@/components/site/HomeBannerSlider";
 import { getPriceDisplay } from "@/lib/utils";
 import { VideoCardGrid } from "@/components/site/VideoCardGrid";
+import { DesignExperienceSection } from "@/components/site/DesignExperienceSection";
 import {
   Sparkles,
   ArrowRight,
@@ -583,6 +584,8 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      <DesignExperienceSection locale={currentLocale} products={catalogItems} />
     </div>
   );
 }

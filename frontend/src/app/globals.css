@@ -55,6 +55,40 @@
     font-family: var(--font-serif), Georgia, serif;
   }
 
+  .font-display {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    letter-spacing: -0.025em;
+  }
+
+  .font-editorial {
+    font-family: var(--font-serif), Georgia, serif;
+  }
+
+  .font-geometric {
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  .font-mono-tech {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Curved Glassmorphism Surfaces */
+  .glass-purple {
+    background: linear-gradient(145deg, rgba(24, 14, 42, 0.88), rgba(10, 7, 18, 0.94));
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    box-shadow: 0 20px 50px rgba(88, 28, 135, 0.28);
+  }
+
+  .glass-coral {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 241, 242, 0.92));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(244, 63, 94, 0.22);
+    box-shadow: 0 18px 42px rgba(244, 63, 94, 0.12);
+  }
+
   /* Multi-lingual Typography Optimization */
   html[lang="gu"],
   html[lang="gu"] body {
