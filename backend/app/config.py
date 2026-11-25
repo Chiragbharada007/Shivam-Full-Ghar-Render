@@ -7,6 +7,7 @@ class Settings(BaseSettings):
         "DATABASE_URL",
         "sqlite:///./shivam_local.db",
     )
+    db_schema: str = os.getenv("DB_SCHEMA", "shivam_full_ghar")
     jwt_secret: str = os.getenv("JWT_SECRET", "shivam-full-ghar-dev-jwt-secret-2026")
     jwt_algorithm: str = "HS256"
     jwt_expire_hours: int = 24 * 7
