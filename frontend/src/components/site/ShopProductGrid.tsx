@@ -225,7 +225,7 @@ export function ShopProductGrid({
               <span className="text-xs font-bold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
                 {locale === "gu" ? "ભાટ સિમરોલી શોપ તાજા ફૂલો પિકઅપ" : locale === "hi" ? "भाट सिमरौली दुकान ताजे फूल पिकअप" : "Fresh Store Pickup in Bhat Simroli"}
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+              <span className="px-2 py-0.5 rounded-full bg-brand-primary/20 text-brand-deep dark:text-brand-primary border border-brand text-[10px] font-bold">
                 ✓ 100% Fresh Daily
               </span>
             </div>
@@ -319,7 +319,7 @@ export function ShopProductGrid({
               }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm text-zinc-900 dark:text-white placeholder-zinc-500 focus:bg-black/10 dark:focus:bg-white/10 focus:border-rose-400 focus:outline-hidden transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm text-zinc-900 dark:text-white placeholder-zinc-500 focus:bg-black/10 dark:focus:bg-white/10 focus:border-brand focus:outline-hidden transition-colors"
             />
             {searchQuery && (
               <button
@@ -339,7 +339,7 @@ export function ShopProductGrid({
             <select
               value={selectedSort}
               onChange={(e) => setSelectedSort(e.target.value)}
-              className="px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-medium text-zinc-800 dark:text-zinc-200 text-xs focus:ring-2 focus:ring-rose-800 focus:outline-hidden cursor-pointer"
+              className="px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-medium text-zinc-800 dark:text-zinc-200 text-xs focus:ring-2 focus:ring-brand focus:outline-hidden cursor-pointer"
             >
               <option value="bestseller">★ {locale === "gu" ? "સૌથી વધુ લોકપ્રિય" : "Bestsellers"}</option>
               <option value="price-asc">{locale === "gu" ? "કિંમત: ઓછી થી વધુ" : "Price: Low to High"}</option>
@@ -436,7 +436,7 @@ export function ShopProductGrid({
                         ★ Bestseller
                       </span>
                     )}
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-700/90 backdrop-blur-xs text-white font-semibold text-[10px] shadow-sm">
+                    <span className="px-2.5 py-0.5 rounded-full bg-brand-deep/90 backdrop-blur-xs text-white font-semibold text-[10px] shadow-sm">
                       🌿 5 AM Fresh Plucked
                     </span>
                   </div>
@@ -488,7 +488,7 @@ export function ShopProductGrid({
                   {/* Pricing Details */}
                   <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-2">
                     <div className="flex items-baseline justify-between">
-                      <span className={`font-bold ${showPrices ? "text-xl font-serif text-zinc-900 dark:text-white" : "text-xs font-medium text-emerald-600 dark:text-emerald-400 font-sans"}`}>
+                      <span className={`font-bold ${showPrices ? "text-xl font-serif text-zinc-900 dark:text-white" : "text-xs font-medium text-brand-primary dark:text-brand-primary font-sans"}`}>
                         {getPriceDisplay(p.price, Boolean(showPrices), locale)}
                       </span>
                       <span className="text-xs text-zinc-500 dark:text-zinc-400 font-mono">
@@ -506,9 +506,9 @@ export function ShopProductGrid({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="px-3 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-deep text-white font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <MessageCircle className="w-3.5 h-3.5 fill-white text-emerald-600" />
+                      <MessageCircle className="w-3.5 h-3.5 fill-white text-brand-primary" />
                       <span>{locale === "gu" ? "વોટ્સએપ" : locale === "hi" ? "व्हाट्सएप" : "WhatsApp"}</span>
                     </a>
 
@@ -584,7 +584,7 @@ export function ShopProductGrid({
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-300 shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-brand-primary/20 border border-brand flex items-center justify-center text-brand-primary dark:text-brand-primary shrink-0">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>

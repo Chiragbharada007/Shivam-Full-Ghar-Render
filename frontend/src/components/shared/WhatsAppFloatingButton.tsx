@@ -37,7 +37,7 @@ export function WhatsAppFloatingButton() {
   return (
     <aside aria-label="WhatsApp Support" className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 group">
       {/* Tooltip badge on hover (desktop only) */}
-      <div className="hidden sm:flex items-center gap-2 bg-white/95 dark:bg-black/90 backdrop-blur-md px-3.5 py-1.5 rounded-2xl shadow-lg border border-emerald-500/30 text-stone-800 dark:text-zinc-200 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0 pointer-events-none">
+      <div className="hidden sm:flex items-center gap-2 bg-white/95 dark:bg-black/90 backdrop-blur-md px-3.5 py-1.5 rounded-2xl shadow-lg border border-brand text-stone-800 dark:text-zinc-200 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0 pointer-events-none">
         <span className="w-2 h-2 rounded-full bg-[#25D366] animate-ping" />
         <span>
           {locale === "gu"

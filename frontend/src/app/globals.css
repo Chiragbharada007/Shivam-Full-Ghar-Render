@@ -165,6 +165,12 @@
 .border-brand {
   border-color: var(--brand-border) !important;
 }
+.ring-brand {
+  --tw-ring-color: var(--brand-primary) !important;
+}
+.from-brand-surface {
+  --tw-gradient-from: var(--brand-surface) var(--tw-gradient-from-position);
+}
 .btn-brand {
   background-color: var(--brand-primary);
   color: #FAF7EF;

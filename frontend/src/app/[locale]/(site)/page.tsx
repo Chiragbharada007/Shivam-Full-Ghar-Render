@@ -150,7 +150,7 @@ export default async function HomePage({
   }));
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-white transition-colors duration-300 selection:bg-rose-500/30 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-white transition-colors duration-300 selection:bg-brand-primary/30 selection:text-white">
       {/* ─── Structured Data (Schema.org JSON-LD P8-T41) ─── */}
       <LocalBusinessJsonLd locale={locale} />
       <FaqJsonLd locale={locale} />
@@ -204,7 +204,7 @@ export default async function HomePage({
               {/* Micro Trust Bar */}
               <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-zinc-600 dark:text-zinc-400 font-medium">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-brand-primary dark:text-brand-primary shrink-0" />
                   <span>{trust1}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
@@ -363,7 +363,7 @@ export default async function HomePage({
                   <div className="pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] text-zinc-500 block uppercase font-mono">Package Total</span>
-                      <span className={`font-bold ${settings.showPrices ? "text-xl sm:text-2xl font-serif text-zinc-900 dark:text-white" : "text-xs font-medium text-emerald-600 dark:text-emerald-400 font-sans"}`}>
+                      <span className={`font-bold ${settings.showPrices ? "text-xl sm:text-2xl font-serif text-zinc-900 dark:text-white" : "text-xs font-medium text-brand-primary dark:text-brand-primary font-sans"}`}>
                         {getPriceDisplay(pkg.price, Boolean(settings.showPrices), currentLocale)}
                       </span>
                     </div>

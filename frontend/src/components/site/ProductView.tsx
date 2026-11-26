@@ -97,7 +97,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
             <span className="px-3 py-1 rounded-full bg-black/60 dark:bg-white/10 backdrop-blur-md text-xs font-bold text-white border border-white/20 shadow-sm">
               {product.categoryName}
             </span>
-            <span className="px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold shadow-xs">
+            <span className="px-3 py-1 rounded-full bg-brand-deep text-white text-xs font-bold shadow-xs">
               🌿 100% Morning Plucked
             </span>
           </div>
@@ -135,19 +135,19 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
         {/* Trust features */}
         <div className="p-4 rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 grid grid-cols-2 gap-3 text-xs text-zinc-700 dark:text-zinc-300 shadow-xs">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
             <span>Plucked 5:00 AM Fresh</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
             <span>WhatsApp Photo Proof</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
             <span>Handmade to Order</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
             <span>Guaranteed Muhurat Slot</span>
           </div>
         </div>
@@ -177,7 +177,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
         {/* Price Box */}
         <div className="p-5 rounded-3xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xs space-y-2">
           <div className="flex items-baseline justify-between">
-            <span className={`font-bold ${showPrices ? "text-3xl sm:text-4xl font-serif text-zinc-900 dark:text-white" : "text-sm sm:text-base font-medium text-emerald-600 dark:text-emerald-400 font-sans"}`}>
+            <span className={`font-bold ${showPrices ? "text-3xl sm:text-4xl font-serif text-zinc-900 dark:text-white" : "text-sm sm:text-base font-medium text-brand-primary dark:text-brand-primary font-sans"}`}>
               {getPriceDisplay(unitPrice, Boolean(showPrices), (locale as any) || "gu")}
             </span>
             <span className="text-xs font-mono text-zinc-500">
@@ -200,7 +200,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
               <MapPin className="w-3.5 h-3.5 text-brand-primary dark:text-brand-primary" />
               {locale === "gu" ? "ભાટ સિમરોલી પિકઅપ" : "Bhat Simroli Store Pickup"}
             </span>
-            <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+            <span className="text-[11px] text-brand-primary dark:text-brand-primary font-semibold">
               ✓ 100% Free Store Pickup
             </span>
           </div>
@@ -230,7 +230,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
                   onClick={() => setSelectedOption(opt.id)}
                   className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
                     selectedOption === opt.id
-                      ? "bg-brand-surface border-brand text-brand-primary dark:text-brand-primary font-bold shadow-xs ring-1 ring-rose-500"
+                      ? "bg-brand-surface border-brand text-brand-primary dark:text-brand-primary font-bold shadow-xs ring-1 ring-brand"
                       : "bg-white dark:bg-white/5 border-black/10 dark:border-white/10 text-zinc-700 dark:text-zinc-300 hover:border-black/20 dark:hover:border-white/20"
                   }`}
                 >
@@ -294,7 +294,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
             id="subst"
             checked={allowSubstitutions}
             onChange={(e) => setAllowSubstitutions(e.target.checked)}
-            className="mt-0.5 rounded text-brand-primary focus:ring-rose-600 cursor-pointer"
+            className="mt-0.5 rounded text-brand-primary focus:ring-brand cursor-pointer"
           />
           <label htmlFor="subst" className="cursor-pointer leading-relaxed">
             <strong>{t("substitutionTitle")}:</strong> {t("substitutionNotice")}
@@ -344,9 +344,9 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+            className="w-full py-4 rounded-2xl bg-brand-primary hover:bg-brand-deep text-white font-bold text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2.5 cursor-pointer"
           >
-            <MessageCircle className="w-5 h-5 fill-white text-emerald-600" />
+            <MessageCircle className="w-5 h-5 fill-white text-brand-primary" />
             <span>
               {locale === "gu"
                 ? "વોટ્સએપ પર પૂછપરછ કરો"

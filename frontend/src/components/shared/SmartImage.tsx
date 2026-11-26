@@ -50,11 +50,11 @@ export function SmartImage({
   if (hasError || !src) {
     return (
       <div
-        className={`relative overflow-hidden bg-rose-50/60 dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex flex-col items-center justify-center text-center p-4 ${aspectClass} ${className}`}
+        className={`relative overflow-hidden bg-brand-surface dark:bg-zinc-900 border border-black/5 dark:border-white/10 flex flex-col items-center justify-center text-center p-4 ${aspectClass} ${className}`}
         role="img"
         aria-label={alt}
       >
-        <div className="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-2 shadow-xs">
+        <div className="w-12 h-12 rounded-full bg-brand-surface dark:bg-brand-deep/60 text-brand-primary dark:text-brand-primary flex items-center justify-center mb-2 shadow-xs">
           <Flower2 className="w-6 h-6 animate-pulse" />
         </div>
         <span className="text-[11px] font-serif font-bold text-zinc-700 dark:text-zinc-300 line-clamp-2 px-2">

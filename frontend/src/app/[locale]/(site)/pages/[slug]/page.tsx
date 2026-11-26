@@ -81,7 +81,7 @@ export default async function DynamicCustomPage({ params }: DynamicPageProps) {
         <div>
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-primary dark:text-brand-primary hover:underline"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>{currentLocale === "gu" ? "પાછા જાઓ" : "Back to Home"}</span>
@@ -90,7 +90,7 @@ export default async function DynamicCustomPage({ params }: DynamicPageProps) {
 
         {/* Header Block */}
         <div className="space-y-4 border-b border-black/10 dark:border-white/10 pb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-300 border border-rose-500/20 text-xs font-bold tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary dark:text-brand-primary border border-brand text-xs font-bold tracking-wide">
             <FileText className="w-3.5 h-3.5" />
             <span>Shivam Full Ghar • Bhat Simroli</span>
           </div>
@@ -174,7 +174,7 @@ export default async function DynamicCustomPage({ params }: DynamicPageProps) {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md shrink-0 transition-transform active:scale-95 cursor-pointer"
+            className="px-6 py-3 rounded-full bg-brand-primary hover:bg-brand-primary text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md shrink-0 transition-transform active:scale-95 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4" />
             <span>

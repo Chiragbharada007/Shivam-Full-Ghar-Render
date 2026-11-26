@@ -105,16 +105,16 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
               initial={{ opacity: 0, y: 24, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 - idx * 0.02 }}
               exit={{ opacity: 0, x: 40 }}
-              className="pointer-events-auto rounded-2xl p-4 glass-purple text-white shadow-2xl border border-emerald-400/30"
+              className="pointer-events-auto rounded-2xl p-4 glass-purple text-white shadow-2xl border border-brand"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-start gap-2.5">
                   {item.variant === "error" ? (
-                    <AlertTriangle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
+                    <AlertTriangle className="w-4 h-4 text-brand-primary mt-0.5 shrink-0" />
                   ) : item.variant === "info" ? (
                     <Info className="w-4 h-4 text-emerald-300 mt-0.5 shrink-0" />
                   ) : (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-brand-primary mt-0.5 shrink-0" />
                   )}
                   <div className="text-xs">
                     <p className="font-bold">{item.title}</p>
@@ -179,7 +179,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
                     dialog.onConfirm();
                     setDialog(null);
                   }}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-rose-600 text-xs font-bold"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[var(--brand-primary)] to-rose-600 text-xs font-bold"
                 >
                   Confirm
                 </button>
@@ -195,10 +195,10 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 // 3. Live Pill + 4. Badge + 5. Inline Alert reusable widgets
 export function LiveStatusPill({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono-tech font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono-tech font-semibold bg-brand-primary/15 text-brand-primary border border-brand">
       <span className="relative flex h-2 w-2">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-primary" />
       </span>
       {label}
     </span>
@@ -208,7 +208,7 @@ export function LiveStatusPill({ label }: { label: string }) {
 export function NotificationBadge({ count }: { count: number }) {
   if (count <= 0) return null;
   return (
-    <span className="px-1.5 py-0.5 min-w-[18px] text-center rounded-full text-[10px] font-mono-tech font-bold bg-rose-500 text-white shadow-sm">
+    <span className="px-1.5 py-0.5 min-w-[18px] text-center rounded-full text-[10px] font-mono-tech font-bold bg-brand-primary text-white shadow-sm">
       {count > 99 ? "99+" : count}
     </span>
   );
@@ -224,10 +224,10 @@ export function InlineAlert({
   variant?: "info" | "success" | "warning" | "error";
 }) {
   const styles = {
-    info: "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-200",
-    success: "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-200",
+    info: "bg-brand-primary/10 border-brand text-brand-deep dark:text-emerald-200",
+    success: "bg-brand-primary/10 border-brand text-brand-deep dark:text-emerald-200",
     warning: "bg-amber-500/10 border-amber-500/30 text-amber-800 dark:text-amber-200",
-    error: "bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-200",
+    error: "bg-brand-primary/10 border-brand text-brand-deep dark:text-rose-200",
   }[variant];
 
   return (

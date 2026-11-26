@@ -81,8 +81,8 @@ export function FloralSubNav() {
                   href={item.href}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all whitespace-nowrap group ${
                     isActive
-                      ? "bg-rose-800 text-white font-semibold shadow-xs"
-                      : "text-stone-700 dark:text-zinc-300 hover:text-rose-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
+                      ? "bg-brand-deep text-white font-semibold shadow-xs"
+                      : "text-stone-700 dark:text-zinc-300 hover:text-brand-deep dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10"
                   }`}
                 >
                   <span className="text-sm group-hover:scale-110 transition-transform">
@@ -101,7 +101,7 @@ export function FloralSubNav() {
 
           <div className="shrink-0 flex items-center gap-2 text-stone-500 dark:text-zinc-400 pl-4 border-l border-stone-200/60 dark:border-white/10">
             <span className="flex items-center gap-1 text-[11px] font-medium text-amber-800 dark:text-amber-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
               {locale === "gu" ? "ભાટ સિમરોલી તાજા ફૂલ સ્ટોક લાઈવ" : "Fresh Morning Plucked"}
             </span>
           </div>

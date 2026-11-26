@@ -102,7 +102,7 @@ export default async function PackagesPage({
               key={pkg.slug}
               className={`rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 relative group ${
                 pkg.popular
-                  ? "bg-white dark:bg-[#0c0c0c] border-2 border-brand shadow-xl ring-4 ring-rose-500/10"
+                  ? "bg-white dark:bg-[#0c0c0c] border-2 border-brand shadow-xl ring-4 ring-brand"
                   : "bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-sm hover:shadow-lg"
               }`}
             >
@@ -138,7 +138,7 @@ export default async function PackagesPage({
                       Package Deal
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className={`font-bold ${settings.showPrices ? "text-3xl font-serif text-zinc-900 dark:text-white" : "text-sm font-medium text-emerald-600 dark:text-emerald-400 font-sans"}`}>
+                      <span className={`font-bold ${settings.showPrices ? "text-3xl font-serif text-zinc-900 dark:text-white" : "text-sm font-medium text-brand-primary dark:text-brand-primary font-sans"}`}>
                         {getPriceDisplay(pkg.price, Boolean(settings.showPrices), (locale as any) || "gu")}
                       </span>
                     </div>
@@ -153,7 +153,7 @@ export default async function PackagesPage({
                     </span>
                     {pkg.features.map((feat, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-300">
-                        <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -167,9 +167,9 @@ export default async function PackagesPage({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 rounded-2xl bg-brand-primary hover:bg-brand-deep text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <MessageCircle className="w-4 h-4 fill-white text-emerald-600" />
+                    <MessageCircle className="w-4 h-4 fill-white text-brand-primary" />
                     <span>
                       {locale === "gu"
                         ? "વોટ્સએપ પર પેકેજ બુક કરો"

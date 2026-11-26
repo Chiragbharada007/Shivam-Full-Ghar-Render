@@ -49,7 +49,7 @@ export default async function AboutPage({
               </p>
             </div>
             <div className="p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 space-y-1.5">
-              <ShieldCheck className="w-5 h-5 text-emerald-500" />
+              <ShieldCheck className="w-5 h-5 text-brand-primary" />
               <h4 className="font-bold text-zinc-900 dark:text-white text-sm">Punctual Handover</h4>
               <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Ready at our Bhat Simroli boutique with fresh flower preservation guarantee.

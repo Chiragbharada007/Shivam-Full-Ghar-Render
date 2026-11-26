@@ -133,7 +133,7 @@ export function Footer() {
               {(locale === "gu" ? settings.footerAboutGu : locale === "hi" ? settings.footerAboutHi : settings.footerAboutEn) ||
                 "Premium fresh wedding garlands (વરમાળા), bridal hair veni, gajra, car bouquet decoration and authentic floral jewellery in Bhat Simroli, Saurashtra, Gujarat."}
             </p>
-            <div className="text-xs text-rose-600 dark:text-rose-400 font-medium">
+            <div className="text-xs text-brand-primary dark:text-brand-primary font-medium">
               {settings.shopNameGu} • ભાટ સિમરોલી, ગુજરાત
             </div>
 
@@ -193,27 +193,27 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href={`/${locale}/shop`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/shop`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Fresh Garlands & Shop
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/packages`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/packages`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Wedding Combo Packages
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/custom-design`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/custom-design`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Custom Design Request
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/gallery`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/gallery`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Real Wedding Floral Gallery
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/contact`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/contact`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Shop Location & Directions
                 </Link>
               </li>
@@ -227,17 +227,17 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href={`/${locale}/about`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/about`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   About Our Florists
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/blog`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/blog`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Wedding Flower Guides & Blog
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/contact`} className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
+                <Link href={`/${locale}/contact`} className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                   Contact & Venue Inquiry
                 </Link>
               </li>
@@ -245,7 +245,7 @@ export function Footer() {
                 <li key={cp.slug}>
                   <Link
                     href={`/${locale}/pages/${cp.slug}`}
-                    className="text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                    className="text-zinc-600 dark:text-zinc-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors"
                   >
                     {cp.title[locale] || cp.title.en || cp.title.gu}
                   </Link>
@@ -270,13 +270,13 @@ export function Footer() {
                 <span>{settings.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-500 shrink-0" />
+                <Phone className="w-4 h-4 text-brand-primary dark:text-brand-primary shrink-0" />
                 <a href={`tel:${settings.contactPhone.replace(/\s+/g, "")}`} className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                   {settings.contactPhone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-rose-500 shrink-0" />
+                <Clock className="w-4 h-4 text-brand-primary shrink-0" />
                 <span>Open Everyday: {settings.openingHours}</span>
               </div>
             </div>

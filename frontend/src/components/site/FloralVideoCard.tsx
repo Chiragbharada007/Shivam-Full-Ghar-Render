@@ -204,7 +204,7 @@ export function FloralVideoCard({
 
                 {/* Glowing Rose Shimmer */}
                 <div
-                  className={`absolute inset-0 bg-rose-500/10 mix-blend-overlay pointer-events-none transition-opacity duration-500 ${
+                  className={`absolute inset-0 bg-brand-primary/10 mix-blend-overlay pointer-events-none transition-opacity duration-500 ${
                     isHovered ? "opacity-100" : "opacity-0"
                   }`}
                 />
@@ -216,7 +216,7 @@ export function FloralVideoCard({
               <span className="px-2.5 py-0.5 rounded-full bg-black/65 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tracking-wider uppercase shadow-xs">
                 {product.tag || "★ New"}
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-600/90 backdrop-blur-md text-white text-[9px] font-semibold shadow-xs">
+              <span className="px-2 py-0.5 rounded-full bg-brand-primary/90 backdrop-blur-md text-white text-[9px] font-semibold shadow-xs">
                 🌿 5 AM Fresh
               </span>
             </div>
@@ -227,7 +227,7 @@ export function FloralVideoCard({
               onClick={toggleFlip}
               aria-label="Flip card for details"
               title="Flip Card for Flower Details 🔄"
-              className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/65 hover:bg-rose-600 backdrop-blur-md border border-white/20 text-white text-[10px] font-medium tracking-tight flex items-center gap-1 shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/65 hover:bg-brand-primary backdrop-blur-md border border-white/20 text-white text-[10px] font-medium tracking-tight flex items-center gap-1 shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
               <RotateCw className="w-3 h-3 text-rose-300 group-hover:rotate-180 transition-transform" />
               <span>{locale === "gu" ? "વિગતો 🔄" : "Flip 🔄"}</span>
@@ -241,9 +241,9 @@ export function FloralVideoCard({
                 onClick={handleWhatsAppInquiry}
                 aria-label="Enquire via WhatsApp"
                 title="Chat with Florist on WhatsApp"
-                className="w-8 h-8 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                className="w-8 h-8 rounded-full bg-brand-primary hover:bg-brand-primary text-white flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer"
               >
-                <MessageCircle className="w-3.5 h-3.5 fill-white text-emerald-500" />
+                <MessageCircle className="w-3.5 h-3.5 fill-white text-brand-primary" />
               </button>
 
               {/* Request Quote Pill */}
@@ -251,9 +251,9 @@ export function FloralVideoCard({
                 href={`/${locale}/custom-design?code=${product.code}`}
                 aria-label="Request Quote"
                 title="Request a Custom Quote"
-                className="w-8 h-8 rounded-full bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white hover:bg-rose-500 hover:text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                className="w-8 h-8 rounded-full bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white hover:bg-brand-primary hover:text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
               >
-                <FileText className="w-3.5 h-3.5 text-rose-500 hover:text-white" />
+                <FileText className="w-3.5 h-3.5 text-brand-primary hover:text-white" />
               </Link>
             </div>
           </div>
@@ -263,7 +263,7 @@ export function FloralVideoCard({
             <div>
               {/* Category & Star Rating */}
               <div className="flex items-center justify-between text-xs">
-                <span className="text-[11px] font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+                <span className="text-[11px] font-semibold text-brand-primary dark:text-brand-primary uppercase tracking-wider">
                   {product.categoryName}
                 </span>
                 <div className="flex items-center gap-1 text-zinc-700 dark:text-zinc-300 text-[11px]">
@@ -276,7 +276,7 @@ export function FloralVideoCard({
               {/* Product Title */}
               <Link
                 href={`/${locale}/product/${product.code}`}
-                className="block mt-1 font-serif font-bold text-zinc-900 dark:text-white hover:text-rose-600 dark:hover:text-rose-300 text-sm sm:text-base leading-snug line-clamp-1 transition-colors"
+                className="block mt-1 font-serif font-bold text-zinc-900 dark:text-white hover:text-brand-primary dark:hover:text-rose-300 text-sm sm:text-base leading-snug line-clamp-1 transition-colors"
               >
                 {product.name}
               </Link>
@@ -290,7 +290,7 @@ export function FloralVideoCard({
             {/* Price & View Link */}
             <div className="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/10">
               <div className="flex items-baseline gap-2">
-                <span className={`font-bold ${showPrices ? "text-base sm:text-lg text-zinc-900 dark:text-white font-serif" : "text-xs font-medium text-emerald-600 dark:text-emerald-400 font-sans"}`}>
+                <span className={`font-bold ${showPrices ? "text-base sm:text-lg text-zinc-900 dark:text-white font-serif" : "text-xs font-medium text-brand-primary dark:text-brand-primary font-sans"}`}>
                   {getPriceDisplay(product.price, Boolean(showPrices), (locale as any) || "gu")}
                 </span>
               </div>
@@ -298,7 +298,7 @@ export function FloralVideoCard({
               <button
                 type="button"
                 onClick={toggleFlip}
-                className="inline-flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-semibold cursor-pointer"
+                className="inline-flex items-center gap-1 text-xs text-brand-primary dark:text-brand-primary hover:text-brand-deep dark:hover:text-rose-300 font-semibold cursor-pointer"
               >
                 <span>{locale === "gu" ? "વિગતો" : "Details"}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -315,15 +315,15 @@ export function FloralVideoCard({
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
           }}
-          className="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-[#faf9f6] dark:bg-[#0d0d0d] border border-rose-500/30 dark:border-rose-500/40 shadow-2xl text-zinc-900 dark:text-zinc-100 overflow-hidden"
+          className="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-[#faf9f6] dark:bg-[#0d0d0d] border border-brand dark:border-brand shadow-2xl text-zinc-900 dark:text-zinc-100 overflow-hidden"
         >
           {/* Subtle floral watermark / background tint */}
-          <div className="absolute top-0 right-0 w-44 h-44 rounded-full bg-rose-500/5 blur-2xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-44 h-44 rounded-full bg-brand-primary/5 blur-2xl pointer-events-none" />
 
           {/* Top Bar: Code + Flip Back Button */}
           <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-3">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-rose-500/15 text-rose-600 dark:text-rose-300 text-[10px] font-mono font-bold">
+              <span className="px-2 py-0.5 rounded-md bg-brand-primary/15 text-brand-primary dark:text-brand-primary text-[10px] font-mono font-bold">
                 {product.code}
               </span>
               <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
@@ -337,7 +337,7 @@ export function FloralVideoCard({
               className="px-2.5 py-1 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-zinc-800 dark:text-zinc-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
               title="Flip back to front"
             >
-              <RotateCw className="w-3 h-3 text-rose-500" />
+              <RotateCw className="w-3 h-3 text-brand-primary" />
               <span>{locale === "gu" ? "પાછા જાઓ" : "Front"}</span>
             </button>
           </div>
@@ -350,7 +350,7 @@ export function FloralVideoCard({
 
             {/* Floral Ingredients */}
             <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-rose-600 dark:text-rose-400">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-brand-primary dark:text-brand-primary">
                 <Flower2 className="w-3.5 h-3.5" />
                 <span>{locale === "gu" ? "તાજા ફૂલોનું મિશ્રણ" : "Fresh Flower Ingredients"}</span>
               </div>
@@ -371,7 +371,7 @@ export function FloralVideoCard({
 
               <div className="p-2 rounded-xl bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 space-y-0.5">
                 <span className="text-zinc-400 block">{locale === "gu" ? "તાજગી ગેરંટી" : "Harvest Time"}</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                <span className="font-bold text-brand-primary dark:text-brand-primary flex items-center gap-1">
                   <ShieldCheck className="w-3 h-3" />
                   5:00 AM Dawn
                 </span>
@@ -380,7 +380,7 @@ export function FloralVideoCard({
 
             {/* Bhat Simroli Pickup Notice */}
             <div className="text-[11px] text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
               <span>{locale === "gu" ? "ભાટ સિમરોલી દુકાનેથી ફ્રી પિકઅપ ઉપલબ્ધ" : "Free pickup at Bhat Simroli Boutique"}</span>
             </div>
           </div>
@@ -391,9 +391,9 @@ export function FloralVideoCard({
             <button
               type="button"
               onClick={handleWhatsAppInquiry}
-              className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95 cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95 cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4 fill-white text-emerald-500" />
+              <MessageCircle className="w-4 h-4 fill-white text-brand-primary" />
               <span>
                 {locale === "gu"
                   ? "વોટ્સએપ પર પૂછપરછ કરો"
@@ -409,7 +409,7 @@ export function FloralVideoCard({
                 href={`/${locale}/custom-design?code=${product.code}`}
                 className="py-2 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-zinc-800 dark:text-zinc-200 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <FileText className="w-3.5 h-3.5 text-rose-500" />
+                <FileText className="w-3.5 h-3.5 text-brand-primary" />
                 <span>{locale === "gu" ? "ભાવ મેળવો" : locale === "hi" ? "कोटेशन मांगें" : "Request Quote"}</span>
               </Link>
 

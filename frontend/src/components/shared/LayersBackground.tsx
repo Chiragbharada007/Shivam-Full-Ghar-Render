@@ -25,14 +25,14 @@ export function LayersBackground() {
       <motion.div
         animate={{ x: [0, 35, 0], y: [0, 25, 0], scale: [1, 1.08, 1] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-32 -left-24 w-[460px] h-[460px] rounded-full bg-emerald-500/15 dark:bg-emerald-500/20 blur-[110px]"
+        className="absolute -top-32 -left-24 w-[460px] h-[460px] rounded-full bg-brand-primary/15 dark:bg-brand-primary/20 blur-[110px]"
       />
 
       {/* Royal Red / Vermilion Ambient Orb */}
       <motion.div
         animate={{ x: [0, -35, 0], y: [0, -25, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 -right-28 w-[480px] h-[480px] rounded-full bg-rose-600/12 dark:bg-rose-600/18 blur-[120px]"
+        className="absolute top-1/3 -right-28 w-[480px] h-[480px] rounded-full bg-brand-primary/12 dark:bg-brand-primary/18 blur-[120px]"
       />
 
       {/* Warm Saffron / Orange Accent Glow */}

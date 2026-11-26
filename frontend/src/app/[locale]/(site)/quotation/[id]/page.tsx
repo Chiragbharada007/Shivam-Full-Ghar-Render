@@ -144,8 +144,8 @@ export default function QuotationViewPage({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
         <div className="text-center max-w-xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-rose-600 dark:text-rose-400 text-xs font-semibold uppercase tracking-wider">
-            <FileText className="w-3.5 h-3.5 text-rose-500" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-brand-primary dark:text-brand-primary text-xs font-semibold uppercase tracking-wider">
+            <FileText className="w-3.5 h-3.5 text-brand-primary" />
             <span>Official Floral Quotation</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-serif font-black text-zinc-900 dark:text-white">
@@ -158,16 +158,16 @@ export default function QuotationViewPage({
 
         {/* Status Alert Banner */}
         {status === "ACCEPTED" && (
-          <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/30 text-emerald-900 dark:text-emerald-300 text-sm font-semibold flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="p-4 rounded-2xl bg-brand-surface dark:bg-brand-deep/40 border border-brand dark:border-brand text-brand-deep dark:text-brand-primary text-sm font-semibold flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-brand-primary shrink-0" />
               Quotation Accepted! Connecting with our florist on WhatsApp to confirm your booking...
             </span>
             <a
               href={`https://wa.me/919824132014?text=${encodeURIComponent(`Hello Shivam Full Ghar, I accept Quotation #${quotation.quotationNumber}. Please confirm my booking.`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 text-center"
+              className="px-4 py-2 rounded-xl bg-brand-primary hover:bg-brand-deep text-white text-xs font-bold shrink-0 text-center"
             >
               Open WhatsApp Chat
             </a>
@@ -175,8 +175,8 @@ export default function QuotationViewPage({
         )}
 
         {status === "REJECTED" && (
-          <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/30 text-rose-900 dark:text-rose-300 text-sm font-medium flex items-center gap-2">
-            <XCircle className="w-5 h-5 text-rose-600" />
+          <div className="p-4 rounded-2xl bg-brand-surface dark:bg-brand-deep/40 border border-brand dark:border-brand text-brand-deep dark:text-brand-primary text-sm font-medium flex items-center gap-2">
+            <XCircle className="w-5 h-5 text-brand-primary" />
             <span>This quotation has been marked as declined. Feel free to contact our florists on WhatsApp for revised pricing.</span>
           </div>
         )}
@@ -268,11 +268,11 @@ export default function QuotationViewPage({
             )}
             <div className="flex justify-between text-xs text-stone-600">
               <span>Fresh Morning Store Pickup</span>
-              <span className="font-semibold text-emerald-700">FREE at Bhat Simroli Boutique</span>
+              <span className="font-semibold text-brand-deep">FREE at Bhat Simroli Boutique</span>
             </div>
             <div className="flex justify-between items-center text-base font-bold text-stone-900 pt-2 border-t border-stone-200">
               <span>Grand Total</span>
-              <span className={`font-serif ${showPrices ? "text-xl text-rose-950 font-bold" : "text-xs font-semibold text-emerald-700"}`}>
+              <span className={`font-serif ${showPrices ? "text-xl text-brand-deep font-bold" : "text-xs font-semibold text-brand-deep"}`}>
                 {getPriceDisplay(quotation.total, showPrices, (locale as any) || "gu", true)}
               </span>
             </div>
@@ -295,9 +295,9 @@ export default function QuotationViewPage({
               <button
                 onClick={handleAccept}
                 disabled={loading}
-                className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 text-white font-bold text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-deep)] hover:from-[var(--brand-primary)] hover:to-[var(--brand-deep)] text-white font-bold text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <MessageCircle className="w-4 h-4 fill-white text-emerald-700" />
+                <MessageCircle className="w-4 h-4 fill-white text-brand-deep" />
                 <span>Accept Quotation & Confirm on WhatsApp</span>
               </button>
 
@@ -305,7 +305,7 @@ export default function QuotationViewPage({
               <button
                 onClick={() => setShowRejectModal(true)}
                 disabled={loading}
-                className="px-6 py-4 rounded-2xl border border-stone-300 dark:border-white/20 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:border-rose-300 text-stone-700 dark:text-zinc-300 hover:text-rose-900 font-semibold text-xs transition-colors cursor-pointer"
+                className="px-6 py-4 rounded-2xl border border-stone-300 dark:border-white/20 hover:bg-brand-surface dark:hover:bg-brand-deep/30 hover:border-brand text-stone-700 dark:text-zinc-300 hover:text-brand-deep font-semibold text-xs transition-colors cursor-pointer"
               >
                 Decline / Request Change
               </button>
@@ -319,7 +319,7 @@ export default function QuotationViewPage({
               href={`https://wa.me/919824132014?text=${encodeURIComponent(`Hello Shivam Full Ghar, regarding Quotation #${quotation.quotationNumber}`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1"
+              className="font-bold text-brand-deep dark:text-brand-primary hover:underline flex items-center gap-1"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               Discuss on WhatsApp
@@ -359,7 +359,7 @@ export default function QuotationViewPage({
                 <button
                   onClick={handleReject}
                   disabled={loading}
-                  className="px-5 py-2 rounded-xl bg-rose-800 hover:bg-rose-900 text-white text-xs font-bold shadow-xs"
+                  className="px-5 py-2 rounded-xl bg-brand-deep hover:bg-brand-deep text-white text-xs font-bold shadow-xs"
                 >
                   Confirm Decline
                 </button>

@@ -36,7 +36,7 @@ export function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-1 text-xs sm:text-sm font-medium bg-amber-50/80 border border-amber-200/60 rounded-full px-2 py-1">
-      <Globe className="w-3.5 h-3.5 text-rose-800" />
+      <Globe className="w-3.5 h-3.5 text-brand-deep" />
       <div className="flex items-center divide-x divide-amber-200">
         {languages.map((lang) => (
           <button
@@ -44,8 +44,8 @@ export function LanguageSwitcher() {
             onClick={() => handleLanguageChange(lang.code)}
             className={`px-1.5 py-0.5 rounded-full transition-all ${
               currentLocale === lang.code
-                ? "bg-rose-800 text-white font-semibold shadow-xs"
-                : "text-stone-700 hover:text-rose-800 hover:bg-amber-100/60"
+                ? "bg-brand-deep text-white font-semibold shadow-xs"
+                : "text-stone-700 hover:text-brand-deep hover:bg-amber-100/60"
             }`}
           >
             {lang.label}

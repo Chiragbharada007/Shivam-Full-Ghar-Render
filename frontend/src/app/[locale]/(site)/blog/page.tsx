@@ -51,7 +51,7 @@ export default async function BlogPage({
     <div className="py-14 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 min-h-screen transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
             Floral Insights & Wedding Inspiration
           </span>
           <h1 className="text-3xl sm:text-5xl font-serif font-black text-zinc-900 dark:text-white">
@@ -89,7 +89,7 @@ export default async function BlogPage({
                 </div>
 
                 <div className="pt-3 border-t border-black/10 dark:border-white/10">
-                  <span className="text-xs font-semibold text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 flex items-center gap-1 cursor-pointer">
+                  <span className="text-xs font-semibold text-brand-primary hover:text-brand-deep dark:text-brand-primary dark:hover:text-rose-300 flex items-center gap-1 cursor-pointer">
                     Read Full Guide <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>

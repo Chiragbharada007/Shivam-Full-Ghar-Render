@@ -62,12 +62,12 @@ export function AdaptiveSidebarShell({
     : "glass-royal-red text-zinc-900";
 
   const activeItemClass = isEmerald
-    ? "bg-gradient-to-r from-emerald-600 via-emerald-500 to-rose-600 text-white shadow-lg shadow-emerald-900/35"
-    : "bg-gradient-to-r from-rose-600 to-orange-500 text-white shadow-lg shadow-rose-500/25";
+    ? "bg-gradient-to-r from-[var(--brand-primary)] via-emerald-500 to-rose-600 text-white shadow-lg shadow-emerald-900/35"
+    : "bg-gradient-to-r from-[var(--brand-primary)] to-orange-500 text-white shadow-lg shadow-rose-500/25";
 
   const inactiveItemClass = isEmerald
-    ? "text-emerald-100/85 hover:text-white hover:bg-emerald-500/15"
-    : "text-zinc-700 hover:text-rose-700 hover:bg-rose-500/10";
+    ? "text-emerald-100/85 hover:text-white hover:bg-brand-primary/15"
+    : "text-zinc-700 hover:text-brand-deep hover:bg-brand-primary/10";
 
   const isCompactRail =
     !asDrawer && (styleMode === "icon-rail" || (styleMode === "expanding" && !hoveredRail));
@@ -89,7 +89,7 @@ export function AdaptiveSidebarShell({
                 <span className="font-display font-extrabold text-sm block truncate">
                   {brandName}
                 </span>
-                <span className={`text-[10px] font-mono-tech block truncate ${isEmerald ? "text-emerald-300" : "text-rose-600"}`}>
+                <span className={`text-[10px] font-mono-tech block truncate ${isEmerald ? "text-emerald-300" : "text-brand-primary"}`}>
                   {brandSubtitle}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export function AdaptiveSidebarShell({
 
         {/* Live Sidebar Mode & Theme Switcher */}
         {!isCompactRail && (
-          <div className={`p-2.5 rounded-2xl space-y-2 border ${isEmerald ? "bg-white/5 border-emerald-400/20" : "bg-rose-50/90 border-rose-200"}`}>
+          <div className={`p-2.5 rounded-2xl space-y-2 border ${isEmerald ? "bg-white/5 border-brand" : "bg-brand-surface border-brand"}`}>
             <div className="flex items-center justify-between text-[10px] font-mono-tech uppercase tracking-wider opacity-85">
               <span className="flex items-center gap-1">
                 <Sparkles className="w-3 h-3" /> Menu Style
@@ -118,7 +118,7 @@ export function AdaptiveSidebarShell({
                 type="button"
                 onClick={() => setThemeMode((t) => (t === "emerald-green" ? "royal-red" : "emerald-green"))}
                 className={`px-2 py-0.5 rounded-full text-white font-bold ${
-                  isEmerald ? "bg-rose-600" : "bg-emerald-600"
+                  isEmerald ? "bg-brand-primary" : "bg-brand-primary"
                 }`}
               >
                 {isEmerald ? "Emerald Green" : "Royal Red"}
@@ -128,7 +128,7 @@ export function AdaptiveSidebarShell({
               value={styleMode}
               onChange={(e) => setStyleMode(e.target.value as SidebarStyleMode)}
               className={`w-full text-[11px] px-2 py-1.5 rounded-xl border focus:outline-hidden ${
-                isEmerald ? "bg-[#05261b] border-emerald-500/30 text-white" : "bg-white border-rose-200 text-zinc-900"
+                isEmerald ? "bg-[#05261b] border-brand text-white" : "bg-white border-brand text-zinc-900"
               }`}
             >
               <option value="floating">8. Floating Curved</option>
@@ -180,7 +180,7 @@ export function AdaptiveSidebarShell({
                     )}
                   </div>
                   {hasChildren && isOpen && !isCompactRail && styleMode !== "two-level" && (
-                    <div className="ml-6 mt-1 space-y-1 border-l border-emerald-400/30 pl-3">
+                    <div className="ml-6 mt-1 space-y-1 border-l border-brand pl-3">
                       {item.children!.map((sub) => (
                         <Link
                           key={sub.href}
@@ -200,7 +200,7 @@ export function AdaptiveSidebarShell({
 
           {/* 7. Two-Level Sub-Panel */}
           {styleMode === "two-level" && !isCompactRail && activeParent?.children && (
-            <div className={`w-1/2 p-2.5 rounded-2xl border space-y-1.5 ${isEmerald ? "bg-white/5 border-emerald-500/20" : "bg-rose-50/70 border-rose-200"}`}>
+            <div className={`w-1/2 p-2.5 rounded-2xl border space-y-1.5 ${isEmerald ? "bg-white/5 border-brand" : "bg-brand-surface border-brand"}`}>
               <span className="text-[10px] font-mono-tech uppercase opacity-70 block">
                 {activeParent.label}
               </span>
@@ -209,7 +209,7 @@ export function AdaptiveSidebarShell({
                   key={sub.href}
                   href={sub.href}
                   onClick={() => setDrawerOpen(false)}
-                  className="block text-[11px] py-1.5 px-2 rounded-lg hover:bg-emerald-500/15"
+                  className="block text-[11px] py-1.5 px-2 rounded-lg hover:bg-brand-primary/15"
                 >
                   {sub.label}
                 </Link>
@@ -221,7 +221,7 @@ export function AdaptiveSidebarShell({
 
       {/* Footer Slot */}
       {!isCompactRail && footerSlot && (
-        <div className={`pt-4 mt-4 border-t ${isEmerald ? "border-white/10" : "border-rose-200"}`}>
+        <div className={`pt-4 mt-4 border-t ${isEmerald ? "border-white/10" : "border-brand"}`}>
           {footerSlot}
         </div>
       )}
@@ -235,7 +235,7 @@ export function AdaptiveSidebarShell({
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          className="fixed left-4 bottom-6 z-40 inline-flex items-center gap-2 px-4 py-2.5 rounded-full glass-emerald text-white text-xs font-geometric font-bold shadow-2xl hover:scale-105 transition-transform border border-emerald-400/40"
+          className="fixed left-4 bottom-6 z-40 inline-flex items-center gap-2 px-4 py-2.5 rounded-full glass-emerald text-white text-xs font-geometric font-bold shadow-2xl hover:scale-105 transition-transform border border-brand"
         >
           <PanelLeft className="w-4 h-4 text-emerald-300" />
           <span>Quick Menu</span>
@@ -270,7 +270,7 @@ export function AdaptiveSidebarShell({
       }`}
     >
       {/* Mobile Top Bar */}
-      <div className={`md:hidden flex items-center justify-between px-4 py-3 border-b ${isEmerald ? "border-emerald-500/20 bg-[#051d15]" : "border-rose-200 bg-white"}`}>
+      <div className={`md:hidden flex items-center justify-between px-4 py-3 border-b ${isEmerald ? "border-brand bg-[#051d15]" : "border-brand bg-white"}`}>
         <div className="flex items-center gap-2.5">
           <img src={logoUrl || "/icon.svg"} alt={brandName} className="w-8 h-8 rounded-xl object-contain" />
           <span className="font-display font-bold text-sm">{brandName}</span>

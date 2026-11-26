@@ -128,7 +128,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
           onSubmit={handleSubmit}
           className="flex items-center gap-3 px-4 sm:px-5 py-3.5 border-b border-black/10 dark:border-white/10 shrink-0"
         >
-          <Search className="w-5 h-5 text-rose-500 shrink-0" />
+          <Search className="w-5 h-5 text-brand-primary shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -144,7 +144,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
             className="w-full bg-transparent text-sm sm:text-base text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-hidden"
           />
           {isLoading && (
-            <Loader2 className="w-4 h-4 text-rose-500 animate-spin shrink-0" />
+            <Loader2 className="w-4 h-4 text-brand-primary animate-spin shrink-0" />
           )}
           {query && !isLoading && (
             <button
@@ -184,7 +184,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                     key={item.label}
                     type="button"
                     onClick={() => setQuery(item.query)}
-                    className="text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 bg-black/5 dark:bg-white/5 hover:bg-rose-500/10 dark:hover:bg-rose-500/20 px-3.5 py-2 rounded-full border border-black/10 dark:border-white/10 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+                    className="text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-brand-primary dark:hover:text-brand-primary bg-black/5 dark:bg-white/5 hover:bg-brand-primary/10 dark:hover:bg-brand-primary/20 px-3.5 py-2 rounded-full border border-black/10 dark:border-white/10 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
                   >
                     <span>{item.label}</span>
                   </button>
@@ -197,7 +197,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
           {results && results.categories.length > 0 && (
             <div className="space-y-2.5 pt-3 first:pt-0">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 font-mono">
-                <Layers className="w-3.5 h-3.5 text-rose-500" />
+                <Layers className="w-3.5 h-3.5 text-brand-primary" />
                 <span>{locale === "gu" ? "કેટેગરી" : locale === "hi" ? "श्रेणियां" : "Categories"}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -219,12 +219,12 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                         />
                       </div>
                     ) : (
-                      <div className="w-11 h-11 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">
                         <Layers className="w-5 h-5" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <div className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-rose-500 transition-colors">
+                      <div className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-brand-primary transition-colors">
                         {cat.title}
                       </div>
                       {cat.subtitle && (
@@ -233,7 +233,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                         </div>
                       )}
                     </div>
-                    <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-rose-500 transition-colors shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-brand-primary transition-colors shrink-0" />
                   </button>
                 ))}
               </div>
@@ -271,17 +271,17 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                         />
                       </div>
                     ) : (
-                      <div className="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">
                         🌸
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-rose-500 transition-colors">
+                        <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-brand-primary transition-colors">
                           {p.title}
                         </span>
                         {p.badge && (
-                          <span className="px-1.5 py-0.5 rounded-md bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/20 text-[10px] font-mono font-bold shrink-0">
+                          <span className="px-1.5 py-0.5 rounded-md bg-brand-primary/15 text-brand-primary dark:text-brand-primary border border-brand text-[10px] font-mono font-bold shrink-0">
                             {p.badge}
                           </span>
                         )}
@@ -292,7 +292,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                         </div>
                       )}
                     </div>
-                    <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-rose-500 transition-colors shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-brand-primary transition-colors shrink-0" />
                   </button>
                 ))}
               </div>
@@ -319,7 +319,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-rose-500 transition-colors">
+                        <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate group-hover:text-brand-primary transition-colors">
                           {page.title}
                         </span>
                         {page.badge && (
@@ -343,7 +343,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
           {/* Clean No-Results State */}
           {showNoResults && (
             <div className="py-8 text-center space-y-4">
-              <div className="w-14 h-14 mx-auto rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center text-2xl">
+              <div className="w-14 h-14 mx-auto rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center text-2xl">
                 🔍
               </div>
               <div className="space-y-1">
@@ -369,7 +369,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-md"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-brand-primary hover:bg-brand-primary text-white font-semibold text-xs transition-colors shadow-md"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>
@@ -391,7 +391,7 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
           <button
             type="button"
             onClick={handleSubmit}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-primary dark:text-brand-primary hover:underline cursor-pointer"
           >
             <span>{locale === "gu" ? "શોપમાં બધા પરિણામો જુઓ" : "View all results in Shop"}</span>
             <ArrowRight className="w-3.5 h-3.5" />

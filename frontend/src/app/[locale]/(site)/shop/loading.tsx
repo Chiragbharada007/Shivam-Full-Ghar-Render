@@ -8,8 +8,8 @@ export default function ShopLoading() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 animate-in fade-in">
         {/* Header Skeleton with Floral Loading Indicator */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-rose-50 dark:bg-stone-900 border border-rose-200 dark:border-rose-900 flex items-center justify-center shrink-0">
-            <Flower2 className="w-5 h-5 text-rose-600 dark:text-rose-400 animate-spin" />
+          <div className="w-10 h-10 rounded-full bg-brand-surface dark:bg-stone-900 border border-brand dark:border-brand flex items-center justify-center shrink-0">
+            <Flower2 className="w-5 h-5 text-brand-primary dark:text-brand-primary animate-spin" />
           </div>
           <div className="space-y-1.5">
             <div className="h-5 w-48 bg-zinc-200 dark:bg-zinc-800 rounded-md animate-pulse" />

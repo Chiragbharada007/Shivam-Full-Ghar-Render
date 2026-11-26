@@ -18,7 +18,7 @@ export default async function PrivacyPolicyPage({
     <div className="min-h-screen py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-10">
       {/* Header */}
       <div className="text-center space-y-3">
-        <div className="w-12 h-12 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600">
+        <div className="w-12 h-12 mx-auto rounded-2xl bg-brand-primary/10 border border-brand flex items-center justify-center text-brand-primary">
           <ShieldCheck className="w-6 h-6" />
         </div>
         <h1 className="text-2xl sm:text-3xl font-serif font-black text-stone-900 dark:text-white">
@@ -42,7 +42,7 @@ export default async function PrivacyPolicyPage({
         {/* Section 1 */}
         <section className="space-y-2">
           <h2 className="text-base font-bold text-stone-900 dark:text-white flex items-center gap-2">
-            <Lock className="w-4 h-4 text-emerald-600" />
+            <Lock className="w-4 h-4 text-brand-primary" />
             <span>
               {locale === "gu"
                 ? "૧. સંપૂર્ણ આઈપી એડ્રેસ સંગ્રહિત થતું નથી (No Full IP Storage)"
@@ -63,7 +63,7 @@ export default async function PrivacyPolicyPage({
         {/* Section 2 */}
         <section className="space-y-2">
           <h2 className="text-base font-bold text-stone-900 dark:text-white flex items-center gap-2">
-            <Eye className="w-4 h-4 text-emerald-600" />
+            <Eye className="w-4 h-4 text-brand-primary" />
             <span>
               {locale === "gu"
                 ? "૨. વ્યક્તિગત વિગતો ફક્ત ફોર્મ ભરતી વખતે જ લેવાય છે (Form Data Only)"
@@ -84,7 +84,7 @@ export default async function PrivacyPolicyPage({
         {/* Section 3 */}
         <section className="space-y-2">
           <h2 className="text-base font-bold text-stone-900 dark:text-white flex items-center gap-2">
-            <FileText className="w-4 h-4 text-emerald-600" />
+            <FileText className="w-4 h-4 text-brand-primary" />
             <span>
               {locale === "gu"
                 ? "૩. ડેટા સુરક્ષા અને સંચાલન સંપર્ક (Contact Information)"

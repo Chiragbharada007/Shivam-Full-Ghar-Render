@@ -8,9 +8,9 @@ export default function GlobalSiteLoading() {
       {/* Floral Loading Icon */}
       <div className="flex flex-col items-center justify-center space-y-3">
         <div className="relative flex items-center justify-center">
-          <div className="absolute w-16 h-16 rounded-full border-2 border-rose-500/20 animate-ping [animation-duration:2.2s]" />
-          <div className="w-12 h-12 rounded-full bg-white dark:bg-stone-900 border border-rose-200 dark:border-rose-900/60 flex items-center justify-center shadow-md">
-            <Flower2 className="w-6 h-6 text-rose-600 dark:text-rose-400 animate-spin [animation-duration:2s]" />
+          <div className="absolute w-16 h-16 rounded-full border-2 border-brand animate-ping [animation-duration:2.2s]" />
+          <div className="w-12 h-12 rounded-full bg-white dark:bg-stone-900 border border-brand dark:border-brand flex items-center justify-center shadow-md">
+            <Flower2 className="w-6 h-6 text-brand-primary dark:text-brand-primary animate-spin [animation-duration:2s]" />
           </div>
         </div>
         <p className="text-xs font-serif font-bold tracking-widest text-stone-700 dark:text-stone-300 uppercase">

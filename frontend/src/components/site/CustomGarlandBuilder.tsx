@@ -159,7 +159,7 @@ export function CustomGarlandBuilder({
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-stone-100 dark:border-white/10 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-rose-800 dark:text-brand-primary text-xs font-bold uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-brand-deep dark:text-brand-primary text-xs font-bold uppercase tracking-wider">
             <Sparkles className="w-4 h-4 text-amber-500" />
             <span>Interactive Varmala Customiser</span>
           </div>
@@ -174,7 +174,7 @@ export function CustomGarlandBuilder({
           <span className="text-[10px] uppercase font-bold text-stone-500 dark:text-zinc-400 block">
             Estimated Pair Price
           </span>
-          <span className={`font-bold ${showPrices ? "text-2xl font-serif text-rose-900 dark:text-brand-primary" : "text-xs font-semibold text-emerald-700 dark:text-emerald-400 font-sans"}`}>
+          <span className={`font-bold ${showPrices ? "text-2xl font-serif text-brand-deep dark:text-brand-primary" : "text-xs font-semibold text-brand-deep dark:text-brand-primary font-sans"}`}>
             {getPriceDisplay(estimatedTotal, showPrices, (locale as any) || "gu")}
           </span>
         </div>
@@ -186,7 +186,7 @@ export function CustomGarlandBuilder({
           {/* Step 1: Base Flower Style */}
           <div className="space-y-3">
             <label className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-zinc-300 flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-rose-900 dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
+              <span className="w-5 h-5 rounded-full bg-brand-deep dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
                 1
               </span>
               <span>Choose Floral Theme & Flower Palette</span>
@@ -201,7 +201,7 @@ export function CustomGarlandBuilder({
                     onClick={() => setSelectedBase(flower)}
                     className={`text-left p-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${
                       isSelected
-                        ? "border-rose-800 bg-rose-50/50 dark:bg-rose-950/40 shadow-xs ring-1 ring-rose-800"
+                        ? "border-brand bg-brand-surface dark:bg-brand-deep/40 shadow-xs ring-1 ring-brand"
                         : "border-stone-200 dark:border-white/10 hover:border-amber-300 dark:hover:border-amber-600 bg-white dark:bg-zinc-900/60"
                     }`}
                   >
@@ -225,7 +225,7 @@ export function CustomGarlandBuilder({
                       )}
                     </div>
                     {isSelected && (
-                      <div className="w-5 h-5 rounded-full bg-rose-800 dark:bg-brand-primary text-white flex items-center justify-center shrink-0">
+                      <div className="w-5 h-5 rounded-full bg-brand-deep dark:bg-brand-primary text-white flex items-center justify-center shrink-0">
                         <Check className="w-3 h-3 stroke-[3]" />
                       </div>
                     )}
@@ -238,7 +238,7 @@ export function CustomGarlandBuilder({
           {/* Step 2: Length */}
           <div className="space-y-3">
             <label className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-zinc-300 flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-rose-900 dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
+              <span className="w-5 h-5 rounded-full bg-brand-deep dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
                 2
               </span>
               <Ruler className="w-3.5 h-3.5 text-stone-600 dark:text-zinc-400" />
@@ -271,7 +271,7 @@ export function CustomGarlandBuilder({
           {/* Step 3: Weave Density */}
           <div className="space-y-3">
             <label className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-zinc-300 flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-rose-900 dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
+              <span className="w-5 h-5 rounded-full bg-brand-deep dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
                 3
               </span>
               <Layers className="w-3.5 h-3.5 text-stone-600 dark:text-zinc-400" />
@@ -308,7 +308,7 @@ export function CustomGarlandBuilder({
           {/* Step 4: Accents */}
           <div className="space-y-3">
             <label className="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-zinc-300 flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-rose-900 dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
+              <span className="w-5 h-5 rounded-full bg-brand-deep dark:bg-brand-deep text-white text-[11px] font-mono flex items-center justify-center">
                 4
               </span>
               <span>Luxury Accents & Sacred Embellishments</span>
@@ -323,14 +323,14 @@ export function CustomGarlandBuilder({
                     onClick={() => toggleAccent(acc.id)}
                     className={`p-3 rounded-xl border text-left flex items-center justify-between transition-all ${
                       active
-                        ? "border-emerald-600 bg-emerald-50/50 dark:bg-emerald-950/30"
+                        ? "border-brand bg-brand-surface dark:bg-brand-deep/30"
                         : "border-stone-200 dark:border-white/10 bg-white dark:bg-zinc-900/60 hover:border-stone-300 dark:hover:border-zinc-700"
                     }`}
                   >
                     <div>
                       <p className="text-xs font-bold text-stone-800 dark:text-zinc-200">{acc.name}</p>
                       {showPrices && (
-                        <p className="text-[11px] text-emerald-800 dark:text-emerald-400 font-mono font-semibold">
+                        <p className="text-[11px] text-brand-deep dark:text-brand-primary font-mono font-semibold">
                           +{formatPrice(acc.price)}
                         </p>
                       )}
@@ -338,7 +338,7 @@ export function CustomGarlandBuilder({
                     <div
                       className={`w-5 h-5 rounded-md border flex items-center justify-center ${
                         active
-                          ? "bg-emerald-600 border-emerald-600 text-white"
+                          ? "bg-brand-primary border-brand text-white"
                           : "border-stone-300 dark:border-zinc-700"
                       }`}
                     >
@@ -397,7 +397,7 @@ export function CustomGarlandBuilder({
               )}
               <div className="pt-2 border-t border-stone-200 dark:border-white/10 flex justify-between font-bold text-stone-900 dark:text-white text-sm">
                 <span>Total Estimated (Pair)</span>
-                <span className="font-serif text-rose-900 dark:text-brand-primary text-base">
+                <span className="font-serif text-brand-deep dark:text-brand-primary text-base">
                   {formatPrice(estimatedTotal)}
                 </span>
               </div>
@@ -412,7 +412,7 @@ export function CustomGarlandBuilder({
             <button
               type="button"
               onClick={handleApply}
-              className="w-full py-3.5 px-4 rounded-xl bg-rose-900 hover:bg-rose-950 dark:bg-brand-deep dark:hover:bg-rose-800 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 group"
+              className="w-full py-3.5 px-4 rounded-xl bg-brand-deep hover:bg-brand-deep dark:bg-brand-deep dark:hover:bg-brand-deep text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 group"
             >
               <span>Apply This Custom Garland to Form</span>
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />

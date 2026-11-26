@@ -105,7 +105,7 @@ export function GlobalNavigationLoader() {
         style={{ opacity: isNavigating ? 1 : 0 }}
       >
         <div
-          className="h-full bg-gradient-to-r from-rose-600 via-amber-400 to-rose-500 shadow-[0_0_12px_rgba(225,29,72,0.85)] transition-all ease-out"
+          className="h-full bg-gradient-to-r from-[var(--brand-primary)] via-amber-400 to-rose-500 shadow-[0_0_12px_rgba(225,29,72,0.85)] transition-all ease-out"
           style={{
             width: `${progress}%`,
             transitionDuration: progress === 100 ? "200ms" : "400ms",
@@ -120,8 +120,8 @@ export function GlobalNavigationLoader() {
           aria-label="Loading page"
           className="fixed bottom-6 left-6 z-[99999] pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-200"
         >
-          <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-stone-900/90 dark:bg-stone-900/95 backdrop-blur-md border border-rose-500/30 text-white shadow-xl shadow-black/30">
-            <Flower2 className="w-4 h-4 text-rose-500 animate-spin [animation-duration:1.2s]" />
+          <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-stone-900/90 dark:bg-stone-900/95 backdrop-blur-md border border-brand text-white shadow-xl shadow-black/30">
+            <Flower2 className="w-4 h-4 text-brand-primary animate-spin [animation-duration:1.2s]" />
             <span className="text-xs font-serif font-medium tracking-wide">
               Loading...
             </span>
