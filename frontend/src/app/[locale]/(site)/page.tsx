@@ -8,7 +8,6 @@ import { HomeBannerSlider } from "@/components/site/HomeBannerSlider";
 import { getPriceDisplay } from "@/lib/utils";
 import { VideoCardGrid } from "@/components/site/VideoCardGrid";
 import { DesignExperienceSection } from "@/components/site/DesignExperienceSection";
-import { StarfieldCloseCanvas } from "@/components/three/StarfieldCloseCanvas";
 import { Interactive3DCard } from "@/components/site/Interactive3DCard";
 import {
   Sparkles,
@@ -152,7 +151,7 @@ export default async function HomePage({
   }));
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-white transition-colors duration-300 selection:bg-brand-primary/30 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-transparent text-zinc-900 dark:text-white transition-colors duration-300 selection:bg-brand-primary/30 selection:text-white">
       {/* ─── Structured Data (Schema.org JSON-LD P8-T41) ─── */}
       <LocalBusinessJsonLd locale={locale} />
       <FaqJsonLd locale={locale} />
@@ -161,11 +160,7 @@ export default async function HomePage({
       <HomeBannerSlider banners={liveBanners} locale={locale} />
 
       {/* ─── Hero Section ────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-white/10 bg-[#0a0a24] text-white">
-        {/* Three.js Starfield Close 3D Tunnel */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <StarfieldCloseCanvas />
-        </div>
+      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-white/10 bg-black/20 backdrop-blur-[2px] text-white">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

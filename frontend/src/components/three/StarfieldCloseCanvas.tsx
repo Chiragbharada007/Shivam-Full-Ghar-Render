@@ -9,14 +9,68 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader.js";
 
+interface StarfieldThemePalette {
+  bgColor: string;
+  flameColor: string;
+  flameColor2: string;
+  colorA: string;
+  colorB: string;
+  colorC: string;
+}
+
+const THEME_PALETTES: Record<string, StarfieldThemePalette> = {
+  green: {
+    bgColor: "#061b12",
+    flameColor: "#aee9ff",
+    flameColor2: "#5fe6a0",
+    colorA: "#aef6cf",
+    colorB: "#5fe6a0",
+    colorC: "#eafff2",
+  },
+  red: {
+    bgColor: "#1f070c",
+    flameColor: "#ffd166",
+    flameColor2: "#ff4d6d",
+    colorA: "#ffb3c1",
+    colorB: "#ff4d6d",
+    colorC: "#fff0f3",
+  },
+  marigold: {
+    bgColor: "#1f1204",
+    flameColor: "#ffd166",
+    flameColor2: "#ff6b35",
+    colorA: "#ffe08a",
+    colorB: "#ff9f1c",
+    colorC: "#fff8e7",
+  },
+  blush: {
+    bgColor: "#1e0914",
+    flameColor: "#ffd6ec",
+    flameColor2: "#c79bff",
+    colorA: "#ffc2e2",
+    colorB: "#ff69b4",
+    colorC: "#fff0f7",
+  },
+  pearl: {
+    bgColor: "#0e1222",
+    flameColor: "#aee9ff",
+    flameColor2: "#f5e6c8",
+    colorA: "#f5e6c8",
+    colorB: "#d4af37",
+    colorC: "#ffffff",
+  },
+  festival: {
+    bgColor: "#140826",
+    flameColor: "#aee9ff",
+    flameColor2: "#ff70a6",
+    colorA: "#e0b3ff",
+    colorB: "#9d4edd",
+    colorC: "#fff0ff",
+  },
+};
+
 const CONFIG = {
-  bgColor: "#0a0a24",
-  flameColor: "#aee9ff",
-  flameColor2: "#c79bff",
-  flameAmt: 0.2,
-  colorA: "#aef6cf",
-  colorB: "#5fe6a0",
-  colorC: "#eafff2",
+  flameAmt: 0.22,
   opacity: 2,
   pointSize: 50,
   brightness: 1.85,
@@ -43,6 +97,12 @@ function hexToVec3(hex: string) {
   return new THREE.Vector3(((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255);
 }
 
+function getActiveThemeName(): string {
+  if (typeof document === "undefined") return "green";
+  const attr = document.documentElement.getAttribute("data-theme") || "";
+  return THEME_PALETTES[attr] ? attr : "green";
+}
+
 const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
@@ -62,15 +122,17 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
     };
 
     const { w: initW, h: initH } = getSize();
+    const initialPalette = THEME_PALETTES[getActiveThemeName()];
 
     let renderer: THREE.WebGL1Renderer;
     try {
-      renderer = new THREE.WebGL1Renderer({ canvas, antialias: true });
+      renderer = new THREE.WebGL1Renderer({ canvas, antialias: true, powerPreference: "high-performance" });
     } catch {
       return;
     }
 
-    renderer.setPixelRatio(window.devicePixelRatio);
+    const getDpr = () => Math.min(window.devicePixelRatio || 1, 1.5);
+    renderer.setPixelRatio(getDpr());
     renderer.setSize(initW, initH, false);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.VSMShadowMap;
@@ -108,9 +170,9 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
         torusTexture: { value: null as THREE.Texture | null },
         bloomTexture: { value: null as THREE.Texture | null },
         haloTexture: { value: null },
-        uBg: { value: hexToVec3(CONFIG.bgColor) },
-        uFlameA: { value: hexToVec3(CONFIG.flameColor) },
-        uFlameB: { value: hexToVec3(CONFIG.flameColor2) },
+        uBg: { value: hexToVec3(initialPalette.bgColor) },
+        uFlameA: { value: hexToVec3(initialPalette.flameColor) },
+        uFlameB: { value: hexToVec3(initialPalette.flameColor2) },
         uFlameAmt: { value: CONFIG.flameAmt },
       },
       vertexShader: /* glsl */ `
@@ -188,9 +250,9 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
         uRepelRadius: { value: CONFIG.repelRadius },
         uRepelStrength: { value: CONFIG.repelStrength },
         uActivity: { value: 0 },
-        uColorA: { value: hexToVec3(CONFIG.colorA) },
-        uColorB: { value: hexToVec3(CONFIG.colorB) },
-        uColorC: { value: hexToVec3(CONFIG.colorC) },
+        uColorA: { value: hexToVec3(initialPalette.colorA) },
+        uColorB: { value: hexToVec3(initialPalette.colorB) },
+        uColorC: { value: hexToVec3(initialPalette.colorC) },
         uBrightness: { value: CONFIG.brightness },
       },
       vertexShader: /* glsl */ `
@@ -243,6 +305,33 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
     group.add(points);
     scene.add(group);
 
+    // Theme synchronization target vectors for smooth colour transitions
+    const targetColors = {
+      bg: hexToVec3(initialPalette.bgColor),
+      flameA: hexToVec3(initialPalette.flameColor),
+      flameB: hexToVec3(initialPalette.flameColor2),
+      colorA: hexToVec3(initialPalette.colorA),
+      colorB: hexToVec3(initialPalette.colorB),
+      colorC: hexToVec3(initialPalette.colorC),
+    };
+
+    const syncThemeColors = () => {
+      const pal = THEME_PALETTES[getActiveThemeName()];
+      targetColors.bg.copy(hexToVec3(pal.bgColor));
+      targetColors.flameA.copy(hexToVec3(pal.flameColor));
+      targetColors.flameB.copy(hexToVec3(pal.flameColor2));
+      targetColors.colorA.copy(hexToVec3(pal.colorA));
+      targetColors.colorB.copy(hexToVec3(pal.colorB));
+      targetColors.colorC.copy(hexToVec3(pal.colorC));
+    };
+
+    window.addEventListener("brand-theme-changed", syncThemeColors);
+    const themeObserver = new MutationObserver(syncThemeColors);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
     const POINTER = {
       ndc: new THREE.Vector2(0, 0),
       world: new THREE.Vector3(0, 0, 0),
@@ -264,16 +353,10 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
       POINTER.lastMove = performance.now();
     };
 
-    const onMouseMove = (e: MouseEvent) => {
-      updateNDC(e.clientX, e.clientY);
-    };
-
+    const onMouseMove = (e: MouseEvent) => updateNDC(e.clientX, e.clientY);
     const onTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        updateNDC(e.touches[0].clientX, e.touches[0].clientY);
-      }
+      if (e.touches.length > 0) updateNDC(e.touches[0].clientX, e.touches[0].clientY);
     };
-
     const onMouseOut = () => {
       POINTER.active = false;
     };
@@ -323,7 +406,7 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
 
     const handleResize = () => {
       const { w, h } = getSize();
-      const dpr = window.devicePixelRatio;
+      const dpr = getDpr();
       renderer.setPixelRatio(dpr);
       renderer.setSize(w, h, false);
 
@@ -345,14 +428,24 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
     const appearStart = performance.now();
     let t0 = appearStart / 1000;
     let rafId = 0;
+    let isPaused = document.hidden;
 
     const animate = () => {
+      if (isPaused) return;
       rafId = requestAnimationFrame(animate);
 
       const now = performance.now();
       const t = now / 1000;
       const dt = Math.min(0.05, t - t0);
       t0 = t;
+
+      // Smoothly transition starfield & cosmic background colours on theme change
+      finalPass.uniforms.uBg.value.lerp(targetColors.bg, 0.08);
+      finalPass.uniforms.uFlameA.value.lerp(targetColors.flameA, 0.08);
+      finalPass.uniforms.uFlameB.value.lerp(targetColors.flameB, 0.08);
+      material.uniforms.uColorA.value.lerp(targetColors.colorA, 0.08);
+      material.uniforms.uColorB.value.lerp(targetColors.colorB, 0.08);
+      material.uniforms.uColorC.value.lerp(targetColors.colorC, 0.08);
 
       scrollSmooth = lerp(scrollSmooth, scrollTarget, 0.1);
       scrollCurrent = lerp(scrollCurrent, scrollSmooth, 0.06);
@@ -389,10 +482,28 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
       finalComposer.render();
     };
 
-    animate();
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        isPaused = true;
+        cancelAnimationFrame(rafId);
+      } else {
+        isPaused = false;
+        t0 = performance.now() / 1000;
+        animate();
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    if (!isPaused) {
+      animate();
+    }
 
     return () => {
       cancelAnimationFrame(rafId);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("brand-theme-changed", syncThemeColors);
+      themeObserver.disconnect();
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchstart", onTouchMove);
       window.removeEventListener("touchmove", onTouchMove);
