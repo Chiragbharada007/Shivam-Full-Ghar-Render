@@ -1,41 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import { Sparkles, Bell, Layers } from "lucide-react";
-import {
-  ZoomOutReveal,
-  BlurInReveal,
-  SnapCarousel,
-  StackingCard,
-  TiltInCard,
-  CountUpNumber,
-  MaskRevealText,
-} from "@/components/shared/ScrollEffects";
+import React from "react";
+import Link from "next/link";
+import { Flower2, Car, Gem, Sparkles, ArrowRight, MessageCircle, MapPin } from "lucide-react";
 import { PerfectCard } from "@/components/ui/PerfectCard";
 import { HaleShowcase } from "@/components/site/HaleShowcase";
-import {
-  FloatingLabelInput,
-  SearchInput,
-  TagsInput,
-  DateMaskInput,
-  StepperInput,
-} from "@/components/ui/SmartInputs";
-import {
-  RangeHistogramSlider,
-  ValueBubbleSlider,
-  EmojiFeedbackSlider,
-  RotaryKnobSlider,
-  VerticalSlider,
-  VideoScrubberSlider,
-} from "@/components/ui/SmartSliders";
-import { FeedUpdaterBar } from "@/components/shared/FeedUpdater";
-import { PageTransitionWrapper, TransitionMode } from "@/components/shared/PageTransition";
-import {
-  LiveStatusPill,
-  NotificationBadge,
-  InlineAlert,
-  useNotifications,
-} from "@/components/shared/NotificationSystem";
+import { CountUpNumber } from "@/components/shared/ScrollEffects";
 
 export function DesignExperienceSection({
   locale,
@@ -44,260 +14,151 @@ export function DesignExperienceSection({
   locale: string;
   products: any[];
 }) {
-  const [search, setSearch] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([1000, 9000]);
-  const [tags, setTags] = useState<string[]>(["Dutch Rose", "Madurai Mogra"]);
-  const [eventDate, setEventDate] = useState("24/12/2026");
-  const [customerName, setCustomerName] = useState("");
-  const [qty, setQty] = useState(2);
-  const [discountPct, setDiscountPct] = useState(40);
-  const [rating, setRating] = useState(5);
-  const [knobVal, setKnobVal] = useState(65);
-  const [vertVal, setVertVal] = useState(80);
-  const [frame, setFrame] = useState(2);
-  const [transitionMode, setTransitionMode] = useState<TransitionMode>("circle-reveal");
-  const [activeTab, setActiveTab] = useState("varmala");
-  const [refreshing, setRefreshing] = useState(false);
-
-  const { notify, openDialog, unreadCount, clearUnread } = useNotifications();
-
-  const filtered = (products || []).filter((p) => {
-    const name = p.name?.[locale] || p.name?.en || p.code || "";
-    return !search || name.toLowerCase().includes(search.toLowerCase());
-  });
-
-  const handleRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-      notify({
-        title: "Catalog Refreshed",
-        message: "Latest fresh morning bloom inventory synced.",
-        variant: "success",
-      });
-    }, 650);
-  };
-
   return (
-    <div className="space-y-16 py-10 max-w-7xl mx-auto px-4 sm:px-6">
-      {/* 1. Expressive Multi-Font Hero Stats & 8 Scroll Effects */}
-      <ZoomOutReveal>
-        <div className="rounded-[36px] p-8 md:p-10 glass-emerald text-white space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <LiveStatusPill label="Keshod Fresh Morning Dispatch Active" />
-            <button
-              type="button"
-              onClick={() => {
-                clearUnread();
-                notify({
-                  title: "2026 Wedding Season Open",
-                  message: "Free Keshod Store Pickup enabled on all orders.",
-                  kind: "banner",
-                });
-              }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold"
-            >
-              <Bell className="w-3.5 h-3.5 text-emerald-300" />
-              <span>Alerts</span>
-              <NotificationBadge count={unreadCount} />
-            </button>
+    <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 1. Trust Metrics in Botanical Green & Ivory */}
+      <section className="rounded-3xl p-8 md:p-10 bg-[#163526] text-[#FAF7EF] border border-[#D7B77C]/30 shadow-sm">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <CountUpNumber target={1250} suffix="+" className="text-3xl sm:text-4xl font-serif font-bold text-[#D7B77C] block" />
+            <span className="text-xs text-[#FAF7EF]/80 mt-1 block">Weddings Adorned</span>
           </div>
-
-          <MaskRevealText>
-            <h2 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              Crafted in <span className="font-editorial italic text-rose-300">Royal Blooms</span>,
-              Engineered in Emerald & Crimson.
-            </h2>
-          </MaskRevealText>
-
-          <BlurInReveal delay={0.1}>
-            <p className="font-geometric text-sm text-emerald-100/85 max-w-2xl">
-              Explore handcrafted varmalas, bridal car decor, and custom wedding garlands with real-time 3D preview and instant Keshod boutique pickup.
-            </p>
-          </BlurInReveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
-            {[
-              { label: "Weddings Styled", val: 1250, suffix: "+" },
-              { label: "Fresh Varieties", val: 48, suffix: "" },
-              { label: "Morning Delivery", val: 100, suffix: "%" },
-              { label: "Boutique Rating", val: 99, suffix: "%" },
-            ].map((stat) => (
-              <TiltInCard key={stat.label} className="p-5 rounded-3xl bg-white/5 border border-emerald-400/20">
-                <CountUpNumber target={stat.val} suffix={stat.suffix} className="text-2xl sm:text-3xl font-bold text-emerald-300 block" />
-                <span className="text-xs font-geometric text-zinc-300 mt-1 block">{stat.label}</span>
-              </TiltInCard>
-            ))}
+          <div>
+            <CountUpNumber target={48} className="text-3xl sm:text-4xl font-serif font-bold text-[#D7B77C] block" />
+            <span className="text-xs text-[#FAF7EF]/80 mt-1 block">Fresh Floral Varieties</span>
+          </div>
+          <div>
+            <CountUpNumber target={100} suffix="%" className="text-3xl sm:text-4xl font-serif font-bold text-[#D7B77C] block" />
+            <span className="text-xs text-[#FAF7EF]/80 mt-1 block">Morning Farm Harvest</span>
+          </div>
+          <div>
+            <CountUpNumber target={35} suffix="+" className="text-3xl sm:text-4xl font-serif font-bold text-[#D7B77C] block" />
+            <span className="text-xs text-[#FAF7EF]/80 mt-1 block">Saurashtra Villages Served</span>
           </div>
         </div>
-      </ZoomOutReveal>
+      </section>
 
-      {/* 2. HALE-Style 3D Interactive Floral Showcase */}
+      {/* 2. Interactive Floral Showcase */}
       <HaleShowcase />
 
-      {/* 3. Feed Updater + 5-Rule Perfect Cards + Snap Carousel */}
+      {/* 3. Best-Selling Wedding Designs */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="font-mono-tech text-[11px] uppercase tracking-widest text-purple-500">
-              Curated Collection
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#9F333E]">
+              Best Sellers
             </span>
-            <h2 className="font-editorial text-3xl font-bold mt-1">
-              Signature Wedding Designs
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#163526] mt-1">
+              Handcrafted Floral Favorites
             </h2>
           </div>
-          <div className="w-full sm:w-72">
-            <SearchInput value={search} onChange={setSearch} />
-          </div>
+          <Link
+            href={`/${locale}/shop`}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#244C38] hover:text-[#9F333E] transition-colors"
+          >
+            <span>Explore Full Catalogue</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
-        <FeedUpdaterBar
-          onRefresh={handleRefresh}
-          loading={refreshing}
-          newItemsCount={2}
-          onShowNew={handleRefresh}
-        />
-
-        <SnapCarousel>
-          {(filtered.length ? filtered : []).slice(0, 6).map((p: any) => (
-            <div key={p.id || p.code} className="min-w-[290px] sm:min-w-[320px] snap-start">
-              <PerfectCard
-                image={p.image || "/products/VM-R01.jpg"}
-                title={p.name?.[locale] || p.name?.en || p.code}
-                details={p.description?.[locale] || p.description?.en || "Fresh morning-plucked wedding flowers."}
-                priceBadge={`₹${(p.price || 1500).toLocaleString("en-IN")}`}
-                actionLabel="Customize & Order"
-                href={`/${locale}/product/${p.code}`}
-              />
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {(products || []).slice(0, 6).map((p: any) => (
+            <PerfectCard
+              key={p.id || p.code}
+              image={p.image || "/products/VM-R01.jpg"}
+              title={p.name?.[locale] || p.name?.en || p.code}
+              details={p.description?.[locale] || p.description?.en || "Fresh morning-plucked wedding flowers."}
+              priceBadge={`₹${(p.price || 1500).toLocaleString("en-IN")}`}
+              actionLabel="View & Order"
+              href={`/${locale}/product/${p.code}`}
+            />
           ))}
-        </SnapCarousel>
+        </div>
       </section>
 
-      {/* 4. Page Transition Demo + Interactive Wedding Studio (8 Inputs + 8 Sliders) */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left: Interactive Inputs & Sliders */}
-        <div className="p-6 rounded-[32px] bg-white dark:bg-[#110d1b] border border-black/10 dark:border-purple-500/20 space-y-5">
-          <div className="flex items-center justify-between">
-            <h3 className="font-display text-xl font-bold flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-purple-500" />
-              <span>Custom Garland Studio</span>
+      {/* 4. Car Decoration & Floral Jewellery Highlight */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-8 rounded-3xl bg-white border border-[#244C38]/15 shadow-xs flex flex-col justify-between gap-6">
+          <div className="space-y-3">
+            <div className="w-11 h-11 rounded-2xl bg-[#244C38]/10 text-[#244C38] flex items-center justify-center">
+              <Car className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-2xl font-bold text-[#163526]">
+              Wedding Car Decoration
             </h3>
-            <StepperInput value={qty} onChange={setQty} label="Pairs" />
+            <p className="text-xs text-[#282A26]/75 leading-relaxed">
+              Fresh Dutch rose bonnet arrangements, orchid side-mirror ribbons, and heritage baraat car canopies styled at our Bhat Simroli workshop.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <FloatingLabelInput label="Bride / Groom Name" value={customerName} onChange={setCustomerName} />
-            <DateMaskInput value={eventDate} onChange={setEventDate} />
-          </div>
-
-          <TagsInput tags={tags} onChange={setTags} />
-
-          <div className="space-y-2">
-            <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Budget Range Filter (Histogram)</span>
-            <RangeHistogramSlider value={priceRange} onChange={setPriceRange} />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center pt-2">
-            <ValueBubbleSlider value={discountPct} onChange={setDiscountPct} unit="% Adv" />
-            <RotaryKnobSlider value={knobVal} onChange={setKnobVal} label="Density" />
-            <VerticalSlider value={vertVal} onChange={setVertVal} label="Scent" />
-          </div>
-
-          <VideoScrubberSlider frame={frame} onChange={setFrame} />
-          <EmojiFeedbackSlider value={rating} onChange={setRating} />
-
-          <button
-            type="button"
-            onClick={() =>
-              openDialog({
-                title: "Confirm Custom Quote Inquiry?",
-                message: `Send inquiry for ${qty} pair(s) on ${eventDate} with tags: ${tags.join(", ")}?`,
-                onConfirm: () =>
-                  notify({
-                    title: "Inquiry Prepared",
-                    message: "Our Keshod master florist will confirm shortly.",
-                    kind: "progress",
-                    progress: 100,
-                  }),
-              })
-            }
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-rose-600 text-white font-geometric font-bold text-xs shadow-lg"
+          <Link
+            href={`/${locale}/shop?category=car-decoration`}
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#9F333E] hover:underline"
           >
-            Preview Inquiry Confirmation
-          </button>
+            <span>Browse Car Decor</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
-        {/* Right: Stacking Cards + 8 Page Transitions Switcher */}
-        <div className="space-y-4">
-          <div className="p-6 rounded-[32px] bg-white dark:bg-[#071a13] border border-emerald-500/20 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h3 className="font-display text-lg font-bold flex items-center gap-2">
-                <Layers className="w-4 h-4 text-rose-500" />
-                <span>Screen Transitions</span>
-              </h3>
-              <select
-                value={transitionMode}
-                onChange={(e) => setTransitionMode(e.target.value as TransitionMode)}
-                className="text-xs px-3 py-1.5 rounded-xl bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15"
-              >
-                <option value="circle-reveal">7. Circle Reveal</option>
-                <option value="slide">1. Slide</option>
-                <option value="fade">2. Fade</option>
-                <option value="zoom">3. Zoom</option>
-                <option value="shared">4. Shared Element</option>
-                <option value="modal-sheet">5. Modal Sheet</option>
-                <option value="flip">6. 3D Flip</option>
-                <option value="card-stack">8. Card Stack</option>
-              </select>
+        <div className="p-8 rounded-3xl bg-white border border-[#244C38]/15 shadow-xs flex flex-col justify-between gap-6">
+          <div className="space-y-3">
+            <div className="w-11 h-11 rounded-2xl bg-[#9F333E]/10 text-[#9F333E] flex items-center justify-center">
+              <Gem className="w-5 h-5" />
             </div>
-
-            <div className="flex gap-2">
-              {["varmala", "car", "mandap"].map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-colors ${
-                    activeTab === tab ? "bg-emerald-600 text-white" : "bg-black/5 dark:bg-white/10"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-
-            <PageTransitionWrapper mode={transitionMode} transitionKey={activeTab}>
-              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/85 to-rose-950/75 border border-emerald-400/25 text-white space-y-2">
-                <span className="font-mono-tech text-[11px] text-emerald-300 uppercase">{activeTab} highlight</span>
-                <h4 className="font-editorial text-2xl font-bold">
-                  {activeTab === "varmala"
-                    ? "Hand-Tied Fresh Rose & Lotus Varmalas"
-                    : activeTab === "car"
-                    ? "Bespoke Bridal Sedan Floral Styling"
-                    : "Grand Marigold & Jasmine Mandap Setups"}
-                </h4>
-                <p className="text-xs text-zinc-200">
-                  Crafted at dawn in Bhat Simroli, Keshod for maximum fragrance and longevity.
-                </p>
-              </div>
-            </PageTransitionWrapper>
-
-            <InlineAlert
-              title="Store Pickup Available"
-              message="Zero delivery fee when picked up directly from our Bhat Simroli, Keshod boutique."
-              variant="success"
-            />
+            <h3 className="font-serif text-2xl font-bold text-[#163526]">
+              Bridal Floral Jewellery & Veni
+            </h3>
+            <p className="text-xs text-[#282A26]/75 leading-relaxed">
+              7-piece Haldi & Mehndi floral jewellery sets, Madurai mogra gajras, and fresh braided rose venis handcrafted for comfort and fragrance.
+            </p>
           </div>
+          <Link
+            href={`/${locale}/shop?category=floral-jewellery`}
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#244C38] hover:underline"
+          >
+            <span>Browse Bridal Sets</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </section>
 
-          <StackingCard index={0} className="p-5 rounded-3xl glass-emerald text-white">
-            <span className="font-mono-tech text-[10px] text-emerald-300">STEP 01 • 5:00 AM</span>
-            <p className="font-display font-bold text-sm mt-1">Dawn Farm Harvest & Quality Sort</p>
-          </StackingCard>
-          <StackingCard index={1} className="p-5 rounded-3xl glass-royal-red text-zinc-900">
-            <span className="font-mono-tech text-[10px] text-rose-600">STEP 02 • ARTISAN WEAVE</span>
-            <p className="font-display font-bold text-sm mt-1">Hand-Knotted & Mist-Hydrated for Your Ceremony</p>
-          </StackingCard>
+      {/* 5. WhatsApp & Store Visit CTA */}
+      <section className="rounded-3xl p-8 md:p-10 bg-[#244C38] text-[#FAF7EF] flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-[#D7B77C]">
+            <Sparkles className="w-3.5 h-3.5" /> Direct Florist Assistance
+          </span>
+          <h3 className="font-serif text-3xl font-bold text-[#FAF7EF]">
+            Need a Custom Wedding Flower Quote?
+          </h3>
+          <p className="text-xs text-[#FAF7EF]/80 leading-relaxed">
+            Share your wedding date, garland colour theme, or reference photo for fast pricing and guaranteed morning pickup in Bhat Simroli, Keshod.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3 shrink-0">
+          <Link
+            href={`/${locale}/custom-design`}
+            className="px-5 py-3 rounded-xl bg-[#FAF7EF] text-[#163526] font-semibold text-xs hover:bg-[#D7B77C] transition-colors inline-flex items-center gap-2"
+          >
+            <Flower2 className="w-4 h-4 text-[#9F333E]" />
+            <span>Custom Flower Inquiry</span>
+          </Link>
+          <Link
+            href={`/${locale}/contact`}
+            className="px-5 py-3 rounded-xl border border-[#D7B77C]/50 text-[#FAF7EF] font-semibold text-xs hover:bg-[#163526] transition-colors inline-flex items-center gap-2"
+          >
+            <MapPin className="w-4 h-4 text-[#D7B77C]" />
+            <span>Visit Shop</span>
+          </Link>
+          <a
+            href="https://wa.me/919824132014"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-3 rounded-xl bg-[#9F333E] text-[#FAF7EF] font-semibold text-xs hover:opacity-95 transition-opacity inline-flex items-center gap-2"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>Order on WhatsApp</span>
+          </a>
         </div>
       </section>
     </div>

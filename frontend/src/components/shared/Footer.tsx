@@ -45,7 +45,7 @@ export function Footer() {
 
     loadSettings();
 
-    fetch("/api/admin/settings")
+    fetch("/api/site-settings")
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.settings) {
@@ -71,47 +71,47 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#f4f3ef] dark:bg-[#060606] text-zinc-700 dark:text-zinc-300 pt-16 pb-12 border-t border-black/10 dark:border-white/10 relative z-10 transition-colors duration-300">
+    <footer className="bg-[#163526] text-[#FAF7EF]/90 pt-16 pb-12 border-t border-[#D7B77C]/25 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Trust highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12 mb-12 border-b border-black/10 dark:border-white/10 text-zinc-800 dark:text-zinc-200">
-          <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xs">
-            <div className="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-500/20 dark:border-rose-500/30 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12 mb-12 border-b border-[#FAF7EF]/15">
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#244C38]/60 border border-[#D7B77C]/25">
+            <div className="w-12 h-12 rounded-xl bg-[#9F333E]/25 border border-[#D7B77C]/30 flex items-center justify-center text-[#D7B77C] shrink-0">
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-900 dark:text-white text-sm">
+              <h4 className="font-semibold text-[#FAF7EF] text-sm">
                 {(locale === "gu" ? settings.trust1Gu : locale === "hi" ? settings.trust1Hi : settings.trust1En) || "100% Fresh Morning Flowers"}
               </h4>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs text-[#FAF7EF]/75 mt-0.5">
                 Plucked fresh daily and handcrafted morning of your event.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xs">
-            <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 dark:border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#244C38]/60 border border-[#D7B77C]/25">
+            <div className="w-12 h-12 rounded-xl bg-[#D7B77C]/20 border border-[#D7B77C]/30 flex items-center justify-center text-[#D7B77C] shrink-0">
               <Clock className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-900 dark:text-white text-sm">
+              <h4 className="font-semibold text-[#FAF7EF] text-sm">
                 {(locale === "gu" ? settings.trust2Gu : locale === "hi" ? settings.trust2Hi : settings.trust2En) || "Free Store Pickup at Bhat Simroli Shop"}
               </h4>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs text-[#FAF7EF]/75 mt-0.5">
                 {settings.address || "Shivam Full Ghar, Bhat Simroli, Gujarat"}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xs">
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/20 dark:border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#244C38]/60 border border-[#D7B77C]/25">
+            <div className="w-12 h-12 rounded-xl bg-[#244C38] border border-[#D7B77C]/30 flex items-center justify-center text-[#D7B77C] shrink-0">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-900 dark:text-white text-sm">
+              <h4 className="font-semibold text-[#FAF7EF] text-sm">
                 {(locale === "gu" ? settings.trust3Gu : locale === "hi" ? settings.trust3Hi : settings.trust3En) || "Boutique Quality Guarantee · Photo Preview on WhatsApp"}
               </h4>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs text-[#FAF7EF]/75 mt-0.5">
                 Handcrafted fresh to order by local florists with photo preview on WhatsApp.
               </p>
             </div>

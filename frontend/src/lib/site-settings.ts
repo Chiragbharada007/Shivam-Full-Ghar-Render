@@ -101,9 +101,9 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsData = {
   freeDeliveryThreshold: 3000,
   dailyCapacity: 10,
   minPrepDays: 2,
-  announcementGu: "🌸 દુકાનેથી તાજા ફૂલોનું મફત પિકઅપ! કોડ WELCOME10 થી 10% છૂટ.",
-  announcementHi: "🌸 दुकान से ताजे फूलों का मुफ्त पिकअप! कोड WELCOME10 से 10% छूट।",
-  announcementEn: "🌸 Free store pickup from our shop! Use code WELCOME10 for 10% off.",
+  announcementGu: "દુકાનેથી તાજા ફૂલોનું મફત પિકઅપ! કોડ WELCOME10 થી 10% છૂટ.",
+  announcementHi: "दुकान से ताजे फूलों का मुफ्त पिकअप! कोड WELCOME10 से 10% छूट।",
+  announcementEn: "Free store pickup from our Bhat Simroli shop! Use code WELCOME10 for 10% off.",
 
   heroBadgeGu: "શિવમ ફૂલ ઘર • ભાટ સિમરોલી",
   heroBadgeHi: "शिवम फूल घर • भाट सिमरौली",

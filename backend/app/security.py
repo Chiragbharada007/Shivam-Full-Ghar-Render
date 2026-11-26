@@ -103,7 +103,7 @@ def get_current_admin(
             detail="Invalid or expired session token",
         )
 
-    admin = db.query(AdminUser).filter(AdminUser.id == payload["sub"], AdminUser.is_active == True).first()
+    admin = db.query(AdminUser).filter(AdminUser.id == payload["sub"], AdminUser.isActive == True).first()
     if not admin:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

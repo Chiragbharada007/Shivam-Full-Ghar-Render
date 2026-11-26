@@ -29,12 +29,11 @@ export default async function ShopPage({
   const categories = await getStorefrontCategories();
 
   return (
-    <div className="py-12 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-white min-h-screen transition-colors duration-300">
+    <div className="py-12 bg-[#FAF7EF] text-[#282A26] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Editorial Heading in Dual Theme Aesthetic */}
+        {/* Editorial Heading */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/15 text-rose-600 dark:text-rose-300 text-xs font-semibold uppercase tracking-wider">
-            <span>🌸</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#244C38]/10 border border-[#244C38]/20 text-[#244C38] text-xs font-semibold uppercase tracking-wider">
             <span>
               {locale === "gu"
                 ? "ભાટ સિમરોલી અને સૌરાષ્ટ્રના લગ્નો માટે વિશેષ"
@@ -42,7 +41,7 @@ export default async function ShopPage({
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-serif font-black text-zinc-900 dark:text-white tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[#163526] tracking-tight">
             {locale === "gu"
               ? "તાજા ફૂલો અને લગ્ન વરમાળા"
               : locale === "hi"

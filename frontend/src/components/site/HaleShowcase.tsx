@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, ShoppingBag, Sparkles, X, Check } from "lucide-react";
-import { SteppedSlider, ColorHueSlider } from "@/components/ui/SmartSliders";
+import { ArrowLeft, ArrowRight, ShoppingBag, Flower2, X, Check } from "lucide-react";
+import { useLocale } from "next-intl";
 import { useNotifications } from "@/components/shared/NotificationSystem";
 
 interface ShowcaseItem {
@@ -24,11 +25,10 @@ const DEFAULT_SHOWCASE: ShowcaseItem[] = [
 ];
 
 export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseItem[] }) {
+  const locale = useLocale();
   const [category, setCategory] = useState("All");
   const [index, setIndex] = useState(0);
   const [sizeIdx, setSizeIdx] = useState(1);
-  const [hue, setHue] = useState(152);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [bagOpen, setBagOpen] = useState(false);
   const [bag, setBag] = useState<{ item: ShowcaseItem; size: string }[]>([]);
   const { notify } = useNotifications();
@@ -39,13 +39,6 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
   const active = list[index % list.length];
   const sizes = ["3.5 ft", "4.5 ft", "5.5 ft", "6.5 ft"];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const rx = ((e.clientY - rect.top) / rect.height - 0.5) * -14;
-    const ry = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
-    setTilt({ x: rx, y: ry });
-  };
-
   const handleAdd = () => {
     setBag((prev) => [...prev, { item: active, size: sizes[sizeIdx] }]);
     setBagOpen(true);
@@ -53,19 +46,17 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
       title: "Added to Wedding Bag",
       message: `${active.name} (${sizes[sizeIdx]})`,
       variant: "success",
-      undoLabel: "Undo",
-      onUndo: () => setBag((prev) => prev.slice(0, -1)),
     });
   };
 
   return (
-    <section className="relative rounded-[36px] p-6 md:p-10 glass-emerald text-white overflow-hidden">
+    <section className="rounded-3xl p-6 md:p-10 bg-white border border-[#244C38]/15 shadow-sm">
       <div className="flex flex-col lg:flex-row gap-8 items-center">
-        {/* Left: Interactive 3D Pedestal Scene */}
+        {/* Interactive Preview Stage */}
         <div className="flex-1 w-full space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono-tech bg-emerald-500/20 text-emerald-200 border border-emerald-400/30">
-              <Sparkles className="w-3.5 h-3.5" /> Interactive 3D Floral Scene
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#244C38]/10 text-[#244C38]">
+              <Flower2 className="w-3.5 h-3.5 text-[#9F333E]" /> Interactive Floral Preview
             </span>
             <div className="flex flex-wrap gap-1.5">
               {categories.map((cat) => (
@@ -76,10 +67,10 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
                     setCategory(cat);
                     setIndex(0);
                   }}
-                  className={`px-3 py-1 rounded-full text-xs font-geometric font-semibold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
                     category === cat
-                      ? "bg-gradient-to-r from-emerald-500 to-rose-600 text-white shadow-md"
-                      : "bg-white/10 text-zinc-300 hover:bg-white/20"
+                      ? "bg-[#244C38] text-[#FAF7EF]"
+                      : "bg-[#FAF7EF] text-[#282A26] border border-[#244C38]/15 hover:border-[#244C38]/40"
                   }`}
                 >
                   {cat}
@@ -88,33 +79,24 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             </div>
           </div>
 
-          <div
-            onMouseMove={handleMouseMove}
-            onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-            style={{ perspective: "1000px" }}
-            className="relative h-72 sm:h-88 rounded-[24px] bg-gradient-to-b from-emerald-950/75 via-[#041811] to-rose-950/45 border border-emerald-400/25 flex items-center justify-center overflow-hidden"
-          >
-            {/* 3D Pedestal Ring */}
-            <div className="absolute bottom-6 w-52 h-10 rounded-full bg-gradient-to-r from-emerald-500/25 via-rose-500/30 to-orange-500/25 blur-md" />
-
+          <div className="relative h-72 sm:h-88 rounded-2xl bg-[#FAF7EF] border border-[#244C38]/12 flex items-center justify-center overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.img
                 key={active.id}
                 src={active.image}
                 alt={active.name}
-                initial={{ opacity: 0, rotateY: -20, scale: 0.9 }}
-                animate={{ opacity: 1, rotateX: tilt.x, rotateY: tilt.y, scale: 1 }}
-                exit={{ opacity: 0, rotateY: 20, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                style={{ filter: `drop-shadow(0 20px 35px hsla(${hue}, 82%, 45%, 0.4))` }}
-                className="h-56 sm:h-72 w-auto object-contain rounded-2xl will-change-transform"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
+                className="h-60 sm:h-76 w-auto object-contain rounded-xl"
               />
             </AnimatePresence>
 
             <button
               type="button"
               onClick={() => setIndex((i) => (i - 1 + list.length) % list.length)}
-              className="absolute left-3 p-2.5 rounded-full bg-black/60 hover:bg-emerald-600 text-white border border-white/15 transition-colors"
+              className="absolute left-3 p-2.5 rounded-full bg-white/90 hover:bg-[#244C38] hover:text-white text-[#163526] border border-[#244C38]/20 shadow-xs transition-colors"
               aria-label="Previous design"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -122,7 +104,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             <button
               type="button"
               onClick={() => setIndex((i) => (i + 1) % list.length)}
-              className="absolute right-3 p-2.5 rounded-full bg-black/60 hover:bg-rose-600 text-white border border-white/15 transition-colors"
+              className="absolute right-3 p-2.5 rounded-full bg-white/90 hover:bg-[#244C38] hover:text-white text-[#163526] border border-[#244C38]/20 shadow-xs transition-colors"
               aria-label="Next design"
             >
               <ArrowRight className="w-4 h-4" />
@@ -130,58 +112,81 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
           </div>
         </div>
 
-        {/* Right: Controls + Same-Page Bag */}
+        {/* Details & Quick Add */}
         <div className="w-full lg:w-96 space-y-5">
           <div>
-            <span className="text-[11px] font-mono-tech text-emerald-300">{active.code} • {active.category}</span>
-            <h3 className="font-display text-2xl font-extrabold mt-1">{active.name}</h3>
-            <p className="font-mono-tech text-lg text-rose-300 font-bold mt-1">
+            <span className="text-xs font-mono-tech uppercase tracking-wider text-[#9F333E] font-semibold">
+              {active.code} • {active.category}
+            </span>
+            <h3 className="font-serif text-3xl font-bold text-[#163526] mt-1">{active.name}</h3>
+            <p className="font-mono-tech text-lg text-[#244C38] font-bold mt-1">
               ₹{active.price.toLocaleString("en-IN")}
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <span className="text-xs font-geometric text-zinc-300">Select Garland Length</span>
-            <SteppedSlider steps={sizes} index={sizeIdx} onChange={setSizeIdx} />
+          <div className="space-y-2">
+            <span className="text-xs font-semibold text-[#282A26]/80 block">Select Length / Size</span>
+            <div className="grid grid-cols-4 gap-2">
+              {sizes.map((s, idx) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setSizeIdx(idx)}
+                  className={`py-2 rounded-xl text-xs font-semibold border transition-colors ${
+                    sizeIdx === idx
+                      ? "bg-[#244C38] text-[#FAF7EF] border-[#244C38]"
+                      : "bg-[#FAF7EF] text-[#282A26] border-[#244C38]/20 hover:border-[#244C38]/50"
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <ColorHueSlider hue={hue} onChange={setHue} />
-
-          <button
-            type="button"
-            onClick={handleAdd}
-            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-rose-600 hover:opacity-95 text-white font-geometric font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-emerald-900/35 transition-all"
-          >
-            <ShoppingBag className="w-4 h-4" />
-            <span>Add to Bag ({bag.length})</span>
-          </button>
+          <div className="flex flex-col gap-2.5">
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="w-full py-3.5 px-5 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
+            >
+              <ShoppingBag className="w-4 h-4 text-[#D7B77C]" />
+              <span>Add to Bag ({bag.length})</span>
+            </button>
+            <Link
+              href={`/${locale}/custom-design`}
+              className="w-full py-2.5 px-5 rounded-xl border border-[#9F333E]/30 text-[#9F333E] hover:bg-[#9F333E]/8 font-semibold text-xs text-center transition-colors"
+            >
+              Customize Colours & Flowers
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Same-Page Slide-Over Bag Modal Sheet */}
+      {/* Same-Page Slide-Over Bag Drawer */}
       <AnimatePresence>
         {bagOpen && (
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 24, stiffness: 260 }}
-            className="fixed top-0 right-0 bottom-0 z-[80] w-80 max-w-[90vw] glass-emerald text-white p-6 flex flex-col justify-between border-l border-emerald-500/30"
+            transition={{ type: "spring", damping: 25, stiffness: 260 }}
+            className="fixed top-0 right-0 bottom-0 z-[80] w-80 max-w-[90vw] bg-[#FAF7EF] text-[#282A26] p-6 flex flex-col justify-between border-l border-[#244C38]/20 shadow-2xl"
           >
             <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <h4 className="font-display font-bold text-base">Wedding Bag ({bag.length})</h4>
-                <button onClick={() => setBagOpen(false)} className="p-1 rounded-lg hover:bg-white/10">
+              <div className="flex items-center justify-between border-b border-[#244C38]/15 pb-3">
+                <h4 className="font-serif font-bold text-xl text-[#163526]">Wedding Bag ({bag.length})</h4>
+                <button onClick={() => setBagOpen(false)} className="p-1.5 rounded-lg hover:bg-[#244C38]/10">
                   <X className="w-4 h-4" />
                 </button>
               </div>
               <div className="space-y-2.5 max-h-[60vh] overflow-y-auto">
                 {bag.map((b, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3 text-xs">
-                    <img src={b.item.image} alt={b.item.name} className="w-11 h-11 rounded-xl object-cover" />
+                  <div key={idx} className="p-3 rounded-2xl bg-white border border-[#244C38]/12 flex items-center gap-3 text-xs">
+                    <img src={b.item.image} alt={b.item.name} className="w-12 h-12 rounded-xl object-cover" />
                     <div className="min-w-0 flex-1">
-                      <p className="font-bold truncate">{b.item.name}</p>
-                      <p className="text-emerald-300 font-mono-tech">{b.size} • ₹{b.item.price}</p>
+                      <p className="font-bold text-[#163526] truncate">{b.item.name}</p>
+                      <p className="text-[#9F333E] font-mono-tech">{b.size} • ₹{b.item.price}</p>
                     </div>
                   </div>
                 ))}
@@ -190,9 +195,9 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
             <button
               type="button"
               onClick={() => setBagOpen(false)}
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-rose-600 text-xs font-bold flex items-center justify-center gap-1.5"
+              className="w-full py-3 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] text-xs font-semibold flex items-center justify-center gap-1.5"
             >
-              <Check className="w-4 h-4" />
+              <Check className="w-4 h-4 text-[#D7B77C]" />
               <span>Continue Browsing</span>
             </button>
           </motion.div>

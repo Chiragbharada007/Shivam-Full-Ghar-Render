@@ -116,11 +116,13 @@ async def send_admin_otp(payload: LoginRequest, db: Session = Depends(get_db)):
     now = datetime.now(timezone.utc)
     otp_code = generate_otp_code()
     admin.otpHash = hash_otp(otp_code)
-    admin.otpExpiresAt = now + timedelta(seconds=60)
+    admin.otpExpiresAt = now + timedelta(seconds=300)
     admin.otpAttempts = 0
     admin.otpLastSentAt = now
 
     email_ok, email_status = await send_otp_email(admin.email, otp_code, admin.name)
+    if not email_ok and settings.admin_notify_email and admin.email != settings.admin_notify_email:
+        email_ok, email_status = await send_otp_email(settings.admin_notify_email, otp_code, admin.name)
     sms_ok, sms_channel = await send_otp_sms_or_telegram(admin.phone or "", otp_code)
 
     db.add(

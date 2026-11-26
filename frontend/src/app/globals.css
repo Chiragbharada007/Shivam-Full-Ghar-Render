@@ -2,45 +2,24 @@
 
 @layer base {
   :root {
-    --background: #faf9f6;
-    --foreground: #09090b;
-    --card: #ffffff;
-    --card-foreground: #09090b;
-    --popover: #ffffff;
-    --popover-foreground: #09090b;
-    --primary: #e11d48;
-    --primary-foreground: #ffffff;
-    --secondary: #f4f4f5;
-    --secondary-foreground: #18181b;
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-    --accent: #f4f4f5;
-    --accent-foreground: #18181b;
-    --destructive: #ef4444;
-    --border: rgba(0, 0, 0, 0.08);
-    --input: rgba(0, 0, 0, 0.12);
-    --ring: #e11d48;
-  }
-
-  html.dark {
-    --background: #060606;
-    --foreground: #f4f4f5;
-    --card: #0c0c0c;
-    --card-foreground: #f4f4f5;
-    --popover: #0c0c0c;
-    --popover-foreground: #f4f4f5;
-    --primary: #f43f5e;
-    --primary-foreground: #ffffff;
-    --secondary: #18181b;
-    --secondary-foreground: #fafafa;
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
-    --accent: #27272a;
-    --accent-foreground: #fafafa;
-    --destructive: #ef4444;
-    --border: rgba(255, 255, 255, 0.1);
-    --input: rgba(255, 255, 255, 0.15);
-    --ring: #f43f5e;
+    --background: #FAF7EF;
+    --foreground: #282A26;
+    --card: #FFFFFF;
+    --card-foreground: #282A26;
+    --popover: #FFFFFF;
+    --popover-foreground: #282A26;
+    --primary: #244C38;
+    --primary-deep: #163526;
+    --primary-foreground: #FAF7EF;
+    --secondary: #F3EFE4;
+    --secondary-foreground: #282A26;
+    --accent-floral: #9F333E;
+    --accent-gold: #D7B77C;
+    --muted: #EFECE2;
+    --muted-foreground: #5C5F58;
+    --border: rgba(36, 76, 56, 0.14);
+    --input: rgba(36, 76, 56, 0.2);
+    --ring: #244C38;
   }
 
   body {
@@ -48,282 +27,47 @@
     color: var(--foreground);
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, .font-serif {
     font-family: var(--font-serif), Georgia, serif;
+    color: #163526;
   }
 
-  .font-display {
-    font-family: var(--font-display), var(--font-sans), sans-serif;
-    letter-spacing: -0.025em;
-  }
-
-  .font-editorial {
-    font-family: var(--font-serif), Georgia, serif;
-  }
-
-  .font-geometric {
-    font-family: var(--font-sans), system-ui, sans-serif;
-  }
-
-  .font-mono-tech {
-    font-family: var(--font-mono), ui-monospace, monospace;
-  }
-
-  /* Curved Glassmorphism Surfaces (Emerald Green & Royal Red Theme) */
-  .glass-emerald {
-    background: linear-gradient(145deg, rgba(6, 46, 33, 0.9), rgba(4, 22, 16, 0.95));
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    border: 1px solid rgba(16, 185, 129, 0.28);
-    box-shadow: 0 20px 50px rgba(4, 47, 46, 0.35);
-  }
-
-  .glass-royal-red {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 241, 242, 0.92));
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(225, 29, 72, 0.22);
-    box-shadow: 0 18px 42px rgba(225, 29, 72, 0.12);
-  }
-
-  .glass-purple {
-    background: linear-gradient(145deg, rgba(6, 46, 33, 0.9), rgba(4, 22, 16, 0.95));
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    border: 1px solid rgba(16, 185, 129, 0.28);
-    box-shadow: 0 20px 50px rgba(4, 47, 46, 0.35);
-  }
-
-  .glass-coral {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 241, 242, 0.92));
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(225, 29, 72, 0.22);
-    box-shadow: 0 18px 42px rgba(225, 29, 72, 0.12);
-  }
-
-  /* Multi-lingual Typography Optimization */
   html[lang="gu"],
-  html[lang="gu"] body {
-    font-family: var(--font-gujarati), var(--font-sans), system-ui, -apple-system, sans-serif;
-  }
+  html[lang="gu"] body,
   html[lang="gu"] h1,
   html[lang="gu"] h2,
-  html[lang="gu"] h3,
-  html[lang="gu"] h4,
-  html[lang="gu"] .font-serif {
-    font-family: var(--font-gujarati), var(--font-serif), Georgia, serif;
+  html[lang="gu"] h3 {
+    font-family: var(--font-gujarati), var(--font-sans), system-ui, sans-serif;
   }
 
   html[lang="hi"],
-  html[lang="hi"] body {
-    font-family: var(--font-devanagari), var(--font-sans), system-ui, -apple-system, sans-serif;
-  }
+  html[lang="hi"] body,
   html[lang="hi"] h1,
   html[lang="hi"] h2,
-  html[lang="hi"] h3,
-  html[lang="hi"] h4,
-  html[lang="hi"] .font-serif {
-    font-family: var(--font-devanagari), var(--font-serif), Georgia, serif;
+  html[lang="hi"] h3 {
+    font-family: var(--font-devanagari), var(--font-sans), system-ui, sans-serif;
   }
 }
 
-/* Unified Design System Components */
-.sfg-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.875rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: rgba(225, 29, 72, 0.08);
-  border: 1px solid rgba(225, 29, 72, 0.2);
-  color: #e11d48;
-}
-html.dark .sfg-badge {
-  background-color: rgba(244, 63, 94, 0.12);
-  border-color: rgba(244, 63, 94, 0.25);
-  color: #fda4af;
+.font-editorial {
+  font-family: var(--font-serif), Georgia, serif;
 }
 
-.sfg-card {
-  border-radius: 1.5rem;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-html.dark .sfg-card {
-  background-color: #0c0c0c;
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: none;
+.font-geometric {
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-.sfg-btn-whatsapp {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 1rem;
-  background-color: #059669;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.875rem;
-  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-.sfg-btn-whatsapp:hover {
-  background-color: #10b981;
-  transform: translateY(-1px);
-}
-.sfg-btn-whatsapp:active {
-  transform: translateY(0);
+.font-mono-tech {
+  font-family: var(--font-mono), ui-monospace, monospace;
 }
 
-.sfg-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 1rem;
-  background: linear-gradient(to right, #e11d48, #d97706);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.875rem;
-  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-.sfg-btn-primary:hover {
-  background: linear-gradient(to right, #f43f5e, #f59e0b);
-  transform: translateY(-1px);
-}
-
-.sfg-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 1rem;
-  background-color: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: #18181b;
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-html.dark .sfg-btn-secondary {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #f4f4f5;
-}
-.sfg-btn-secondary:hover {
-  background-color: rgba(0, 0, 0, 0.08);
-}
-html.dark .sfg-btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Custom Sleek Scrollbar (Dynamic Dark / Light) */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-html.dark ::-webkit-scrollbar-track {
-  background: #060606;
-}
-html:not(.dark) ::-webkit-scrollbar-track {
-  background: #f4f4f5;
-}
-html.dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 9999px;
-}
-html:not(.dark) ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(244, 63, 94, 0.5);
-}
-
-/* Lenis Recommended CSS */
-html.lenis, html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* 3D Perspective Card Tilt Container */
-.perspective-1000 {
-  perspective: 1000px;
-}
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-/* Subtle Animated Ambient Glows */
-@keyframes pulse-subtle {
-  0%, 100% {
-    opacity: 0.18;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.32;
-    transform: scale(1.04);
-  }
-}
-.animate-ambient-glow {
-  animation: pulse-subtle 8s ease-in-out infinite alternate;
-}
-
-/* Video Card Ken-Burns / Dolly Preview */
-@keyframes kenburns-pan {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-  50% {
-    transform: scale(1.08) translate(-1%, -1%);
-  }
-  100% {
-    transform: scale(1) translate(0, 0);
-  }
-}
-.animate-kenburns {
-  animation: kenburns-pan 12s ease-in-out infinite;
-}
-
-/* Print Invoice Styles */
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  .no-print {
-    display: none !important;
-  }
-  .print-only {
-    display: block !important;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -102,78 +102,199 @@ def admin_list_products(db: Session = Depends(get_db), admin=Depends(get_current
     return {"success": True, "products": [_serialize_product(p, "en") for p in products]}
 
 
-class ProductUpsert(BaseModel):
+class ProductCreateInput(BaseModel):
     code: str
-    categoryId: str
+    categoryId: Optional[str] = None
+    categorySlug: Optional[str] = "garlands"
     basePrice: int
     salePrice: Optional[int] = None
+    mrp: Optional[int] = None
     unit: str = "pair"
     prepTimeDays: int = 2
     status: str = "PUBLISHED"
-    nameEn: str
+    nameEn: Optional[str] = None
     nameGu: Optional[str] = None
     nameHi: Optional[str] = None
-    descriptionEn: str = ""
+    descriptionEn: Optional[str] = ""
     descriptionGu: Optional[str] = None
     descriptionHi: Optional[str] = None
     imageUrl: Optional[str] = None
+    secondaryImageUrl: Optional[str] = None
+
+
+class ProductUpdateInput(BaseModel):
+    code: Optional[str] = None
+    categoryId: Optional[str] = None
+    categorySlug: Optional[str] = None
+    basePrice: Optional[int] = None
+    salePrice: Optional[int] = None
+    mrp: Optional[int] = None
+    unit: Optional[str] = None
+    prepTimeDays: Optional[int] = None
+    status: Optional[str] = None
+    nameEn: Optional[str] = None
+    nameGu: Optional[str] = None
+    nameHi: Optional[str] = None
+    descriptionEn: Optional[str] = None
+    descriptionGu: Optional[str] = None
+    descriptionHi: Optional[str] = None
+    imageUrl: Optional[str] = None
+    secondaryImageUrl: Optional[str] = None
+
+
+def _resolve_category_id(db: Session, category_id: Optional[str], category_slug: Optional[str]) -> str:
+    if category_id:
+        cat = db.query(Category).filter(Category.id == category_id).first()
+        if cat:
+            return cat.id
+    slug = (category_slug or "garlands").strip().lower()
+    cat = db.query(Category).filter(Category.slug == slug).first()
+    if not cat:
+        cat = Category(slug=slug, sortOrder=0, isActive=True)
+        cat.translations = [
+            CategoryTranslation(locale="en", name=slug.replace("-", " ").title()),
+            CategoryTranslation(locale="gu", name=slug.replace("-", " ").title()),
+            CategoryTranslation(locale="hi", name=slug.replace("-", " ").title()),
+        ]
+        db.add(cat)
+        db.flush()
+    return cat.id
+
+
+def _to_admin_product_view(p: Product) -> dict:
+    tr = {t.locale: t for t in p.translations}
+    primary_img = next((img.url for img in p.images if img.isPrimary), None) or (
+        p.images[0].url if p.images else "/products/VM-R01.jpg"
+    )
+    secondary_img = p.images[1].url if len(p.images) > 1 else None
+    cat_tr = {ct.locale: ct.name for ct in p.category.translations} if p.category else {}
+    base_rupees = round((p.salePrice or p.basePrice or 0) / 100)
+    mrp_rupees = round((p.basePrice or 0) / 100)
+    return {
+        "id": p.id,
+        "code": p.code,
+        "nameGu": tr.get("gu").name if tr.get("gu") else p.code,
+        "nameHi": tr.get("hi").name if tr.get("hi") else p.code,
+        "nameEn": tr.get("en").name if tr.get("en") else p.code,
+        "categorySlug": p.category.slug if p.category else "garlands",
+        "categoryName": cat_tr.get("en") or cat_tr.get("gu") or (p.category.slug if p.category else "Garlands"),
+        "colourSlug": "red",
+        "colourName": "Red",
+        "basePrice": base_rupees,
+        "mrp": mrp_rupees,
+        "prepTimeDays": p.prepTimeDays,
+        "unit": p.unit,
+        "status": p.status,
+        "imageUrl": primary_img,
+        "secondaryImageUrl": secondary_img,
+        "descriptionGu": tr.get("gu").description if tr.get("gu") else "",
+        "descriptionHi": tr.get("hi").description if tr.get("hi") else "",
+        "descriptionEn": tr.get("en").description if tr.get("en") else "",
+        "sortOrder": p.sortOrder,
+    }
 
 
 @router.post("/products")
-def admin_create_product(payload: ProductUpsert, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+def admin_create_product(payload: ProductCreateInput, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
     if db.query(Product).filter(Product.code == payload.code.strip()).first():
         raise HTTPException(status_code=400, detail="Product code already exists")
 
+    cat_id = _resolve_category_id(db, payload.categoryId, payload.categorySlug)
+    # Normalize rupees vs paise (ProductManager sends rupees e.g. 2800; API tests may send paise e.g. 250000)
+    base_paise = payload.basePrice * 100 if payload.basePrice < 50000 else payload.basePrice
+    mrp_raw = payload.mrp or payload.basePrice
+    mrp_paise = mrp_raw * 100 if mrp_raw < 50000 else mrp_raw
+    sale_paise = (payload.salePrice * 100 if payload.salePrice < 50000 else payload.salePrice) if payload.salePrice else base_paise
+
+    display_name = payload.nameEn or payload.nameGu or payload.code.strip()
+    display_desc = payload.descriptionEn or payload.descriptionGu or display_name
+
     p = Product(
         code=payload.code.strip(),
-        categoryId=payload.categoryId,
-        basePrice=payload.basePrice,
-        salePrice=payload.salePrice,
+        categoryId=cat_id,
+        basePrice=mrp_paise,
+        salePrice=sale_paise,
         unit=payload.unit,
         prepTimeDays=payload.prepTimeDays,
         status=payload.status,
     )
     p.translations = [
-        ProductTranslation(locale="en", name=payload.nameEn, description=payload.descriptionEn or payload.nameEn, slug=payload.code.lower()),
-        ProductTranslation(locale="gu", name=payload.nameGu or payload.nameEn, description=payload.descriptionGu or payload.descriptionEn or payload.nameEn),
-        ProductTranslation(locale="hi", name=payload.nameHi or payload.nameEn, description=payload.descriptionHi or payload.descriptionEn or payload.nameEn),
+        ProductTranslation(locale="en", name=display_name, description=display_desc, slug=payload.code.strip().lower()),
+        ProductTranslation(locale="gu", name=payload.nameGu or display_name, description=payload.descriptionGu or display_desc),
+        ProductTranslation(locale="hi", name=payload.nameHi or display_name, description=payload.descriptionHi or display_desc),
     ]
+    imgs = []
     if payload.imageUrl:
-        p.images = [ProductImage(url=payload.imageUrl, isPrimary=True, sortOrder=0)]
+        imgs.append(ProductImage(url=payload.imageUrl, isPrimary=True, sortOrder=0))
+    if payload.secondaryImageUrl:
+        imgs.append(ProductImage(url=payload.secondaryImageUrl, isPrimary=False, sortOrder=1))
+    p.images = imgs
 
     db.add(p)
     db.commit()
     db.refresh(p)
-    return {"success": True, "id": p.id}
+    p = (
+        db.query(Product)
+        .options(joinedload(Product.translations), joinedload(Product.images), joinedload(Product.category).joinedload(Category.translations))
+        .filter(Product.id == p.id)
+        .first()
+    )
+    return {"success": True, "id": p.id, "product": _to_admin_product_view(p)}
 
 
 @router.put("/products/{product_id}")
-def admin_update_product(product_id: str, payload: ProductUpsert, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
-    p = db.query(Product).options(joinedload(Product.translations), joinedload(Product.images)).filter(Product.id == product_id).first()
+def admin_update_product(product_id: str, payload: ProductUpdateInput, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+    p = (
+        db.query(Product)
+        .options(joinedload(Product.translations), joinedload(Product.images), joinedload(Product.category).joinedload(Category.translations))
+        .filter(Product.id == product_id)
+        .first()
+    )
     if not p:
         raise HTTPException(status_code=404, detail="Product not found")
 
-    p.code = payload.code.strip()
-    p.categoryId = payload.categoryId
-    p.basePrice = payload.basePrice
-    p.salePrice = payload.salePrice
-    p.unit = payload.unit
-    p.prepTimeDays = payload.prepTimeDays
-    p.status = payload.status
+    if payload.code is not None:
+        p.code = payload.code.strip()
+    if payload.categoryId is not None or payload.categorySlug is not None:
+        p.categoryId = _resolve_category_id(db, payload.categoryId, payload.categorySlug)
+    if payload.basePrice is not None:
+        sale_paise = payload.basePrice * 100 if payload.basePrice < 50000 else payload.basePrice
+        p.salePrice = sale_paise
+        if payload.mrp is None:
+            p.basePrice = sale_paise
+    if payload.mrp is not None:
+        p.basePrice = payload.mrp * 100 if payload.mrp < 50000 else payload.mrp
+    if payload.salePrice is not None:
+        p.salePrice = payload.salePrice * 100 if payload.salePrice < 50000 else payload.salePrice
+    if payload.unit is not None:
+        p.unit = payload.unit
+    if payload.prepTimeDays is not None:
+        p.prepTimeDays = payload.prepTimeDays
+    if payload.status is not None:
+        p.status = payload.status
 
     trans_by_loc = {t.locale: t for t in p.translations}
-    for loc, name, desc in [
+    for loc, name_val, desc_val in [
         ("en", payload.nameEn, payload.descriptionEn),
-        ("gu", payload.nameGu or payload.nameEn, payload.descriptionGu or payload.descriptionEn),
-        ("hi", payload.nameHi or payload.nameEn, payload.descriptionHi or payload.descriptionEn),
+        ("gu", payload.nameGu, payload.descriptionGu),
+        ("hi", payload.nameHi, payload.descriptionHi),
     ]:
-        if loc in trans_by_loc:
-            trans_by_loc[loc].name = name
-            trans_by_loc[loc].description = desc or name
-        else:
-            p.translations.append(ProductTranslation(locale=loc, name=name, description=desc or name))
+        if name_val is not None or desc_val is not None:
+            if loc in trans_by_loc:
+                if name_val is not None:
+                    trans_by_loc[loc].name = name_val
+                if desc_val is not None:
+                    trans_by_loc[loc].description = desc_val
+            else:
+                p.translations.append(
+                    ProductTranslation(
+                        locale=loc,
+                        name=name_val or p.code,
+                        description=desc_val or name_val or p.code,
+                    )
+                )
 
-    if payload.imageUrl:
+    if payload.imageUrl is not None:
         if p.images:
             p.images[0].url = payload.imageUrl
             p.images[0].isPrimary = True
@@ -181,7 +302,14 @@ def admin_update_product(product_id: str, payload: ProductUpsert, db: Session = 
             p.images.append(ProductImage(url=payload.imageUrl, isPrimary=True, sortOrder=0))
 
     db.commit()
-    return {"success": True}
+    db.refresh(p)
+    p = (
+        db.query(Product)
+        .options(joinedload(Product.translations), joinedload(Product.images), joinedload(Product.category).joinedload(Category.translations))
+        .filter(Product.id == p.id)
+        .first()
+    )
+    return {"success": True, "product": _to_admin_product_view(p)}
 
 
 @router.delete("/products/{product_id}")

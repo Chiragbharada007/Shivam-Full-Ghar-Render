@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import {
   Plus_Jakarta_Sans,
   Cormorant_Garamond,
-  Syne,
   JetBrains_Mono,
   Noto_Sans_Gujarati,
   Noto_Sans_Devanagari,
@@ -31,13 +30,6 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const syne = Syne({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-display",
-  display: "swap",
-});
-
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -62,16 +54,24 @@ const notoSansDevanagari = Noto_Sans_Devanagari({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://shivam-full-ghar.onrender.com"),
   title: {
-    default: "Shivam Full Ghar (શિવમ ફૂલ ઘર) • Bhat Simroli Fresh Wedding Flowers",
+    default: "Shivam Full Ghar (શિવમ ફૂલ ઘર) • Indian Wedding Floral Boutique, Keshod",
     template: "%s | Shivam Full Ghar",
   },
   description:
-    "Authentic Gujarati wedding garlands (વરમાળા), bridal hair veni (વેણી), fresh mogra gajra, and floral car decorations in Bhat Simroli, Keshod, Gujarat.",
+    "Handcrafted Indian wedding garlands (Varmala), bridal hair veni, fresh Madurai mogra gajra, floral jewellery, and car decoration in Bhat Simroli, Keshod, Gujarat.",
+  openGraph: {
+    title: "Shivam Full Ghar • Fresh Wedding Flowers & Varmala Boutique",
+    description:
+      "Bespoke wedding garlands, bridal veni, mogra gajra, and car floral decor in Bhat Simroli, Keshod.",
+    type: "website",
+    images: [{ url: "/products/hero-wedding.jpg", width: 1200, height: 630, alt: "Shivam Full Ghar Wedding Florals" }],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
@@ -100,20 +100,14 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`dark ${plusJakarta.variable} ${cormorant.variable} ${syne.variable} ${jetbrainsMono.variable} ${notoSansGujarati.variable} ${notoSansDevanagari.variable} antialiased`}
-      style={{ colorScheme: "dark" }}
+      className={`${plusJakarta.variable} ${cormorant.variable} ${jetbrainsMono.variable} ${notoSansGujarati.variable} ${notoSansDevanagari.variable} antialiased`}
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('sfg_theme');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.style.colorScheme='light';}else{document.documentElement.classList.add('dark');document.documentElement.classList.remove('light');document.documentElement.style.colorScheme='dark';}}catch(e){}})();`,
-          }}
-        />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#faf9f6] text-zinc-900 dark:bg-[#07050c] dark:text-zinc-100 selection:bg-emerald-500/30 selection:text-white transition-colors duration-300">
+      <body className="min-h-screen flex flex-col bg-[#FAF7EF] text-[#282A26] selection:bg-[#244C38]/15 selection:text-[#163526]">
         <DynamicFavicon />
         <NextIntlClientProvider messages={messages}>
           <NotificationProvider>

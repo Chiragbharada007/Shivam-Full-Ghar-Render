@@ -3,12 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  UploadCloud,
-  CheckCircle2,
-  ArrowRight,
-  AlertCircle,
-} from "lucide-react";
+import { UploadCloud, CheckCircle2, ArrowRight, AlertCircle, X } from "lucide-react";
 import { CustomGarlandBuilder } from "@/components/site/CustomGarlandBuilder";
 
 export default function CustomDesignPage() {
@@ -17,8 +12,12 @@ export default function CustomDesignPage() {
 
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
   const [eventDate, setEventDate] = useState("");
+  const [eventType, setEventType] = useState("Wedding Varmala");
+  const [flowers, setFlowers] = useState("Dutch Roses & Madurai Mogra");
+  const [colors, setColors] = useState("Crimson Red & Ivory White");
+  const [quantity, setQuantity] = useState("1 Pair");
+  const [fulfillment, setFulfillment] = useState<"PICKUP" | "DELIVERY">("PICKUP");
   const [budget, setBudget] = useState("");
   const [description, setDescription] = useState("");
   const [photos, setPhotos] = useState<string[]>([]);
@@ -26,51 +25,70 @@ export default function CustomDesignPage() {
   const [error, setError] = useState("");
   const [submittedRequestNumber, setSubmittedRequestNumber] = useState<string | null>(null);
 
-  const handleSimulatePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      const newUrls = files.slice(0, 5).map((f) => URL.createObjectURL(f));
-      setPhotos((prev) => [...prev, ...newUrls].slice(0, 5));
-    }
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? Array.from(e.target.files).slice(0, 5) : [];
+    files.forEach((file) => {
+      if (file.size > 5 * 1024 * 1024) {
+        setError("Each reference image must be under 5MB.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          setPhotos((prev) => [...prev, reader.result as string].slice(0, 5));
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    const cleanMobile = mobile.replace(/\D/g, "");
-    if (cleanMobile.length !== 10) {
-      setError("Please provide a valid 10-digit mobile number");
+    const cleanMobile = mobile.replace(/\D/g, "").slice(-10);
+    if (!name.trim()) {
+      setError("Please enter your full name.");
       return;
     }
-
+    if (cleanMobile.length !== 10) {
+      setError("Please provide a valid 10-digit WhatsApp mobile number.");
+      return;
+    }
     if (!description.trim()) {
-      setError("Please describe your custom floral requirements");
+      setError("Please describe your custom floral requirements.");
       return;
     }
 
     setIsSubmitting(true);
+    const fullDescription = [
+      `Event Type: ${eventType}`,
+      `Required Flowers: ${flowers}`,
+      `Color Preferences: ${colors}`,
+      `Quantity: ${quantity}`,
+      `Fulfillment: ${fulfillment === "PICKUP" ? "Bhat Simroli Store Pickup" : "Local Delivery"}`,
+      `Notes: ${description.trim()}`,
+    ].join("\n");
 
     try {
       const res = await fetch("/api/custom-requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          customerName: name,
+          customerName: name.trim(),
           customerMobile: cleanMobile,
-          customerEmail: email || null,
           eventDate: eventDate || null,
           budget: budget ? parseInt(budget, 10) : null,
-          description,
+          description: fullDescription,
           photoUrls: photos,
         }),
       });
 
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         setSubmittedRequestNumber(data.requestNumber);
       } else {
-        setError(data.message || "Failed to submit request.");
+        setError(data.message || "Failed to submit custom request.");
       }
     } catch (err: any) {
       setError(err.message || "Network error. Please try again.");
@@ -88,105 +106,88 @@ export default function CustomDesignPage() {
     referenceImage: string;
   }) => {
     setBudget(config.estimatedTotal.toString());
-    const spec = `Custom Varmala Pair Specifications:\n• Flower Theme: ${config.baseName}\n• Length: ${config.length}\n• Weave / Density: ${config.weaveName}\n• Sacred Accents: ${config.accents.length > 0 ? config.accents.join(", ") : "Standard"}\n• Live Calculated Estimate: ₹${config.estimatedTotal.toLocaleString("en-IN")}`;
-    setDescription(spec);
-    if (!photos.includes(config.referenceImage)) {
+    setFlowers(config.baseName);
+    setDescription(
+      `Custom Varmala Pair:\n• Length: ${config.length}\n• Weave: ${config.weaveName}\n• Accents: ${
+        config.accents.length > 0 ? config.accents.join(", ") : "Standard"
+      }\n• Live Estimate: ₹${config.estimatedTotal.toLocaleString("en-IN")}`
+    );
+    if (config.referenceImage && !photos.includes(config.referenceImage)) {
       setPhotos((prev) => [config.referenceImage, ...prev].slice(0, 5));
     }
-    const formElement = document.getElementById("inquiry-form");
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById("inquiry-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
   if (submittedRequestNumber) {
     return (
-      <div className="py-20 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 min-h-[70vh] flex items-center justify-center px-4 transition-colors">
-        <div className="max-w-md w-full rounded-3xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xl p-8 text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-xs">
-            <CheckCircle2 className="w-9 h-9 stroke-[2.5]" />
+      <div className="py-20 bg-[#FAF7EF] text-[#282A26] min-h-[70vh] flex items-center justify-center px-4">
+        <div className="max-w-md w-full rounded-3xl bg-white border border-[#244C38]/20 shadow-md p-8 text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-[#244C38]/10 text-[#244C38] flex items-center justify-center mx-auto">
+            <CheckCircle2 className="w-9 h-9" />
           </div>
-          <h2 className="text-2xl font-serif font-black text-zinc-900 dark:text-white">
-            {t("successTitle")}
-          </h2>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
-            {t("successDesc")}
-          </p>
-          <div className="p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white font-mono font-bold text-lg">
+          <h2 className="text-2xl font-serif font-bold text-[#163526]">{t("successTitle")}</h2>
+          <p className="text-xs text-[#282A26]/75 leading-relaxed">{t("successDesc")}</p>
+          <div className="p-4 rounded-2xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#9F333E] font-mono-tech font-bold text-lg">
             {submittedRequestNumber}
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-sans">
-            {t("trackNotice")}
-          </p>
-          <div className="pt-2">
-            <Link
-              href={`/${locale}`}
-              className="inline-block px-8 py-3 rounded-2xl bg-zinc-900 text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-zinc-200 font-bold text-xs shadow-md transition-colors"
-            >
-              Back to Home
-            </Link>
-          </div>
+          <p className="text-xs text-[#282A26]/70">{t("trackNotice")}</p>
+          <Link
+            href={`/${locale}`}
+            className="inline-block px-8 py-3 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] font-semibold text-xs transition-colors"
+          >
+            Back to Home
+          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="py-14 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 min-h-screen transition-colors duration-300">
+    <div className="py-14 bg-[#FAF7EF] text-[#282A26] min-h-screen">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-400">
-            Customised to Your Exact Theme & Reference
+        <div className="text-center space-y-2.5">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-[#244C38]/10 text-[#244C38] text-xs font-semibold uppercase tracking-widest">
+            Bespoke Indian Wedding Florals
           </span>
-          <h1 className="text-3xl sm:text-4xl font-serif font-black text-zinc-900 dark:text-white">
-            {t("title")}
-          </h1>
-          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed font-sans">
-            {t("subtitle")}
-          </p>
+          <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[#163526]">{t("title")}</h1>
+          <p className="text-sm text-[#282A26]/75 max-w-xl mx-auto leading-relaxed">{t("subtitle")}</p>
         </div>
 
-        {/* Interactive Custom Garland Builder */}
         <CustomGarlandBuilder onApplyConfig={handleApplyConfig} locale={locale} />
 
-        {/* Formal Custom Request Form */}
-        <div id="inquiry-form" className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-sm space-y-6 transition-colors">
-          <div className="border-b border-black/10 dark:border-white/10 pb-4">
-            <h2 className="text-xl font-serif font-black text-zinc-900 dark:text-white">
-              Submit Reference & Receive Binding Quotation
+        <div id="inquiry-form" className="p-6 sm:p-8 rounded-3xl bg-white border border-[#244C38]/15 shadow-sm space-y-6">
+          <div className="border-b border-[#244C38]/12 pb-4">
+            <h2 className="text-2xl font-serif font-bold text-[#163526]">
+              Submit Custom Floral Inquiry
             </h2>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 font-sans">
-              Attach sample photos, event date, and specific requests. Our Bhat Simroli master florists will review and issue your itemized quotation within 2 hours.
+            <p className="text-xs text-[#282A26]/70 mt-1">
+              Share your event details and reference photos. Our Bhat Simroli florists will prepare your custom quotation.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5 text-xs">
             {error && (
-              <div className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/30 text-xs text-rose-700 dark:text-rose-300 font-medium flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+              <div className="p-3.5 rounded-xl bg-[#9F333E]/10 border border-[#9F333E]/25 text-[#9F333E] font-medium flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                  {t("name")} *
-                </label>
+                <label className="font-semibold text-[#163526]">{t("name")} *</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Priya Shah"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-500 text-sm focus:outline-hidden focus:border-rose-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                  {t("mobile")} *
-                </label>
+                <label className="font-semibold text-[#163526]">{t("mobile")} *</label>
                 <input
                   type="tel"
                   required
@@ -194,79 +195,147 @@ export default function CustomDesignPage() {
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
                   placeholder="10-digit WhatsApp number"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-500 text-sm focus:outline-hidden focus:border-rose-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                  {t("eventDate")}
-                </label>
+                <label className="font-semibold text-[#163526]">{t("eventDate")}</label>
                 <input
                   type="date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white text-sm focus:outline-hidden focus:border-rose-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                  {t("budget")}
-                </label>
+                <label className="font-semibold text-[#163526]">Event Type</label>
+                <select
+                  value={eventType}
+                  onChange={(e) => setEventType(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                >
+                  <option>Wedding Varmala</option>
+                  <option>Bridal Hair Veni & Gajra</option>
+                  <option>Haldi / Mehndi Floral Jewellery</option>
+                  <option>Car Decoration</option>
+                  <option>Complete Wedding Package</option>
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="font-semibold text-[#163526]">Required Flowers</label>
+                <input
+                  type="text"
+                  value={flowers}
+                  onChange={(e) => setFlowers(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="font-semibold text-[#163526]">Color Preferences</label>
+                <input
+                  type="text"
+                  value={colors}
+                  onChange={(e) => setColors(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="font-semibold text-[#163526]">Quantity</label>
+                <input
+                  type="text"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  placeholder="e.g. 1 Pair / 10 Gajras"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="font-semibold text-[#163526]">{t("budget")} (Optional)</label>
                 <input
                   type="number"
                   placeholder="e.g. 5000"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-500 text-sm focus:outline-hidden focus:border-rose-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
                 />
               </div>
 
               <div className="sm:col-span-2 space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                  {t("description")} *
-                </label>
+                <label className="font-semibold text-[#163526] block">Delivery or Store Pickup</label>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setFulfillment("PICKUP")}
+                    className={`flex-1 py-2.5 px-4 rounded-xl font-semibold border transition-colors ${
+                      fulfillment === "PICKUP"
+                        ? "bg-[#244C38] text-[#FAF7EF] border-[#244C38]"
+                        : "bg-[#FAF7EF] text-[#282A26] border-[#244C38]/20"
+                    }`}
+                  >
+                    Free Bhat Simroli Store Pickup
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFulfillment("DELIVERY")}
+                    className={`flex-1 py-2.5 px-4 rounded-xl font-semibold border transition-colors ${
+                      fulfillment === "DELIVERY"
+                        ? "bg-[#244C38] text-[#FAF7EF] border-[#244C38]"
+                        : "bg-[#FAF7EF] text-[#282A26] border-[#244C38]/20"
+                    }`}
+                  >
+                    Local Event Delivery
+                  </button>
+                </div>
+              </div>
+
+              <div className="sm:col-span-2 space-y-1.5">
+                <label className="font-semibold text-[#163526]">{t("description")} *</label>
                 <textarea
                   required
                   rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Tell us about desired garland length, specific roses, carnations, orchids, or theme colours..."
-                  className="w-full px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-500 text-sm focus:outline-hidden focus:border-rose-500"
+                  placeholder="Share garland length, ceremony timing, or special floral notes..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
                 />
               </div>
 
-              {/* Photo Upload Box */}
               <div className="sm:col-span-2 space-y-2">
-                <label className="text-xs font-semibold text-stone-700">
-                  {t("uploadTitle")}
-                </label>
-                <div className="border-2 border-dashed border-amber-300/80 rounded-2xl p-6 text-center hover:bg-amber-50/50 transition-colors flex flex-col items-center justify-center cursor-pointer relative">
+                <label className="font-semibold text-[#163526]">{t("uploadTitle")}</label>
+                <div className="border-2 border-dashed border-[#D7B77C] rounded-2xl p-6 text-center hover:bg-[#FAF7EF] transition-colors flex flex-col items-center justify-center cursor-pointer relative">
                   <input
                     type="file"
                     multiple
                     accept="image/*"
-                    onChange={handleSimulatePhotoUpload}
+                    onChange={handlePhotoUpload}
                     className="absolute inset-0 opacity-0 cursor-pointer"
                   />
-                  <UploadCloud className="w-8 h-8 text-amber-700 mb-2 opacity-80" />
-                  <span className="text-xs font-semibold text-stone-800">
-                    Click to select reference photos
-                  </span>
-                  <span className="text-[11px] text-stone-500 mt-1">
+                  <UploadCloud className="w-8 h-8 text-[#244C38] mb-2" />
+                  <span className="font-semibold text-[#163526]">Click to select reference photos</span>
+                  <span className="text-[11px] text-[#282A26]/60 mt-1">
                     PNG, JPG, WebP up to 5MB each (Max 5 photos)
                   </span>
                 </div>
 
                 {photos.length > 0 && (
-                  <div className="flex gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2.5 pt-2">
                     {photos.map((src, i) => (
-                      <div
-                        key={i}
-                        className="w-14 h-14 rounded-xl border border-stone-300 overflow-hidden bg-stone-100 flex items-center justify-center text-xs text-stone-500"
-                      >
-                        Photo {i + 1}
+                      <div key={i} className="relative w-16 h-16 rounded-xl border border-[#244C38]/20 overflow-hidden">
+                        <img src={src} alt={`Reference ${i + 1}`} className="w-full h-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => setPhotos((prev) => prev.filter((_, idx) => idx !== i))}
+                          className="absolute top-0.5 right-0.5 p-0.5 rounded-full bg-[#163526] text-white"
+                          aria-label="Remove photo"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -277,10 +346,10 @@ export default function CustomDesignPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-rose-800 to-rose-900 hover:from-rose-900 hover:to-rose-950 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] font-bold text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <span>{isSubmitting ? t("submitting") : t("submitBtn")}</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-[#D7B77C]" />
             </button>
           </form>
         </div>
