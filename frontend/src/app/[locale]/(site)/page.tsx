@@ -8,6 +8,7 @@ import { HomeBannerSlider } from "@/components/site/HomeBannerSlider";
 import { getPriceDisplay } from "@/lib/utils";
 import { VideoCardGrid } from "@/components/site/VideoCardGrid";
 import { DesignExperienceSection } from "@/components/site/DesignExperienceSection";
+import { Interactive3DCard } from "@/components/site/Interactive3DCard";
 import {
   Sparkles,
   ArrowRight,
@@ -158,29 +159,25 @@ export default async function HomePage({
       {/* ─── Dynamic Promotional Home Banners Slider (P8-T17) ─── */}
       <HomeBannerSlider banners={liveBanners} locale={locale} />
 
-      {/* ─── Hero Section (Ultra-Modern Dual-Theme Aesthetic) ────────────────────────── */}
-      <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 border-b border-black/10 dark:border-white/10 bg-gradient-to-b from-brand-surface via-[#faf9f6] to-[#faf9f6] dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-brand-surface dark:via-[#060606] dark:to-[#060606]">
+      {/* ─── Hero Section ────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-brand bg-gradient-to-b from-brand-surface via-[var(--background)] to-[var(--background)]">
         {/* Ambient Glow Orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-brand-surface blur-3xl pointer-events-none animate-ambient-glow" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none animate-ambient-glow" />
+        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-brand-surface blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Column: Headlines & CTA */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/15 text-brand-primary dark:text-brand-primary text-xs sm:text-sm font-medium shadow-xs">
-                <Sparkles className="w-4 h-4 text-brand-primary dark:text-brand-primary" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand text-brand-primary text-xs sm:text-sm font-semibold shadow-xs">
+                <Sparkles className="w-4 h-4 text-brand-primary" />
                 <span>{heroBadge}</span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-zinc-900 dark:text-white leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-brand-deep leading-[1.12]">
                 {heroTitle}
               </h1>
 
-              {/* Subtitle */}
-              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl font-sans leading-relaxed">
+              <p className="text-base sm:text-lg text-[#282A26]/80 max-w-xl font-sans leading-relaxed">
                 {heroSubtitle}
               </p>
 
@@ -188,56 +185,56 @@ export default async function HomePage({
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <Link
                   href={`/${locale}/shop`}
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-zinc-900 text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-zinc-200 font-semibold text-sm shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.15)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full btn-brand font-semibold text-sm flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   <span>{heroBtnPrimary}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href={`/${locale}/custom-design`}
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-zinc-800 dark:text-white font-semibold text-sm border border-black/10 dark:border-white/15 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-brand-surface text-brand-deep font-semibold text-sm border border-brand transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>{heroBtnSecondary}</span>
                 </Link>
               </div>
 
               {/* Micro Trust Bar */}
-              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-zinc-600 dark:text-zinc-400 font-medium">
+              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[#282A26]/75 font-medium">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-brand-primary dark:text-brand-primary shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
                   <span>{trust1}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <Clock className="w-4 h-4 text-brand-primary shrink-0" />
                   <span>{trust2}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-brand-primary dark:text-brand-primary shrink-0" />
+                  <ShieldCheck className="w-4 h-4 text-brand-primary shrink-0" />
                   <span>{trust3}</span>
                 </span>
               </div>
             </div>
 
-            {/* Right Column: Hero Visual Card with Real Image */}
+            {/* Right Column: Interactive 3D Hero Visual Card */}
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md rounded-2xl overflow-hidden shadow-2xl border border-black/10 dark:border-white/15 bg-white dark:bg-zinc-950 group">
-                <div className="aspect-4/5 relative overflow-hidden">
-                  <img
-                    src={heroSignatureImg}
-                    alt={heroSignatureTitle}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+              <Interactive3DCard>
+                <div className="relative mx-auto max-w-md rounded-3xl overflow-hidden shadow-2xl border border-brand bg-white group">
+                  <div className="aspect-4/5 relative overflow-hidden">
+                    <img
+                      src={heroSignatureImg}
+                      alt={heroSignatureTitle}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
-                  {/* Overlay Badges */}
-                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl backdrop-blur-xl bg-white/80 dark:bg-black/60 border border-white/20 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider text-brand-primary dark:text-brand-primary font-bold block">
-                        Signature Collection
-                      </span>
-                      <h3 className="font-serif font-bold text-zinc-900 dark:text-white text-sm">
-                        {heroSignatureTitle}
-                      </h3>
+                    <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl backdrop-blur-xl bg-white/90 border border-white/40 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider text-brand-primary font-bold block">
+                          Signature Collection
+                        </span>
+                        <h3 className="font-serif font-bold text-brand-deep text-sm">
+                          {heroSignatureTitle}
+                        </h3>
                     </div>
                     <span className="px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-black text-xs font-bold shadow-xs">
                       {getPriceDisplay(3200, Boolean(settings.showPrices), currentLocale)}
@@ -245,10 +242,14 @@ export default async function HomePage({
                   </div>
                 </div>
               </div>
+              </Interactive3DCard>
             </div>
           </div>
         </div>
       </section>
+
+      {/* ─── Interactive 3D Showcase, 6-Theme Switcher & Scroll Zoom Stage ─── */}
+      <DesignExperienceSection locale={locale} products={catalogItems} />
 
       {/* ─── Category Quick Nav Row (Dynamic from PostgreSQL - P8-T18) ─────── */}
       <section className="py-12 border-b border-black/10 dark:border-white/10 bg-white dark:bg-[#080808] transition-colors duration-300">
@@ -584,8 +585,6 @@ export default async function HomePage({
           </div>
         </div>
       </section>
-
-      <DesignExperienceSection locale={currentLocale} products={catalogItems} />
     </div>
   );
 }
