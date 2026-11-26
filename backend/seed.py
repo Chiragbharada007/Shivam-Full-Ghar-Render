@@ -1,4 +1,5 @@
 """Idempotent database seeder for Shivam Full Ghar (Python FastAPI)."""
+import base64
 from app.database import Base, SessionLocal, engine
 from app.models import (
     AdminUser,
@@ -9,6 +10,7 @@ from app.models import (
     Coupon,
     DeliveryArea,
     DeliveryAreaTranslation,
+    MediaAsset,
     Package,
     PackageTranslation,
     Product,
@@ -64,10 +66,12 @@ def run_seed():
 
         # 2. Categories
         cat_data = [
-            ("varmala-garlands", 1, "Royal Varmala", "રોયલ વરમાળા", "रॉयल वरमाला"),
+            ("garlands", 1, "Wedding Garlands", "લગ્ન વરમાળા", "विवाह वरमाला"),
             ("car-decoration", 2, "Car Decoration", "કાર ડેકોરેશન", "कार डेकोरेशन"),
-            ("mandap-stage", 3, "Mandap & Stage", "મંડપ અને સ્ટેજ", "मंडप और स्टेज"),
-            ("puja-toran", 4, "Puja & Toran", "પૂજા અને તોરણ", "पूजा और तोरण"),
+            ("hair-flowers", 3, "Bridal Hair Veni", "બ્રાઈડલ વેણી", "ब्राइडल वेणी"),
+            ("gajra", 4, "Mogra Gajra", "મદુરાઈ ગજરા", "मदुरै गजरा"),
+            ("floral-jewellery", 5, "Floral Jewellery", "ફૂલોના ઘરેણાં", "फूलों के गहने"),
+            ("mandap-stage", 6, "Mandap & Stage", "મંડપ અને સ્ટેજ", "मंडप और स्टेज"),
         ]
         cats = {}
         for slug, order, en, gu, hi in cat_data:
@@ -83,21 +87,27 @@ def run_seed():
                 db.flush()
             cats[slug] = c
 
-        # 3. Sample Products
-        if db.query(Product).count() == 0:
-            prod_specs = [
-                ("SFG-VM-001", "varmala-garlands", 250000, 210000, "Royal Rose & Lotus Varmala", "રોયલ ગુલાબ અને કમળની વરમાળા", "रॉयल गुलाब और कमल वरमाला"),
-                ("SFG-VM-002", "varmala-garlands", 180000, None, "Fresh Mogra & Red Rose Garland", "તાજા મોગરા અને લાલ ગુલાબની માળા", "ताजा मोगरा और लाल गुलाब माला"),
-                ("SFG-CD-001", "car-decoration", 350000, 310000, "Bridal Car Orchid & Rose Decor", "દુલ્હન કાર ઓર્કિડ અને ગુલાબ ડેકોર", "दुल्हन कार ऑर्किड और गुलाब डेकोर"),
-                ("SFG-MS-001", "mandap-stage", 1500000, None, "Traditional Marigold Mandap Setup", "પરંપરાગત ગલગોટા મંડપ ડેકોરેશન", "पारंपरिक गेंदा मंडप सजावट"),
-            ]
-            for code, cat_slug, base, sale, en, gu, hi in prod_specs:
+        # 3. Curated Products with Real Images (Idempotent + 5 New Products)
+        prod_specs = [
+            ("SFG-VM-001", "garlands", 250000, 210000, "/products/VM-R01.jpg", "Royal Rose & Lotus Varmala", "રોયલ ગુલાબ અને કમળની વરમાળા", "रॉयल गुलाब और कमल वरमाला"),
+            ("SFG-VM-002", "garlands", 180000, None, "/products/VM-R02.jpg", "Fresh Mogra & Red Rose Garland", "તાજા મોગરા અને લાલ ગુલાબની માળા", "ताजा मोगरा और लाल गुलाब माला"),
+            ("SFG-VM-003", "garlands", 240000, 195000, "/products/VM-P01.jpg", "Pastel Pink Rose & Gypsophila Varmala", "પેસ્ટલ ગુલાબી રોઝ વરમાળા", "पेस्टल गुलाबी रोज वरमाला"),
+            ("SFG-VM-004", "garlands", 280000, 240000, "/products/VM-L01.jpg", "Sacred Lotus & Mogra Royal Varmala", "પવિત્ર કમળ અને મોગરા વરમાળા", "पवित्र कमल और मोगरा वरमाला"),
+            ("SFG-CD-001", "car-decoration", 350000, 310000, "/products/CR-01.jpg", "Bridal Car Orchid & Rose Decor", "દુલ્હન કાર ઓર્કિડ અને ગુલાબ ડેકોર", "दुल्हन कार ऑर्किड और गुलाब डेकोर"),
+            ("SFG-GJ-001", "gajra", 65000, 55000, "/products/GJ-01.jpg", "Pure Madurai Mogra Bridal Gajra Pair", "મદુરાઈ મોગરા ગજરા જોડી", "मदुरै मोगरा गजरा जोड़ी"),
+            ("SFG-HF-001", "hair-flowers", 95000, 80000, "/products/HF-01.jpg", "Bridal Rose & Jasmine Braided Hair Veni", "બ્રાઈડલ ગુલાબ અને મોગરા વેણી", "ब्राइडल गुलाब और मोगरा वेणी"),
+            ("SFG-FJ-001", "floral-jewellery", 165000, 145000, "/products/FJ-01.jpg", "Haldi & Mehndi 7-Piece Floral Jewellery Set", "હલ્દી અને મહેંદી ફૂલોના ઘરેણાં સેટ", "हल्दी और मेहंदी फूलों के गहने सेट"),
+            ("SFG-MS-001", "mandap-stage", 1500000, None, "/products/hero-wedding.jpg", "Traditional Marigold Mandap Setup", "પરંપરાગત ગલગોટા મંડપ ડેકોરેશન", "पारंपरिक गेंदा मंडप सजावट"),
+        ]
+        for code, cat_slug, base, sale, img_path, en, gu, hi in prod_specs:
+            existing_p = db.query(Product).filter(Product.code == code).first()
+            if not existing_p:
                 p = Product(
                     code=code,
                     categoryId=cats[cat_slug].id,
                     basePrice=base,
                     salePrice=sale,
-                    unit="pair" if "VM" in code else "set",
+                    unit="pair" if "VM" in code or "GJ" in code else "set",
                     status="PUBLISHED",
                 )
                 p.translations = [
@@ -105,12 +115,35 @@ def run_seed():
                     ProductTranslation(locale="gu", name=gu, description=f"તાજા ફૂલોથી ખાસ લગ્ન માટે તૈયાર {gu}.", slug=code.lower()),
                     ProductTranslation(locale="hi", name=hi, description=f"शादी के लिए ताजे फूलों से तैयार {hi}.", slug=code.lower()),
                 ]
-                p.images = [ProductImage(url="/images/placeholder-garland.svg", isPrimary=True, sortOrder=0)]
+                p.images = [ProductImage(url=img_path, isPrimary=True, sortOrder=0)]
                 p.options = [
                     ProductOption(label="Standard (3.5 ft)", priceAdd=0, isDefault=True, sortOrder=0),
                     ProductOption(label="Grand (4.5 ft)", priceAdd=50000, isDefault=False, sortOrder=1),
                 ]
                 db.add(p)
+
+        # 3b. Replace broken placeholder paths & migrate any inline base64 images to MediaAsset
+        img_fix_map = {
+            "SFG-VM-001": "/products/VM-R01.jpg",
+            "SFG-VM-002": "/products/VM-R02.jpg",
+            "SFG-CD-001": "/products/CR-01.jpg",
+            "SFG-MS-001": "/products/hero-wedding.jpg",
+        }
+        for prod_img in db.query(ProductImage).all():
+            if prod_img.url == "/images/placeholder-garland.svg":
+                parent = db.query(Product).filter(Product.id == prod_img.productId).first()
+                prod_img.url = img_fix_map.get(parent.code if parent else "", "/products/VM-R01.jpg")
+            elif prod_img.url and prod_img.url.startswith("data:image/"):
+                try:
+                    header, b64_data = prod_img.url.split(",", 1)
+                    mime = header.split(";")[0].replace("data:", "") or "image/jpeg"
+                    raw = base64.b64decode(b64_data)
+                    asset = MediaAsset(filename="migrated-image", contentType=mime, data=raw, sizeBytes=len(raw))
+                    db.add(asset)
+                    db.flush()
+                    prod_img.url = f"/api/media/{asset.id}"
+                except Exception:
+                    pass
 
         # 4. Packages
         if db.query(Package).count() == 0:

@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from sqlalchemy.orm import Session, joinedload
 
 from app.database import get_db
@@ -7,6 +7,7 @@ from app.models import (
     Category,
     ContentBlock,
     DeliveryArea,
+    MediaAsset,
     Package,
     Product,
     Review,
@@ -15,6 +16,18 @@ from app.models import (
 )
 
 router = APIRouter(prefix="/api", tags=["catalog"])
+
+
+@router.get("/media/{asset_id}")
+def get_media_asset(asset_id: str, db: Session = Depends(get_db)):
+    asset = db.query(MediaAsset).filter(MediaAsset.id == asset_id).first()
+    if not asset:
+        raise HTTPException(status_code=404, detail="Image not found")
+    return Response(
+        content=asset.data,
+        media_type=asset.contentType or "image/jpeg",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"},
+    )
 
 
 def _trans_map(translations, fields=("name", "description")):

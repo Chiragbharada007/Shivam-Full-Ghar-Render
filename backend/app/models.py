@@ -9,6 +9,7 @@ from sqlalchemy import (
     Index,
     Integer,
     JSON,
+    LargeBinary,
     String,
     Text,
     UniqueConstraint,
@@ -533,4 +534,15 @@ class VisitorEvent(Base):
     eventType = Column(String, nullable=False, index=True)
     entityId = Column(String, nullable=True)
     metadataJson = Column("metadata", JSON, nullable=True)
+    createdAt = Column(DateTime(timezone=True), default=utcnow)
+
+
+class MediaAsset(Base):
+    __tablename__ = "media_assets"
+
+    id = Column(String, primary_key=True, default=gen_id)
+    filename = Column(String, nullable=True)
+    contentType = Column(String, default="image/jpeg", nullable=False)
+    data = Column(LargeBinary, nullable=False)
+    sizeBytes = Column(Integer, default=0)
     createdAt = Column(DateTime(timezone=True), default=utcnow)

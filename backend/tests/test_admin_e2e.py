@@ -189,7 +189,20 @@ def run_all_tests():
     assert r.status_code == 200 and r.json()["stats"]["identifiedVisitors"] >= 1, f"Visitors analytics failed: {r.text}"
     print("[PASS] 10. Custom Inquiries, Quotations & Visitor Email/Geolocation Telemetry")
 
-    print("\nALL 10 ADMIN & AUTH E2E TEST SUITES PASSED!")
+    # 11. Permanent MediaAsset Upload & Streaming (/api/admin/upload -> /api/media/{id})
+    tiny_png = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xb4\x00\x00\x00\x00IEND\xaeB`\x82"
+    r = client.post(
+        "/api/admin/upload",
+        headers=headers,
+        files={"file": ("test.png", tiny_png, "image/png")},
+    )
+    assert r.status_code == 200 and r.json()["url"].startswith("/api/media/"), f"Upload failed: {r.text}"
+    media_url = r.json()["url"]
+    r = client.get(media_url)
+    assert r.status_code == 200 and r.content == tiny_png, f"Media stream failed: {r.status_code}"
+    print("[PASS] 11. Permanent DB Media Upload & Streaming (/api/media/{id})")
+
+    print("\nALL 11 ADMIN & AUTH E2E TEST SUITES PASSED!")
 
 
 if __name__ == "__main__":

@@ -45,6 +45,15 @@ export function getOptimizedImage(
     };
   }
 
+  // Pass through data URLs, external HTTPS URLs, and database media endpoints untouched
+  if (src.startsWith("data:") || src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/api/media/")) {
+    return {
+      src,
+      blurDataUrl: DEFAULT_BLUR_DATA_URL,
+      isWebP: false,
+    };
+  }
+
   // Normalize path
   const normalized = src.startsWith("/") ? src : `/${src}`;
 

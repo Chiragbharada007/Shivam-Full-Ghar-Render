@@ -16,6 +16,7 @@ from app.models import (
     ContentBlock,
     ContentBlockTranslation,
     CustomRequest,
+    MediaAsset,
     Order,
     Product,
     ProductImage,
@@ -194,6 +195,21 @@ def _to_admin_product_view(p: Product) -> dict:
     }
 
 
+def _persist_image_url(db: Session, url: Optional[str]) -> Optional[str]:
+    if not url or not url.startswith("data:image/"):
+        return url
+    try:
+        header, b64_data = url.split(",", 1)
+        mime = header.split(";")[0].replace("data:", "") or "image/jpeg"
+        raw = base64.b64decode(b64_data)
+        asset = MediaAsset(filename="product-upload", contentType=mime, data=raw, sizeBytes=len(raw))
+        db.add(asset)
+        db.flush()
+        return f"/api/media/{asset.id}"
+    except Exception:
+        return url
+
+
 @router.post("/products")
 def admin_create_product(payload: ProductCreateInput, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
     if db.query(Product).filter(Product.code == payload.code.strip()).first():
@@ -224,10 +240,12 @@ def admin_create_product(payload: ProductCreateInput, db: Session = Depends(get_
         ProductTranslation(locale="hi", name=payload.nameHi or display_name, description=payload.descriptionHi or display_desc),
     ]
     imgs = []
-    if payload.imageUrl:
-        imgs.append(ProductImage(url=payload.imageUrl, isPrimary=True, sortOrder=0))
-    if payload.secondaryImageUrl:
-        imgs.append(ProductImage(url=payload.secondaryImageUrl, isPrimary=False, sortOrder=1))
+    primary_url = _persist_image_url(db, payload.imageUrl)
+    secondary_url = _persist_image_url(db, payload.secondaryImageUrl)
+    if primary_url:
+        imgs.append(ProductImage(url=primary_url, isPrimary=True, sortOrder=0))
+    if secondary_url:
+        imgs.append(ProductImage(url=secondary_url, isPrimary=False, sortOrder=1))
     p.images = imgs
 
     db.add(p)
@@ -833,8 +851,20 @@ def admin_db_status(db: Session = Depends(get_db), admin=Depends(get_current_adm
 
 
 @router.post("/upload")
-async def admin_upload_image(file: UploadFile = File(...), admin=Depends(get_current_admin)):
+async def admin_upload_image(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    admin=Depends(get_current_admin),
+):
     raw = await file.read()
     mime = file.content_type or "image/jpeg"
-    b64 = base64.b64encode(raw).decode("utf-8")
-    return {"success": True, "url": f"data:{mime};base64,{b64}"}
+    asset = MediaAsset(
+        filename=file.filename or "upload",
+        contentType=mime,
+        data=raw,
+        sizeBytes=len(raw),
+    )
+    db.add(asset)
+    db.commit()
+    db.refresh(asset)
+    return {"success": True, "url": f"/api/media/{asset.id}", "sizeBytes": len(raw)}
