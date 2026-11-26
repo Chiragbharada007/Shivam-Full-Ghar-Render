@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Search, Menu, X, ShoppingBag, Flower2 } from "lucide-react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearchModal } from "./GlobalSearchModal";
 import { DEFAULT_SITE_SETTINGS } from "@/lib/site-settings";
 
@@ -77,14 +78,14 @@ export function FloatingNavbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           {/* Brand Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2.5 shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-[#244C38] border border-[#D7B77C]/60 flex items-center justify-center overflow-hidden shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-brand-primary border border-[#D7B77C]/60 flex items-center justify-center overflow-hidden shadow-xs">
               <img src="/icon.svg" alt={siteSettings.shopName} className="w-8 h-8 object-contain" />
             </div>
             <div>
-              <span className="font-serif font-bold text-lg text-[#163526] leading-none block">
+              <span className="font-serif font-bold text-lg text-brand-deep leading-none block">
                 {locale === "gu" ? siteSettings.shopNameGu : locale === "hi" ? siteSettings.shopNameHi : siteSettings.shopName}
               </span>
-              <span className="text-[10px] uppercase tracking-widest text-[#9F333E] font-semibold block mt-0.5">
+              <span className="text-[10px] uppercase tracking-widest text-brand-primary font-semibold block mt-0.5">
                 Bhat Simroli • Keshod
               </span>
             </div>
@@ -103,8 +104,8 @@ export function FloatingNavbar() {
                   href={link.href}
                   className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                     isActive
-                      ? "bg-[#244C38] text-[#FAF7EF]"
-                      : "text-[#282A26] hover:text-[#244C38] hover:bg-[#244C38]/8"
+                      ? "bg-brand-primary text-[#FAF7EF]"
+                      : "text-[#282A26] hover:text-brand-primary hover:bg-brand-surface"
                   }`}
                 >
                   {link.label}
@@ -115,11 +116,13 @@ export function FloatingNavbar() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
+            <ThemeToggle />
+
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search flowers"
-              className="p-2 rounded-lg border border-[#244C38]/15 text-[#244C38] hover:bg-[#244C38]/8 transition-colors"
+              className="p-2 rounded-lg border border-brand text-brand-primary hover:bg-brand-surface transition-colors"
             >
               <Search className="w-4 h-4" />
             </button>
@@ -127,11 +130,11 @@ export function FloatingNavbar() {
             <Link
               href={`/${locale}/cart`}
               aria-label="Shopping Bag"
-              className="relative p-2 rounded-lg border border-[#244C38]/15 text-[#244C38] hover:bg-[#244C38]/8 transition-colors"
+              className="relative p-2 rounded-lg border border-brand text-brand-primary hover:bg-brand-surface transition-colors"
             >
               <ShoppingBag className="w-4 h-4" />
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#9F333E] text-[#FAF7EF] text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-brand-deep text-[#FAF7EF] text-[10px] font-bold flex items-center justify-center">
                   {cartCount}
                 </span>
               )}

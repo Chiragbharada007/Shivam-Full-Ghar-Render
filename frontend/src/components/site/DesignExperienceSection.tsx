@@ -16,8 +16,8 @@ export function DesignExperienceSection({
 }) {
   return (
     <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* 1. Trust Metrics in Botanical Green & Ivory */}
-      <section className="rounded-3xl p-8 md:p-10 bg-[#163526] text-[#FAF7EF] border border-[#D7B77C]/30 shadow-sm">
+      {/* 1. Trust Metrics (Responds to Whole Green / Whole Red Theme) */}
+      <section className="rounded-3xl p-8 md:p-10 bg-brand-deep text-[#FAF7EF] border border-[#D7B77C]/30 shadow-sm transition-colors duration-300">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
             <CountUpNumber target={1250} suffix="+" className="text-3xl sm:text-4xl font-serif font-bold text-[#D7B77C] block" />
@@ -122,7 +122,7 @@ export function DesignExperienceSection({
       </section>
 
       {/* 5. WhatsApp & Store Visit CTA */}
-      <section className="rounded-3xl p-8 md:p-10 bg-[#244C38] text-[#FAF7EF] flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="rounded-3xl p-8 md:p-10 bg-brand-primary text-[#FAF7EF] flex flex-col md:flex-row items-center justify-between gap-6 transition-colors duration-300">
         <div className="space-y-2 max-w-xl">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-[#D7B77C]">
             <Sparkles className="w-3.5 h-3.5" /> Direct Florist Assistance

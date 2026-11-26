@@ -20,6 +20,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
@@ -144,8 +145,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside
         className={`${
           mobileOpen ? "fixed inset-y-0 left-0 z-50 flex" : "hidden md:flex"
-        } w-64 bg-[#163526] text-[#FAF7EF] p-5 flex-col shrink-0 border-r border-[#D7B77C]/20`}
+        } w-64 bg-brand-deep text-[#FAF7EF] p-5 flex-col shrink-0 border-r border-[#D7B77C]/20 transition-colors duration-300`}
       >
+        <div className="mb-3 flex justify-end">
+          <ThemeToggle />
+        </div>
         <SidebarBody />
       </aside>
 

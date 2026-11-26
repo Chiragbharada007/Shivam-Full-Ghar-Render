@@ -1,25 +1,33 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
+  :root,
+  html[data-theme="green"] {
     --background: #FAF7EF;
     --foreground: #282A26;
     --card: #FFFFFF;
     --card-foreground: #282A26;
-    --popover: #FFFFFF;
-    --popover-foreground: #282A26;
-    --primary: #244C38;
-    --primary-deep: #163526;
-    --primary-foreground: #FAF7EF;
-    --secondary: #F3EFE4;
-    --secondary-foreground: #282A26;
-    --accent-floral: #9F333E;
-    --accent-gold: #D7B77C;
-    --muted: #EFECE2;
-    --muted-foreground: #5C5F58;
-    --border: rgba(36, 76, 56, 0.14);
-    --input: rgba(36, 76, 56, 0.2);
-    --ring: #244C38;
+    --brand-primary: #244C38;
+    --brand-deep: #163526;
+    --brand-accent: #9F333E;
+    --brand-gold: #D7B77C;
+    --brand-surface: #EEF4F0;
+    --brand-border: rgba(36, 76, 56, 0.18);
+    --brand-glow: rgba(36, 76, 56, 0.24);
+  }
+
+  html[data-theme="red"] {
+    --background: #FAF7EF;
+    --foreground: #282A26;
+    --card: #FFFFFF;
+    --card-foreground: #282A26;
+    --brand-primary: #9F333E;
+    --brand-deep: #6D1924;
+    --brand-accent: #244C38;
+    --brand-gold: #D7B77C;
+    --brand-surface: #FCF0F1;
+    --brand-border: rgba(159, 51, 62, 0.2);
+    --brand-glow: rgba(159, 51, 62, 0.24);
   }
 
   body {
@@ -27,11 +35,13 @@
     color: var(--foreground);
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, .font-serif {
     font-family: var(--font-serif), Georgia, serif;
-    color: #163526;
+    color: var(--brand-deep);
+    transition: color 0.3s ease;
   }
 
   html[lang="gu"],
@@ -61,6 +71,50 @@
 
 .font-mono-tech {
   font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Whole-Website Dynamic Theme Utilities (Green <-> Red) */
+.bg-brand-primary {
+  background-color: var(--brand-primary) !important;
+}
+.bg-brand-deep {
+  background-color: var(--brand-deep) !important;
+}
+.bg-brand-surface {
+  background-color: var(--brand-surface) !important;
+}
+.text-brand-primary {
+  color: var(--brand-primary) !important;
+}
+.text-brand-deep {
+  color: var(--brand-deep) !important;
+}
+.border-brand {
+  border-color: var(--brand-border) !important;
+}
+.btn-brand {
+  background-color: var(--brand-primary);
+  color: #FAF7EF;
+  box-shadow: 0 10px 24px -8px var(--brand-glow);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+.btn-brand:hover {
+  background-color: var(--brand-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -8px var(--brand-glow);
+}
+
+/* 3D Depth & Perspective Effects */
+.perspective-stage {
+  perspective: 1100px;
+}
+.card-3d-hover {
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.card-3d-hover:hover {
+  transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 0 22px 44px -16px var(--brand-glow);
 }
 
 @media (prefers-reduced-motion: reduce) {

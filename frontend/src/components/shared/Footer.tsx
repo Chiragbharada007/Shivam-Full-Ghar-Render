@@ -71,11 +71,11 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#163526] text-[#FAF7EF]/90 pt-16 pb-12 border-t border-[#D7B77C]/25 relative z-10">
+    <footer className="bg-brand-deep text-[#FAF7EF]/90 pt-16 pb-12 border-t border-[#D7B77C]/25 relative z-10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Trust highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12 mb-12 border-b border-[#FAF7EF]/15">
-          <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#244C38]/60 border border-[#D7B77C]/25">
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/8 border border-[#D7B77C]/25">
             <div className="w-12 h-12 rounded-xl bg-[#9F333E]/25 border border-[#D7B77C]/30 flex items-center justify-center text-[#D7B77C] shrink-0">
               <Sparkles className="w-6 h-6" />
             </div>

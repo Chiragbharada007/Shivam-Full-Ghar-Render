@@ -45,7 +45,7 @@ export function DarkAnnouncementBar() {
   return (
     <aside
       aria-label="Store Announcement"
-      className="w-full bg-[#163526] text-[#FAF7EF] border-b border-[#D7B77C]/25 text-xs select-none"
+      className="w-full bg-brand-deep text-[#FAF7EF] border-b border-[#D7B77C]/25 text-xs select-none transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 font-medium truncate">

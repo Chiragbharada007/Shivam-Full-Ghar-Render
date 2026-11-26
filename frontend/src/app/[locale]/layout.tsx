@@ -106,6 +106,11 @@ export default async function LocaleLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('sfg_brand_theme');if(t==='red'||t==='green'){document.documentElement.setAttribute('data-theme',t);}else{document.documentElement.setAttribute('data-theme','green');}}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="min-h-screen flex flex-col bg-[#FAF7EF] text-[#282A26] selection:bg-[#244C38]/15 selection:text-[#163526]">
         <DynamicFavicon />
