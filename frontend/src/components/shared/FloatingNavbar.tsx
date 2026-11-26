@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
-import { Search, Menu, X, ShoppingBag, Flower2 } from "lucide-react";
+import { Search, Menu, X, ShoppingBag, Flower2, Home, Sparkles, MessageCircle } from "lucide-react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearchModal } from "./GlobalSearchModal";
@@ -180,6 +180,31 @@ export function FloatingNavbar() {
           </div>
         )}
       </nav>
+
+      {/* Mobile Bottom Quick Dock */}
+      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40 rounded-2xl bg-[#FAF7EF]/95 backdrop-blur-md border border-brand shadow-lg px-3 py-2 flex items-center justify-around text-[11px] font-semibold">
+        <Link href={`/${locale}`} className="flex flex-col items-center gap-0.5 text-brand-deep">
+          <Home className="w-4 h-4 text-brand-primary" />
+          <span>Home</span>
+        </Link>
+        <Link href={`/${locale}/shop`} className="flex flex-col items-center gap-0.5 text-brand-deep">
+          <ShoppingBag className="w-4 h-4 text-brand-primary" />
+          <span>Shop</span>
+        </Link>
+        <Link href={`/${locale}/custom-design`} className="flex flex-col items-center gap-0.5 text-brand-deep">
+          <Sparkles className="w-4 h-4 text-brand-primary" />
+          <span>Custom</span>
+        </Link>
+        <a
+          href={`https://wa.me/${siteSettings.whatsappNumber.replace(/\D/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center gap-0.5 text-brand-deep"
+        >
+          <MessageCircle className="w-4 h-4 text-brand-primary" />
+          <span>WhatsApp</span>
+        </a>
+      </div>
 
       <GlobalSearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} locale={locale} />
     </>

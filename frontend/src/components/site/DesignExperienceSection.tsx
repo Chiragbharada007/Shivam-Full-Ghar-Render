@@ -5,7 +5,9 @@ import Link from "next/link";
 import { Flower2, Car, Gem, Sparkles, ArrowRight, MessageCircle, MapPin } from "lucide-react";
 import { PerfectCard } from "@/components/ui/PerfectCard";
 import { HaleShowcase } from "@/components/site/HaleShowcase";
-import { CountUpNumber } from "@/components/shared/ScrollEffects";
+import { CountUpNumber, BlurInReveal } from "@/components/shared/ScrollEffects";
+import { FloralDivider, LotusCrest } from "@/components/graphics/FloralGraphics";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export function DesignExperienceSection({
   locale,
@@ -38,8 +40,49 @@ export function DesignExperienceSection({
         </div>
       </section>
 
-      {/* 2. Interactive Floral Showcase */}
-      <HaleShowcase />
+      {/* 2. Interactive 3D Floral Showcase + Colour-World Switcher */}
+      <div className="space-y-4">
+        <HaleShowcase />
+        <div className="flex flex-wrap items-center justify-center gap-3 py-2">
+          <span className="text-xs font-semibold text-brand-deep">
+            Switch Floral Colour World:
+          </span>
+          <ThemeToggle />
+        </div>
+      </div>
+
+      {/* 2b. Scroll Story: From Garden to Garland */}
+      <section className="space-y-6">
+        <div className="text-center space-y-2">
+          <LotusCrest className="w-9 h-9 mx-auto" />
+          <span className="text-xs font-semibold uppercase tracking-widest text-brand-primary block">
+            Craftsmanship Story
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-brand-deep">
+            From Keshod Garden to Wedding Garland
+          </h2>
+          <FloralDivider />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[
+            { step: "01", title: "5:00 AM Harvest", desc: "Fresh Dutch roses, lotus & Madurai mogra picked at dawn." },
+            { step: "02", title: "Petal Selection", desc: "Hand-sorted for fragrance, colour vibrancy & softness." },
+            { step: "03", title: "Artisan Threading", desc: "Woven by master florists in Bhat Simroli to your length." },
+            { step: "04", title: "Morning Dispatch", desc: "Mist-hydrated & ready for Keshod store pickup on time." },
+          ].map((item, idx) => (
+            <BlurInReveal key={item.step} delay={idx * 0.08}>
+              <div className="h-full p-6 rounded-3xl bg-white border border-brand shadow-xs space-y-2">
+                <span className="font-mono-tech text-xs font-bold text-brand-primary">
+                  STEP {item.step}
+                </span>
+                <h3 className="font-serif text-xl font-bold text-brand-deep">{item.title}</h3>
+                <p className="text-xs text-[#282A26]/75 leading-relaxed">{item.desc}</p>
+              </div>
+            </BlurInReveal>
+          ))}
+        </div>
+      </section>
 
       {/* 3. Best-Selling Wedding Designs */}
       <section className="space-y-6">

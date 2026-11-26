@@ -20,6 +20,9 @@ export default function AdminLoginPage() {
   const locale = useLocale();
   const router = useRouter();
 
+  // Lamp pull-cord toggle state (Prompt 7)
+  const [lampLit, setLampLit] = useState(true);
+
   // Step 1: credentials, Step 2: optional 2FA OTP verification, Step 3: security questions fallback
   const [step, setStep] = useState<"CREDENTIALS" | "OTP" | "SECURITY_QUESTIONS">("CREDENTIALS");
 
@@ -267,6 +270,28 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen bg-stone-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full rounded-3xl bg-stone-800/95 border border-stone-700/80 p-8 shadow-2xl space-y-6">
+        {/* Lamp Pull-Cord Toggle (Prompt 7) */}
+        <div className="flex flex-col items-center -mt-4 pb-1">
+          <button
+            type="button"
+            onClick={() => setLampLit((v) => !v)}
+            aria-label={lampLit ? "Dim admin lamp" : "Pull cord to light admin lamp"}
+            aria-expanded={lampLit}
+            className="group flex flex-col items-center cursor-pointer focus:outline-hidden"
+          >
+            <span className="w-0.5 h-5 bg-[#D7B77C]/70 group-hover:h-6 transition-all" />
+            <span
+              className={`px-3 py-1 rounded-full text-[10px] font-mono-tech font-bold border transition-all ${
+                lampLit
+                  ? "bg-[#D7B77C] text-[#163526] border-[#D7B77C] shadow-lg shadow-[#D7B77C]/30"
+                  : "bg-stone-900 text-stone-400 border-stone-700"
+              }`}
+            >
+              {lampLit ? "Lamp On • Console Ready" : "Pull Cord to Unlock"}
+            </span>
+          </button>
+        </div>
+
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="relative w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-rose-700 via-rose-800 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-rose-950/40">

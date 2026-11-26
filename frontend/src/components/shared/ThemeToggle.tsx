@@ -1,29 +1,38 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Palette } from "lucide-react";
+
+export type BrandTheme = "green" | "red" | "marigold" | "pearl" | "blush" | "festival";
+
+export const BRAND_THEMES: { id: BrandTheme; label: string; color: string }[] = [
+  { id: "green", label: "Leaf Green", color: "#244C38" },
+  { id: "red", label: "Rose Red", color: "#9F333E" },
+  { id: "marigold", label: "Marigold", color: "#B45309" },
+  { id: "blush", label: "Blush Pink", color: "#BE185D" },
+  { id: "pearl", label: "Pearl White", color: "#475569" },
+  { id: "festival", label: "Festival", color: "#C2410C" },
+];
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"green" | "red">("green");
+  const [theme, setTheme] = useState<BrandTheme>("green");
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("sfg_brand_theme");
-      const current = stored === "red" ? "red" : "green";
-      setTheme(current);
-      document.documentElement.setAttribute("data-theme", current);
+      const stored = localStorage.getItem("sfg_brand_theme") as BrandTheme | null;
+      const valid = BRAND_THEMES.some((t) => t.id === stored) ? (stored as BrandTheme) : "green";
+      setTheme(valid);
+      document.documentElement.setAttribute("data-theme", valid);
     } catch {}
 
     const onThemeEvent = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      if (detail === "green" || detail === "red") setTheme(detail);
+      const detail = (e as CustomEvent).detail as BrandTheme;
+      if (BRAND_THEMES.some((t) => t.id === detail)) setTheme(detail);
     };
     window.addEventListener("brand-theme-changed", onThemeEvent);
     return () => window.removeEventListener("brand-theme-changed", onThemeEvent);
   }, []);
 
-  const toggleTheme = () => {
-    const next = theme === "green" ? "red" : "green";
+  const selectTheme = (next: BrandTheme) => {
     setTheme(next);
     try {
       localStorage.setItem("sfg_brand_theme", next);
@@ -33,19 +42,27 @@ export function ThemeToggle() {
   };
 
   return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      aria-label={`Switch theme (current: ${theme})`}
-      title={theme === "green" ? "Switch Whole Site to Royal Red Theme" : "Switch Whole Site to Botanical Green Theme"}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-brand bg-white hover:bg-brand-surface text-xs font-semibold text-brand-deep transition-all cursor-pointer"
+    <div
+      className="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-brand bg-white"
+      role="group"
+      aria-label="Colour theme switcher"
     >
-      <span
-        className="w-3 h-3 rounded-full border border-black/15 shrink-0"
-        style={{ backgroundColor: theme === "green" ? "#244C38" : "#9F333E" }}
-      />
-      <Palette className="w-3.5 h-3.5 text-brand-primary hidden sm:inline" />
-      <span className="hidden sm:inline">{theme === "green" ? "Green" : "Red"}</span>
-    </button>
+      {BRAND_THEMES.map((t) => {
+        const active = theme === t.id;
+        return (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => selectTheme(t.id)}
+            title={t.label}
+            aria-label={`Switch theme to ${t.label}`}
+            className={`w-4 h-4 rounded-full transition-transform cursor-pointer ${
+              active ? "scale-125 ring-2 ring-offset-1 ring-brand-deep" : "opacity-75 hover:opacity-100 hover:scale-110"
+            }`}
+            style={{ backgroundColor: t.color }}
+          />
+        );
+      })}
+    </div>
   );
 }

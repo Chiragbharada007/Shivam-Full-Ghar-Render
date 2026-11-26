@@ -22,3 +22,6 @@ out/
 *.log
 .DS_Store
 Thumbs.db
+
+# Reference prompt pack (do not commit)
+DESIGN_UPGRADE_PROMPTS.md

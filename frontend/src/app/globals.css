@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
+  /* 6 Floral Colour Worlds x Ivory Silk (Light) / Midnight Bloom (Dark) */
   :root,
   html[data-theme="green"] {
     --background: #FAF7EF;
@@ -30,18 +31,91 @@
     --brand-glow: rgba(159, 51, 62, 0.24);
   }
 
+  html[data-theme="marigold"] {
+    --background: #FAF7EF;
+    --foreground: #282A26;
+    --card: #FFFFFF;
+    --card-foreground: #282A26;
+    --brand-primary: #B45309;
+    --brand-deep: #78350F;
+    --brand-accent: #9F333E;
+    --brand-gold: #F59E0B;
+    --brand-surface: #FEF6E7;
+    --brand-border: rgba(180, 83, 9, 0.22);
+    --brand-glow: rgba(217, 119, 6, 0.24);
+  }
+
+  html[data-theme="pearl"] {
+    --background: #FAF7EF;
+    --foreground: #282A26;
+    --card: #FFFFFF;
+    --card-foreground: #282A26;
+    --brand-primary: #475569;
+    --brand-deep: #1E293B;
+    --brand-accent: #D7B77C;
+    --brand-gold: #D7B77C;
+    --brand-surface: #F4F5F7;
+    --brand-border: rgba(71, 85, 105, 0.18);
+    --brand-glow: rgba(71, 85, 105, 0.18);
+  }
+
+  html[data-theme="blush"] {
+    --background: #FAF7EF;
+    --foreground: #282A26;
+    --card: #FFFFFF;
+    --card-foreground: #282A26;
+    --brand-primary: #BE185D;
+    --brand-deep: #831843;
+    --brand-accent: #244C38;
+    --brand-gold: #D7B77C;
+    --brand-surface: #FDF2F8;
+    --brand-border: rgba(190, 24, 93, 0.18);
+    --brand-glow: rgba(190, 24, 93, 0.22);
+  }
+
+  html[data-theme="festival"] {
+    --background: #FAF7EF;
+    --foreground: #282A26;
+    --card: #FFFFFF;
+    --card-foreground: #282A26;
+    --brand-primary: #C2410C;
+    --brand-deep: #7C2D12;
+    --brand-accent: #244C38;
+    --brand-gold: #D7B77C;
+    --brand-surface: #FFF3EB;
+    --brand-border: rgba(194, 65, 12, 0.22);
+    --brand-glow: rgba(194, 65, 12, 0.24);
+  }
+
+  /* Midnight Bloom Mode */
+  html[data-mode="dark"] {
+    --background: #080A09;
+    --foreground: #F4F1E8;
+    --card: #111613;
+    --card-foreground: #F4F1E8;
+    --brand-surface: #141C17;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
   h1, h2, h3, h4, .font-serif {
     font-family: var(--font-serif), Georgia, serif;
     color: var(--brand-deep);
-    transition: color 0.3s ease;
+    transition: color 0.35s ease;
+  }
+
+  html[data-mode="dark"] h1,
+  html[data-mode="dark"] h2,
+  html[data-mode="dark"] h3,
+  html[data-mode="dark"] h4,
+  html[data-mode="dark"] .font-serif {
+    color: #FAF7EF;
   }
 
   html[lang="gu"],
@@ -73,7 +147,6 @@
   font-family: var(--font-mono), ui-monospace, monospace;
 }
 
-/* Whole-Website Dynamic Theme Utilities (Green <-> Red) */
 .bg-brand-primary {
   background-color: var(--brand-primary) !important;
 }
@@ -104,17 +177,8 @@
   box-shadow: 0 14px 30px -8px var(--brand-glow);
 }
 
-/* 3D Depth & Perspective Effects */
 .perspective-stage {
   perspective: 1100px;
-}
-.card-3d-hover {
-  transform-style: preserve-3d;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
-}
-.card-3d-hover:hover {
-  transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
-  box-shadow: 0 22px 44px -16px var(--brand-glow);
 }
 
 @media (prefers-reduced-motion: reduce) {
