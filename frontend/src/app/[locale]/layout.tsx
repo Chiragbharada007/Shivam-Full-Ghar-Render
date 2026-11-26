@@ -15,6 +15,7 @@ import { SmoothScrollProvider } from "@/components/shared/SmoothScrollProvider";
 import { VisitorTracker } from "@/components/shared/VisitorTracker";
 import { GlobalNavigationLoader } from "@/components/shared/GlobalNavigationLoader";
 import { NotificationProvider } from "@/components/shared/NotificationSystem";
+import { TouchBulbBlastOverlay } from "@/components/shared/TouchBulbBlastOverlay";
 import { Metadata } from "next";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -120,6 +121,7 @@ export default async function LocaleLayout({
               <GlobalNavigationLoader />
             </Suspense>
             <VisitorTracker />
+            <TouchBulbBlastOverlay />
             <SmoothScrollProvider>{children}</SmoothScrollProvider>
           </NotificationProvider>
         </NextIntlClientProvider>

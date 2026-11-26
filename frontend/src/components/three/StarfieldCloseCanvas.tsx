@@ -255,13 +255,23 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
     const _dir = new THREE.Vector3();
     const _target = new THREE.Vector3();
 
-    const onMouseMove = (e: MouseEvent) => {
+    const updateNDC = (clientX: number, clientY: number) => {
       const rect = canvas.getBoundingClientRect();
       if (rect.width <= 0 || rect.height <= 0) return;
-      POINTER.ndc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      POINTER.ndc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      POINTER.ndc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      POINTER.ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
       POINTER.active = true;
       POINTER.lastMove = performance.now();
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      updateNDC(e.clientX, e.clientY);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        updateNDC(e.touches[0].clientX, e.touches[0].clientY);
+      }
     };
 
     const onMouseOut = () => {
@@ -269,6 +279,9 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
     };
 
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchstart", onTouchMove, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onMouseOut, { passive: true });
     window.addEventListener("mouseout", onMouseOut);
 
     function updatePointer(now: number) {
@@ -381,6 +394,9 @@ export function StarfieldCloseCanvas({ className = "" }: { className?: string })
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchstart", onTouchMove);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onMouseOut);
       window.removeEventListener("mouseout", onMouseOut);
       window.removeEventListener("scroll", computeScroll);
       window.removeEventListener("resize", handleResize);
