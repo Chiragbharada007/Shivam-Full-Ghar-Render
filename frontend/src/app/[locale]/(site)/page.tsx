@@ -8,6 +8,7 @@ import { HomeBannerSlider } from "@/components/site/HomeBannerSlider";
 import { getPriceDisplay } from "@/lib/utils";
 import { VideoCardGrid } from "@/components/site/VideoCardGrid";
 import { DesignExperienceSection } from "@/components/site/DesignExperienceSection";
+import { StarfieldCloseCanvas } from "@/components/three/StarfieldCloseCanvas";
 import { Interactive3DCard } from "@/components/site/Interactive3DCard";
 import {
   Sparkles,
@@ -160,24 +161,26 @@ export default async function HomePage({
       <HomeBannerSlider banners={liveBanners} locale={locale} />
 
       {/* ─── Hero Section ────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-brand bg-gradient-to-b from-brand-surface via-[var(--background)] to-[var(--background)]">
-        {/* Ambient Glow Orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-brand-surface blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-white/10 bg-[#0a0a24] text-white">
+        {/* Three.js Starfield Close 3D Tunnel */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <StarfieldCloseCanvas />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Column: Headlines & CTA */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand text-brand-primary text-xs sm:text-sm font-semibold shadow-xs">
-                <Sparkles className="w-4 h-4 text-brand-primary" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#aef6cf] text-xs sm:text-sm font-semibold shadow-xs">
+                <Sparkles className="w-4 h-4 text-[#aef6cf]" />
                 <span>{heroBadge}</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-brand-deep leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-[1.12] drop-shadow-sm">
                 {heroTitle}
               </h1>
 
-              <p className="text-base sm:text-lg text-[#282A26]/80 max-w-xl font-sans leading-relaxed">
+              <p className="text-base sm:text-lg text-[#eafff2]/85 max-w-xl font-sans leading-relaxed">
                 {heroSubtitle}
               </p>
 
@@ -192,24 +195,24 @@ export default async function HomePage({
                 </Link>
                 <Link
                   href={`/${locale}/custom-design`}
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-brand-surface text-brand-deep font-semibold text-sm border border-brand transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 text-white font-semibold text-sm border border-white/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>{heroBtnSecondary}</span>
                 </Link>
               </div>
 
               {/* Micro Trust Bar */}
-              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[#282A26]/75 font-medium">
+              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[#eafff2]/85 font-medium">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#aef6cf] shrink-0" />
                   <span>{trust1}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-brand-primary shrink-0" />
+                  <Clock className="w-4 h-4 text-[#aef6cf] shrink-0" />
                   <span>{trust2}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-brand-primary shrink-0" />
+                  <ShieldCheck className="w-4 h-4 text-[#aef6cf] shrink-0" />
                   <span>{trust3}</span>
                 </span>
               </div>
