@@ -69,18 +69,26 @@ def run_all_tests():
     assert r.status_code == 200 and r.json()["success"] is True, f"Dashboard failed: {r.text}"
     print("[PASS] 6. Admin Dashboard")
 
-    # 7. Admin Categories + Reorder
+    # 7. Admin Categories CRUD (Exact StoreCategory UI payload + Delete)
     r = client.get("/api/admin/categories", headers=headers)
     assert r.status_code == 200 and len(r.json()["categories"]) > 0, f"Categories failed: {r.text}"
-    cat_id = r.json()["categories"][0]["id"]
+    assert "name" in r.json()["categories"][0] and "gu" in r.json()["categories"][0]["name"]
 
     r = client.post(
         "/api/admin/categories",
         headers=headers,
-        json={"slug": "test-category", "names": {"en": "Test Cat", "gu": "ટેસ્ટ", "hi": "टेस्ट"}},
+        json={
+            "slug": "test-category",
+            "name": {"en": "Test Cat", "gu": "ટેસ્ટ", "hi": "टेस्ट"},
+            "description": {"en": "Desc", "gu": "વર્ણન", "hi": "विवरण"},
+            "coverImage": "/products/VM-R01.jpg",
+            "isActive": True,
+        },
     )
-    assert r.status_code == 200 and r.json()["success"] is True, f"Category create failed: {r.text}"
-    print("[PASS] 7. Admin Categories CRUD")
+    assert r.status_code == 200 and r.json()["success"] is True and r.json().get("category"), f"Category create failed: {r.text}"
+    r = client.delete("/api/admin/categories?slug=test-category", headers=headers)
+    assert r.status_code == 200 and r.json()["success"] is True, f"Category delete failed: {r.text}"
+    print("[PASS] 7. Admin Categories CRUD (Create/List/Delete)")
 
     # 8. Admin Products CRUD (Exact ProductManager.tsx UI Payload: categorySlug + partial status toggle)
     r = client.post(
@@ -119,11 +127,47 @@ def run_all_tests():
     assert r.status_code == 200 and r.json()["success"] is True, f"Product delete failed: {r.text}"
     print("[PASS] 8. Admin Products CRUD (UI Payload + Partial Toggle + Delete)")
 
-    # 9. Banners, Pages, Settings, Credentials, SEO Report
+    # 9. Banners, Pages, Settings, Credentials, SEO Report, Cache Refresh
+    r = client.post(
+        "/api/admin/banners",
+        headers=headers,
+        json={
+            "title": {"en": "Test Banner", "gu": "ટેસ્ટ બેનર", "hi": "टेस्ट बैनर"},
+            "subtitle": {"en": "Fresh Blooms", "gu": "તાજા ફૂલો", "hi": "ताजे फूल"},
+            "linkUrl": "/shop",
+            "desktopImage": "/products/hero-wedding.jpg",
+            "mobileImage": "/products/hero-wedding.jpg",
+            "isActive": True,
+        },
+    )
+    assert r.status_code == 200 and r.json()["success"] is True and r.json().get("banner"), f"Banner create failed: {r.text}"
+    banner_id = r.json()["id"]
+    r = client.delete(f"/api/admin/banners?id={banner_id}", headers=headers)
+    assert r.status_code == 200 and r.json()["success"] is True
+
+    r = client.post(
+        "/api/admin/pages",
+        headers=headers,
+        json={
+            "slug": "test-policy-page",
+            "title": {"en": "Test Page", "gu": "ટેસ્ટ પેજ", "hi": "टेस्ट पेज"},
+            "content": {"en": "Hello", "gu": "નમસ્તે", "hi": "नमस्ते"},
+            "showInMenu": True,
+            "showInFooter": True,
+            "isActive": True,
+        },
+    )
+    assert r.status_code == 200 and r.json()["success"] is True and r.json().get("page"), f"Page create failed: {r.text}"
+    r = client.delete("/api/admin/pages?slug=test-policy-page", headers=headers)
+    assert r.status_code == 200 and r.json()["success"] is True
+
+    r = client.post("/api/admin/cache-refresh", headers=headers)
+    assert r.status_code == 200 and r.json()["success"] is True
+
     for ep in ("/api/admin/banners", "/api/admin/pages", "/api/admin/settings", "/api/admin/credentials", "/api/admin/seo-report", "/api/admin/db-status"):
         r = client.get(ep, headers=headers)
         assert r.status_code == 200 and r.json()["success"] is True, f"Endpoint {ep} failed: {r.text}"
-    print("[PASS] 9. Banners, Pages, Settings, Credentials, SEO Report & DB Status")
+    print("[PASS] 9. Banners, Pages, Cache Refresh, Settings, Credentials, SEO & DB Status")
 
     # 10. Custom Inquiry + Admin Quotations + Visitor Geolocation Telemetry
     r = client.post(

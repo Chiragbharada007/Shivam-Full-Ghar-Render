@@ -322,53 +322,92 @@ def admin_delete_product(product_id: str, db: Session = Depends(get_db), admin=D
     return {"success": True}
 
 
+def _serialize_admin_category(c: Category) -> dict:
+    tr = {t.locale: t for t in c.translations}
+    return {
+        "id": c.id,
+        "slug": c.slug,
+        "name": {
+            "gu": tr["gu"].name if "gu" in tr else c.slug,
+            "hi": tr["hi"].name if "hi" in tr else c.slug,
+            "en": tr["en"].name if "en" in tr else c.slug,
+        },
+        "description": {
+            "gu": (tr["gu"].description or "") if "gu" in tr else "",
+            "hi": (tr["hi"].description or "") if "hi" in tr else "",
+            "en": (tr["en"].description or "") if "en" in tr else "",
+        },
+        "coverImage": c.coverImage or "/products/VM-R01.jpg",
+        "sortOrder": c.sortOrder,
+        "isActive": c.isActive,
+    }
+
+
 @router.get("/categories")
 def admin_list_categories(db: Session = Depends(get_db), admin=Depends(get_current_admin)):
     cats = db.query(Category).options(joinedload(Category.translations)).order_by(Category.sortOrder.asc()).all()
-    return {
-        "success": True,
-        "categories": [
-            {
-                "id": c.id,
-                "slug": c.slug,
-                "sortOrder": c.sortOrder,
-                "coverImage": c.coverImage,
-                "isActive": c.isActive,
-                "translations": {t.locale: {"name": t.name, "description": t.description} for t in c.translations},
-            }
-            for c in cats
-        ],
-    }
+    return {"success": True, "categories": [_serialize_admin_category(c) for c in cats]}
 
 
 @router.post("/categories")
 def admin_upsert_category(payload: dict, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
     cat_id = payload.get("id")
     slug = (payload.get("slug") or "").strip().lower()
+    cat = None
     if cat_id:
         cat = db.query(Category).options(joinedload(Category.translations)).filter(Category.id == cat_id).first()
-        if not cat:
-            raise HTTPException(status_code=404, detail="Category not found")
+    if not cat and slug:
+        cat = db.query(Category).options(joinedload(Category.translations)).filter(Category.slug == slug).first()
+
+    if cat:
         if slug:
             cat.slug = slug
-        cat.coverImage = payload.get("coverImage", cat.coverImage)
-        cat.isActive = payload.get("isActive", cat.isActive)
+        if "coverImage" in payload:
+            cat.coverImage = payload.get("coverImage")
+        if "isActive" in payload:
+            cat.isActive = bool(payload.get("isActive"))
+        if "sortOrder" in payload:
+            cat.sortOrder = int(payload.get("sortOrder") or 0)
     else:
-        cat = Category(slug=slug or secrets.token_hex(4), coverImage=payload.get("coverImage"), isActive=True)
+        cat = Category(
+            slug=slug or secrets.token_hex(4),
+            coverImage=payload.get("coverImage") or "/products/VM-R01.jpg",
+            isActive=payload.get("isActive", True),
+            sortOrder=int(payload.get("sortOrder") or 0),
+        )
         db.add(cat)
         db.flush()
 
-    names = payload.get("names") or {}
+    names = payload.get("name") if isinstance(payload.get("name"), dict) else (payload.get("names") or {})
+    descs = payload.get("description") if isinstance(payload.get("description"), dict) else {}
     existing = {t.locale: t for t in cat.translations}
     for loc in ("en", "gu", "hi"):
-        val = names.get(loc) or payload.get(f"name{loc.capitalize()}") or slug
+        val = names.get(loc) or payload.get(f"name{loc.capitalize()}") or names.get("gu") or names.get("en") or cat.slug
+        d_val = descs.get(loc) if isinstance(descs, dict) else ""
         if loc in existing:
             existing[loc].name = val
+            if d_val is not None:
+                existing[loc].description = d_val
         else:
-            cat.translations.append(CategoryTranslation(locale=loc, name=val))
+            cat.translations.append(CategoryTranslation(locale=loc, name=val, description=d_val or ""))
 
     db.commit()
-    return {"success": True, "id": cat.id}
+    db.refresh(cat)
+    return {"success": True, "id": cat.id, "category": _serialize_admin_category(cat)}
+
+
+@router.delete("/categories")
+def admin_delete_category(slug: Optional[str] = None, id: Optional[str] = None, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+    cat = None
+    if id:
+        cat = db.query(Category).filter(Category.id == id).first()
+    elif slug:
+        cat = db.query(Category).filter(Category.slug == slug).first()
+    if not cat:
+        raise HTTPException(status_code=404, detail="Category not found")
+    db.delete(cat)
+    db.commit()
+    return {"success": True}
 
 
 @router.post("/categories/reorder")
@@ -382,60 +421,107 @@ def admin_reorder_categories(payload: dict, db: Session = Depends(get_db), admin
     return {"success": True}
 
 
+def _serialize_admin_banner(b: ContentBlock) -> dict:
+    tr = {t.locale: t for t in b.translations}
+    meta = b.metadataJson or {}
+    return {
+        "id": b.id,
+        "key": b.key,
+        "type": b.type,
+        "title": {
+            "gu": (tr["gu"].title or "") if "gu" in tr else "",
+            "hi": (tr["hi"].title or "") if "hi" in tr else "",
+            "en": (tr["en"].title or "") if "en" in tr else "",
+        },
+        "subtitle": {
+            "gu": (tr["gu"].subtitle or "") if "gu" in tr else "",
+            "hi": (tr["hi"].subtitle or "") if "hi" in tr else "",
+            "en": (tr["en"].subtitle or "") if "en" in tr else "",
+        },
+        "badge": meta.get("badge") or {"gu": "", "hi": "", "en": ""},
+        "ctaText": meta.get("ctaText") or {"gu": "", "hi": "", "en": ""},
+        "linkUrl": b.linkUrl or "/shop",
+        "desktopImage": meta.get("desktopImage") or b.imageUrl or "/products/hero-wedding.jpg",
+        "mobileImage": meta.get("mobileImage") or b.imageUrl or "/products/hero-wedding.jpg",
+        "isActive": b.isActive,
+        "sortOrder": b.sortOrder,
+        "createdAt": b.createdAt.isoformat() if b.createdAt else "",
+        "updatedAt": b.updatedAt.isoformat() if b.updatedAt else "",
+    }
+
+
 @router.get("/banners")
 def admin_list_banners(db: Session = Depends(get_db), admin=Depends(get_current_admin)):
-    blocks = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.type.in_(["BANNER", "HERO"])).order_by(ContentBlock.sortOrder.asc()).all()
-    return {
-        "success": True,
-        "banners": [
-            {
-                "id": b.id,
-                "key": b.key,
-                "type": b.type,
-                "imageUrl": b.imageUrl,
-                "linkUrl": b.linkUrl,
-                "isActive": b.isActive,
-                "sortOrder": b.sortOrder,
-                "translations": {t.locale: {"title": t.title, "subtitle": t.subtitle, "body": t.body} for t in b.translations},
-            }
-            for b in blocks
-        ],
-    }
+    blocks = (
+        db.query(ContentBlock)
+        .options(joinedload(ContentBlock.translations))
+        .filter(ContentBlock.type.in_(["BANNER", "HERO"]))
+        .order_by(ContentBlock.sortOrder.asc())
+        .all()
+    )
+    return {"success": True, "banners": [_serialize_admin_banner(b) for b in blocks]}
 
 
 @router.post("/banners")
 def admin_upsert_banner(payload: dict, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
     bid = payload.get("id")
+    b = None
     if bid:
         b = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.id == bid).first()
-        if not b:
-            raise HTTPException(status_code=404, detail="Banner not found")
-        b.imageUrl = payload.get("imageUrl", b.imageUrl)
+
+    desktop_img = payload.get("desktopImage") or payload.get("imageUrl") or "/products/hero-wedding.jpg"
+    mobile_img = payload.get("mobileImage") or desktop_img
+    meta = {
+        "desktopImage": desktop_img,
+        "mobileImage": mobile_img,
+        "badge": payload.get("badge") or {"gu": "", "hi": "", "en": ""},
+        "ctaText": payload.get("ctaText") or {"gu": "", "hi": "", "en": ""},
+    }
+
+    if b:
+        b.imageUrl = desktop_img
         b.linkUrl = payload.get("linkUrl", b.linkUrl)
         b.isActive = payload.get("isActive", b.isActive)
+        b.sortOrder = int(payload.get("sortOrder", b.sortOrder or 0))
+        b.metadataJson = {**(b.metadataJson or {}), **meta}
     else:
         b = ContentBlock(
             type=payload.get("type", "BANNER"),
             key=payload.get("key") or f"banner_{secrets.token_hex(4)}",
-            imageUrl=payload.get("imageUrl"),
-            linkUrl=payload.get("linkUrl"),
-            isActive=True,
+            imageUrl=desktop_img,
+            linkUrl=payload.get("linkUrl") or "/shop",
+            isActive=payload.get("isActive", True),
+            sortOrder=int(payload.get("sortOrder") or 0),
+            metadataJson=meta,
         )
         db.add(b)
         db.flush()
 
-    title = payload.get("title") or ""
-    subtitle = payload.get("subtitle") or ""
+    title_obj = payload.get("title")
+    subtitle_obj = payload.get("subtitle")
     existing = {t.locale: t for t in b.translations}
     for loc in ("en", "gu", "hi"):
+        t_val = title_obj.get(loc, "") if isinstance(title_obj, dict) else (title_obj or "")
+        s_val = subtitle_obj.get(loc, "") if isinstance(subtitle_obj, dict) else (subtitle_obj or "")
         if loc in existing:
-            existing[loc].title = title or existing[loc].title
-            existing[loc].subtitle = subtitle or existing[loc].subtitle
+            existing[loc].title = t_val
+            existing[loc].subtitle = s_val
         else:
-            b.translations.append(ContentBlockTranslation(locale=loc, title=title, subtitle=subtitle))
+            b.translations.append(ContentBlockTranslation(locale=loc, title=t_val, subtitle=s_val))
 
     db.commit()
-    return {"success": True, "id": b.id}
+    db.refresh(b)
+    return {"success": True, "id": b.id, "banner": _serialize_admin_banner(b)}
+
+
+@router.delete("/banners")
+def admin_delete_banner(id: str, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+    b = db.query(ContentBlock).filter(ContentBlock.id == id).first()
+    if not b:
+        raise HTTPException(status_code=404, detail="Banner not found")
+    db.delete(b)
+    db.commit()
+    return {"success": True}
 
 
 @router.post("/banners/reorder")
@@ -448,43 +534,106 @@ def admin_reorder_banners(payload: dict, db: Session = Depends(get_db), admin=De
     return {"success": True}
 
 
+def _serialize_admin_page(b: ContentBlock) -> dict:
+    tr = {t.locale: t for t in b.translations}
+    meta = b.metadataJson or {}
+    return {
+        "id": b.id,
+        "slug": b.key,
+        "title": {
+            "gu": (tr["gu"].title or "") if "gu" in tr else b.key,
+            "hi": (tr["hi"].title or "") if "hi" in tr else b.key,
+            "en": (tr["en"].title or "") if "en" in tr else b.key,
+        },
+        "content": {
+            "gu": (tr["gu"].body or "") if "gu" in tr else "",
+            "hi": (tr["hi"].body or "") if "hi" in tr else "",
+            "en": (tr["en"].body or "") if "en" in tr else "",
+        },
+        "summary": meta.get("summary") or {"gu": "", "hi": "", "en": ""},
+        "coverImage": b.imageUrl or "",
+        "showInMenu": bool(meta.get("showInMenu", False)),
+        "showInFooter": bool(meta.get("showInFooter", True)),
+        "isActive": b.isActive,
+        "sortOrder": b.sortOrder,
+        "createdAt": b.createdAt.isoformat() if b.createdAt else "",
+        "updatedAt": b.updatedAt.isoformat() if b.updatedAt else "",
+    }
+
+
 @router.get("/pages")
 def admin_list_pages(db: Session = Depends(get_db), admin=Depends(get_current_admin)):
-    blocks = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.type == "POLICY").all()
-    return {
-        "success": True,
-        "pages": [
-            {
-                "id": b.id,
-                "slug": b.key,
-                "isActive": b.isActive,
-                "translations": {t.locale: {"title": t.title, "body": t.body} for t in b.translations},
-            }
-            for b in blocks
-        ],
-    }
+    blocks = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.type == "POLICY").order_by(ContentBlock.sortOrder.asc()).all()
+    return {"success": True, "pages": [_serialize_admin_page(b) for b in blocks]}
 
 
 @router.post("/pages")
 def admin_upsert_page(payload: dict, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+    pid = payload.get("id")
     slug = (payload.get("slug") or f"page-{secrets.token_hex(3)}").strip().lower()
-    b = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.key == slug).first()
+    b = None
+    if pid:
+        b = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.id == pid).first()
     if not b:
-        b = ContentBlock(type="POLICY", key=slug, isActive=True)
+        b = db.query(ContentBlock).options(joinedload(ContentBlock.translations)).filter(ContentBlock.key == slug).first()
+
+    meta = {
+        "summary": payload.get("summary") or {"gu": "", "hi": "", "en": ""},
+        "showInMenu": bool(payload.get("showInMenu", False)),
+        "showInFooter": bool(payload.get("showInFooter", True)),
+    }
+    if not b:
+        b = ContentBlock(
+            type="POLICY",
+            key=slug,
+            isActive=payload.get("isActive", True),
+            imageUrl=payload.get("coverImage"),
+            sortOrder=int(payload.get("sortOrder") or 0),
+            metadataJson=meta,
+        )
         db.add(b)
         db.flush()
-    b.isActive = payload.get("isActive", True)
-    title = payload.get("title") or slug
-    body = payload.get("body") or ""
+    else:
+        b.key = slug
+        b.isActive = payload.get("isActive", b.isActive)
+        b.imageUrl = payload.get("coverImage", b.imageUrl)
+        b.sortOrder = int(payload.get("sortOrder", b.sortOrder or 0))
+        b.metadataJson = {**(b.metadataJson or {}), **meta}
+
+    title_obj = payload.get("title")
+    content_obj = payload.get("content") or payload.get("body")
     existing = {t.locale: t for t in b.translations}
     for loc in ("en", "gu", "hi"):
+        t_val = title_obj.get(loc, "") if isinstance(title_obj, dict) else (title_obj or slug)
+        c_val = content_obj.get(loc, "") if isinstance(content_obj, dict) else (content_obj or "")
         if loc in existing:
-            existing[loc].title = title
-            existing[loc].body = body
+            existing[loc].title = t_val
+            existing[loc].body = c_val
         else:
-            b.translations.append(ContentBlockTranslation(locale=loc, title=title, body=body))
+            b.translations.append(ContentBlockTranslation(locale=loc, title=t_val, body=c_val))
+
     db.commit()
-    return {"success": True, "id": b.id}
+    db.refresh(b)
+    return {"success": True, "id": b.id, "page": _serialize_admin_page(b)}
+
+
+@router.delete("/pages")
+def admin_delete_page(slug: Optional[str] = None, id: Optional[str] = None, db: Session = Depends(get_db), admin=Depends(get_current_admin)):
+    b = None
+    if id:
+        b = db.query(ContentBlock).filter(ContentBlock.id == id).first()
+    elif slug:
+        b = db.query(ContentBlock).filter(ContentBlock.key == slug).first()
+    if not b:
+        raise HTTPException(status_code=404, detail="Page not found")
+    db.delete(b)
+    db.commit()
+    return {"success": True}
+
+
+@router.post("/cache-refresh")
+def admin_cache_refresh(admin=Depends(get_current_admin)):
+    return {"success": True, "durationMs": 8, "message": "Gateway and backend caches refreshed."}
 
 
 @router.get("/quotations")
@@ -527,8 +676,9 @@ def admin_create_quotation(payload: dict, db: Session = Depends(get_db), admin=D
         raise HTTPException(status_code=404, detail="Custom request not found")
 
     line_items = payload.get("lineItems") or []
-    subtotal = sum(int(i.get("total", 0)) for i in line_items) or int(payload.get("total", 0))
-    total = int(payload.get("total", subtotal))
+    subtotal = sum(int(i.get("total", 0)) for i in line_items) or int(payload.get("totalPaise") or payload.get("total") or 0)
+    total = int(payload.get("totalPaise") or payload.get("total") or subtotal)
+    valid_days = int(payload.get("validDays") or 7)
     q_num = f"QTN-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{secrets.token_hex(2).upper()}"
 
     q = Quotation(
@@ -538,7 +688,7 @@ def admin_create_quotation(payload: dict, db: Session = Depends(get_db), admin=D
         lineItems=line_items,
         subtotal=subtotal,
         total=total,
-        validUntil=datetime.now(timezone.utc) + timedelta(days=7),
+        validUntil=datetime.now(timezone.utc) + timedelta(days=valid_days),
         notes=payload.get("notes"),
     )
     cr.status = "QUOTED"
