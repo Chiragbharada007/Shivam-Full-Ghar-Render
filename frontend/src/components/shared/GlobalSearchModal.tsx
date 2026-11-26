@@ -67,7 +67,41 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
         if (res.ok) {
           const data = await res.json();
           if (data.success) {
-            setResults(data);
+            if (Array.isArray(data.products) || Array.isArray(data.categories) || Array.isArray(data.pages)) {
+              setResults({
+                query: trimmed,
+                products: data.products || [],
+                categories: data.categories || [],
+                pages: data.pages || [],
+                total: data.total || 0,
+              });
+            } else if (Array.isArray(data.results)) {
+              const mappedProducts: SearchResultItem[] = data.results.map((item: any) => {
+                const tr = item.translations?.[locale] || item.translations?.en || {};
+                const title = tr.name || item.name || item.code;
+                const priceInr = Math.round(((item.salePrice || item.basePrice || 0) as number) / 100);
+                return {
+                  id: item.id || item.code,
+                  type: "product",
+                  title,
+                  subtitle: item.categoryName
+                    ? `${item.categoryName}${priceInr > 0 ? ` • ₹${priceInr.toLocaleString("en-IN")}` : ""}`
+                    : tr.description || item.description,
+                  categoryName: item.categoryName,
+                  badge: item.code,
+                  image: item.imageUrl || item.images?.[0]?.url || "/products/VM-R01.jpg",
+                  url: `/${locale}/product/${item.code}`,
+                  score: 1,
+                };
+              });
+              setResults({
+                query: trimmed,
+                products: mappedProducts,
+                categories: [],
+                pages: [],
+                total: mappedProducts.length,
+              });
+            }
           }
         }
       } catch (err) {
@@ -106,9 +140,9 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
 
   const hasResults =
     results &&
-    (results.products.length > 0 ||
-      results.categories.length > 0 ||
-      results.pages.length > 0);
+    ((results.products?.length ?? 0) > 0 ||
+      (results.categories?.length ?? 0) > 0 ||
+      (results.pages?.length ?? 0) > 0);
 
   const showNoResults = results && !isLoading && !hasResults && query.trim().length > 0;
 
@@ -262,12 +296,10 @@ export function GlobalSearchModal({ isOpen, onClose, locale }: GlobalSearchModal
                   >
                     {p.image ? (
                       <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 shrink-0">
-                        <Image
+                        <img
                           src={p.image}
                           alt={p.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform"
-                          sizes="48px"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                         />
                       </div>
                     ) : (
