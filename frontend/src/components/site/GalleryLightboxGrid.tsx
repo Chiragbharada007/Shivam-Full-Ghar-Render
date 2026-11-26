@@ -29,8 +29,8 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-colors ${
               selectedCategory === cat
-                ? "bg-[#244C38] text-[#FAF7EF]"
-                : "bg-white border border-[#244C38]/15 text-[#282A26] hover:border-[#244C38]/40"
+                ? "bg-brand-primary text-[#FAF7EF]"
+                : "bg-white border border-brand text-[#282A26] hover:border-brand/40"
             }`}
           >
             {cat}
@@ -45,7 +45,7 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
             key={item.title}
             type="button"
             onClick={() => setLightboxIdx(idx)}
-            className="group text-left rounded-3xl overflow-hidden bg-white border border-[#244C38]/12 shadow-sm hover:shadow-md transition-all"
+            className="group text-left rounded-3xl overflow-hidden bg-white border border-brand shadow-sm hover:shadow-md transition-all"
           >
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F3EFE4]">
               <SmartImage
@@ -53,16 +53,16 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
                 alt={item.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#163526]/85 text-[#FAF7EF] text-[10px] font-semibold">
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-brand-deep/85 text-[#FAF7EF] text-[10px] font-semibold">
                 {item.category}
               </span>
             </div>
             <div className="p-5 space-y-1">
-              <h3 className="font-serif font-bold text-lg text-[#163526] line-clamp-1">
+              <h3 className="font-serif font-bold text-lg text-brand-deep line-clamp-1">
                 {item.title}
               </h3>
               <p className="text-xs text-[#282A26]/70 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#9F333E] shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-brand-primary shrink-0" />
                 <span>{item.location}</span>
               </p>
             </div>
@@ -84,12 +84,12 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
               type="button"
               onClick={() => setLightboxIdx(null)}
               aria-label="Close lightbox"
-              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-[#163526] text-[#FAF7EF]"
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-brand-deep text-[#FAF7EF]"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="relative aspect-[4/3] bg-[#163526]/10">
+            <div className="relative aspect-[4/3] bg-brand-deep/10">
               <img
                 src={filtered[lightboxIdx].image}
                 alt={filtered[lightboxIdx].title}
@@ -99,7 +99,7 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
                 type="button"
                 onClick={() => setLightboxIdx((lightboxIdx - 1 + filtered.length) % filtered.length)}
                 aria-label="Previous photo"
-                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#163526]/85 text-[#FAF7EF]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-brand-deep/85 text-[#FAF7EF]"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -107,7 +107,7 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
                 type="button"
                 onClick={() => setLightboxIdx((lightboxIdx + 1) % filtered.length)}
                 aria-label="Next photo"
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#163526]/85 text-[#FAF7EF]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-brand-deep/85 text-[#FAF7EF]"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -115,10 +115,10 @@ export function GalleryLightboxGrid({ items }: { items: GalleryItemData[] }) {
 
             <div className="p-5 flex items-center justify-between">
               <div>
-                <h4 className="font-serif font-bold text-xl text-[#163526]">
+                <h4 className="font-serif font-bold text-xl text-brand-deep">
                   {filtered[lightboxIdx].title}
                 </h4>
-                <p className="text-xs text-[#9F333E] font-medium">
+                <p className="text-xs text-brand-primary font-medium">
                   {filtered[lightboxIdx].location} • {filtered[lightboxIdx].category}
                 </p>
               </div>

@@ -103,7 +103,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
           </div>
 
           <div className="absolute top-4 right-4 z-10 pointer-events-none">
-            <span className="px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-semibold shadow-xs">
+            <span className="px-3 py-1 rounded-full bg-brand-primary text-white text-xs font-semibold shadow-xs">
               {t("madeToOrder")}
             </span>
           </div>
@@ -117,7 +117,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
               onClick={() => setActiveImage(imgSrc)}
               className={`aspect-4/3 rounded-2xl overflow-hidden border-2 transition-all cursor-pointer ${
                 activeImage === imgSrc
-                  ? "border-rose-600 ring-2 ring-rose-400 shadow-sm scale-102"
+                  ? "border-brand ring-2 ring-brand shadow-sm scale-102"
                   : "border-black/10 dark:border-white/10 opacity-70 hover:opacity-100"
               }`}
             >
@@ -197,7 +197,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
         <div className="p-4 rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xs space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5 uppercase tracking-wider">
-              <MapPin className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+              <MapPin className="w-3.5 h-3.5 text-brand-primary dark:text-brand-primary" />
               {locale === "gu" ? "ભાટ સિમરોલી પિકઅપ" : "Bhat Simroli Store Pickup"}
             </span>
             <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
@@ -230,7 +230,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
                   onClick={() => setSelectedOption(opt.id)}
                   className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
                     selectedOption === opt.id
-                      ? "bg-rose-500/15 border-rose-600 text-rose-600 dark:text-rose-300 font-bold shadow-xs ring-1 ring-rose-500"
+                      ? "bg-brand-surface border-brand text-brand-primary dark:text-brand-primary font-bold shadow-xs ring-1 ring-rose-500"
                       : "bg-white dark:bg-white/5 border-black/10 dark:border-white/10 text-zinc-700 dark:text-zinc-300 hover:border-black/20 dark:hover:border-white/20"
                   }`}
                 >
@@ -259,7 +259,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
                     onClick={() => toggleAddOn(addon.id)}
                     className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
                       checked
-                        ? "bg-rose-500/15 border-rose-500 font-medium text-zinc-900 dark:text-white"
+                        ? "bg-brand-surface border-brand font-medium text-zinc-900 dark:text-white"
                         : "bg-white dark:bg-white/5 border-black/10 dark:border-white/10 text-zinc-700 dark:text-zinc-300 hover:bg-black/5 dark:hover:bg-white/10"
                     }`}
                   >
@@ -267,7 +267,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
                       <div
                         className={`w-4 h-4 rounded border flex items-center justify-center ${
                           checked
-                            ? "bg-rose-600 border-rose-600 text-white"
+                            ? "bg-brand-primary border-brand text-white"
                             : "border-zinc-400 bg-transparent"
                         }`}
                       >
@@ -276,7 +276,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
                       <span>{addon.label}</span>
                     </div>
                     {showPrices && (
-                      <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">
+                      <span className="text-xs font-semibold text-brand-primary dark:text-brand-primary">
                         +{formatPrice(addon.price)}
                       </span>
                     )}
@@ -294,7 +294,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
             id="subst"
             checked={allowSubstitutions}
             onChange={(e) => setAllowSubstitutions(e.target.checked)}
-            className="mt-0.5 rounded text-rose-600 focus:ring-rose-600 cursor-pointer"
+            className="mt-0.5 rounded text-brand-primary focus:ring-rose-600 cursor-pointer"
           />
           <label htmlFor="subst" className="cursor-pointer leading-relaxed">
             <strong>{t("substitutionTitle")}:</strong> {t("substitutionNotice")}
@@ -330,7 +330,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
               href={`/${locale}/custom-design?code=${product.code}`}
               className="flex-1 py-3.5 px-4 rounded-2xl font-bold text-xs sm:text-sm shadow-xs transition-all flex items-center justify-center gap-2 bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-zinc-800 dark:text-white border border-black/10 dark:border-white/10 cursor-pointer"
             >
-              <FileText className="w-4 h-4 text-rose-500" />
+              <FileText className="w-4 h-4 text-brand-primary" />
               <span>
                 {locale === "gu" ? "ભાવ મેળવો" : locale === "hi" ? "कोटेशन मांगें" : "Request Quote"}
               </span>

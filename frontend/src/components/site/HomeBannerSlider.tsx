@@ -98,7 +98,7 @@ export function HomeBannerSlider({ banners, locale }: HomeBannerSliderProps) {
         {/* Slide Content */}
         <div className="relative z-10 p-6 sm:p-10 md:p-14 lg:p-16 max-w-2xl text-left space-y-4 sm:space-y-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 backdrop-blur-md border border-rose-500/30 text-rose-300 text-xs sm:text-sm font-bold tracking-wide shadow-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-surface backdrop-blur-md border border-brand/30 text-rose-300 text-xs sm:text-sm font-bold tracking-wide shadow-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
             <span>{badge}</span>
           </div>
 

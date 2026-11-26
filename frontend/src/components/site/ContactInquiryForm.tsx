@@ -64,13 +64,13 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
 
   if (requestNumber) {
     return (
-      <div className="p-8 rounded-3xl bg-white border border-[#244C38]/20 shadow-sm text-center space-y-4">
-        <div className="w-14 h-14 mx-auto rounded-full bg-[#244C38]/10 text-[#244C38] flex items-center justify-center">
+      <div className="p-8 rounded-3xl bg-white border border-brand shadow-sm text-center space-y-4">
+        <div className="w-14 h-14 mx-auto rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center">
           <CheckCircle2 className="w-7 h-7" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-[#163526]">Inquiry Received</h3>
+        <h3 className="font-serif text-2xl font-bold text-brand-deep">Inquiry Received</h3>
         <p className="text-xs text-[#282A26]/80">
-          Reference Number: <strong className="font-mono-tech text-[#9F333E]">{requestNumber}</strong>
+          Reference Number: <strong className="font-mono-tech text-brand-primary">{requestNumber}</strong>
         </p>
         <p className="text-xs text-[#282A26]/75 leading-relaxed">
           Our Bhat Simroli florists will reach out on your WhatsApp shortly with availability and fresh flower pricing.
@@ -78,7 +78,7 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
         <button
           type="button"
           onClick={() => setRequestNumber(null)}
-          className="px-5 py-2.5 rounded-xl bg-[#244C38] text-[#FAF7EF] text-xs font-semibold hover:bg-[#163526] transition-colors"
+          className="px-5 py-2.5 rounded-xl bg-brand-primary text-[#FAF7EF] text-xs font-semibold hover:bg-brand-deep transition-colors"
         >
           Send Another Inquiry
         </button>
@@ -89,18 +89,18 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
   const cleanWa = whatsappNumber.replace(/\D/g, "");
 
   return (
-    <div className="p-8 rounded-3xl bg-white border border-[#244C38]/15 shadow-sm space-y-5">
+    <div className="p-8 rounded-3xl bg-white border border-brand shadow-sm space-y-5">
       <div>
-        <span className="text-[11px] font-semibold uppercase tracking-widest text-[#9F333E]">
+        <span className="text-[11px] font-semibold uppercase tracking-widest text-brand-primary">
           Direct Boutique Inquiry
         </span>
-        <h3 className="font-serif font-bold text-2xl text-[#163526] mt-1">
+        <h3 className="font-serif font-bold text-2xl text-brand-deep mt-1">
           Tell Us About Your Celebration
         </h3>
       </div>
 
       {error && (
-        <div className="p-3 rounded-xl bg-[#9F333E]/10 border border-[#9F333E]/25 text-[#9F333E] text-xs flex items-center gap-2">
+        <div className="p-3 rounded-xl bg-brand-primary/10 border border-[#9F333E]/25 text-brand-primary text-xs flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
@@ -115,7 +115,7 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Anand Vora"
-            className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-[#244C38]"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-brand"
           />
         </div>
 
@@ -128,20 +128,20 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
               placeholder="10-digit mobile"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-[#244C38]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-brand"
             />
           </div>
 
           <div className="space-y-1.5">
             <label className="font-semibold text-[#282A26] flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-[#9F333E]" />
+              <Calendar className="w-3.5 h-3.5 text-brand-primary" />
               <span>Event Date</span>
             </label>
             <input
               type="date"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
             />
           </div>
         </div>
@@ -153,7 +153,7 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-[#244C38]"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-brand"
           />
         </div>
 
@@ -165,7 +165,7 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Share garland style, car decor, gajra quantity, or preferred flowers..."
-            className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-[#244C38]"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] placeholder-[#282A26]/45 focus:outline-hidden focus:border-brand"
           />
         </div>
 
@@ -173,7 +173,7 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 py-3 px-4 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] font-semibold flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
+            className="flex-1 py-3 px-4 rounded-xl bg-brand-primary hover:bg-brand-deep text-[#FAF7EF] font-semibold flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
           >
             <Send className="w-3.5 h-3.5" />
             <span>{loading ? "Sending Inquiry..." : "Submit Inquiry"}</span>
@@ -185,7 +185,7 @@ export function ContactInquiryForm({ whatsappNumber }: { whatsappNumber: string 
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="py-3 px-4 rounded-xl border border-[#244C38]/25 text-[#244C38] hover:bg-[#244C38]/8 font-semibold text-center transition-colors"
+            className="py-3 px-4 rounded-xl border border-brand/25 text-brand-primary hover:bg-brand-primary/8 font-semibold text-center transition-colors"
           >
             Chat on WhatsApp
           </a>

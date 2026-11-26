@@ -217,12 +217,12 @@ export function ShopProductGrid({
       {/* ── BHAT SIMROLI BOUTIQUE FRESH PICKUP BANNER ── */}
       <div className="rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 p-5 sm:p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-5 transition-colors">
         <div className="flex items-center gap-4 text-left">
-          <div className="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-600 dark:text-rose-300 shrink-0 text-xl">
+          <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand/30 flex items-center justify-center text-brand-primary dark:text-brand-primary shrink-0 text-xl">
             🌸
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
                 {locale === "gu" ? "ભાટ સિમરોલી શોપ તાજા ફૂલો પિકઅપ" : locale === "hi" ? "भाट सिमरौली दुकान ताजे फूल पिकअप" : "Fresh Store Pickup in Bhat Simroli"}
               </span>
               <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
@@ -274,7 +274,7 @@ export function ShopProductGrid({
               >
                 <div
                   className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 transition-transform duration-300 group-hover:scale-105 relative ${
-                    isActive ? "border-rose-500 ring-2 ring-rose-500/30" : "border-black/10 dark:border-white/10"
+                    isActive ? "border-brand ring-2 ring-brand" : "border-black/10 dark:border-white/10"
                   }`}
                 >
                   <img
@@ -363,7 +363,7 @@ export function ShopProductGrid({
                 onClick={() => setSelectedColour(c.id)}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                   isActive
-                    ? "bg-rose-600 text-white shadow-xs font-bold ring-2 ring-rose-300"
+                    ? "bg-brand-primary text-white shadow-xs font-bold ring-2 ring-brand"
                     : "bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/10"
                 }`}
               >
@@ -400,7 +400,7 @@ export function ShopProductGrid({
               setSelectedColour("all");
               setSearchQuery("");
             }}
-            className="px-6 py-2.5 rounded-full bg-rose-600 text-white font-medium text-xs shadow-md hover:bg-rose-700 transition-colors cursor-pointer"
+            className="px-6 py-2.5 rounded-full bg-brand-primary text-white font-medium text-xs shadow-md hover:bg-brand-deep transition-colors cursor-pointer"
           >
             {locale === "gu" ? "બધા ફિલ્ટર્સ સાફ કરો" : "Reset All Filters"}
           </button>
@@ -432,7 +432,7 @@ export function ShopProductGrid({
                   {/* Top Badges */}
                   <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
                     {p.bestseller && (
-                      <span className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-bold text-[10px] tracking-wide shadow-md uppercase">
+                      <span className="px-2.5 py-0.5 rounded-full bg-brand-primary text-white font-bold text-[10px] tracking-wide shadow-md uppercase">
                         ★ Bestseller
                       </span>
                     )}
@@ -462,7 +462,7 @@ export function ShopProductGrid({
                   <div className="space-y-2">
                     {/* Category & Star Rating */}
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[11px] font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+                      <span className="text-[11px] font-semibold text-brand-primary dark:text-brand-primary uppercase tracking-wider">
                         {p.categoryName[locale] || p.categoryName.en}
                       </span>
                       <div className="flex items-center gap-1 text-amber-500 font-bold text-[11px]">
@@ -473,7 +473,7 @@ export function ShopProductGrid({
                     </div>
 
                     {/* Product Title */}
-                    <h3 className="font-serif font-bold text-zinc-900 dark:text-white text-base leading-snug line-clamp-2 group-hover:text-rose-600 dark:group-hover:text-rose-300 transition-colors">
+                    <h3 className="font-serif font-bold text-zinc-900 dark:text-white text-base leading-snug line-clamp-2 group-hover:text-brand-primary dark:group-hover:text-rose-300 transition-colors">
                       <Link href={`/${locale}/product/${p.code}`}>
                         {p.name[locale] || p.name.en}
                       </Link>
@@ -517,7 +517,7 @@ export function ShopProductGrid({
                       href={`/${locale}/custom-design?code=${p.code}`}
                       className="px-3 py-2.5 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-zinc-800 dark:text-white border border-black/10 dark:border-white/15 font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer"
                     >
-                      <FileText className="w-3.5 h-3.5 text-rose-500" />
+                      <FileText className="w-3.5 h-3.5 text-brand-primary" />
                       <span>{locale === "gu" ? "ભાવ મેળવો" : locale === "hi" ? "कोटेशन" : "Quote"}</span>
                     </Link>
                   </div>
@@ -556,7 +556,7 @@ export function ShopProductGrid({
       {/* ── VALUE PROPS & TRUST SECTION ── */}
       <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-xl grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left transition-colors">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-600 dark:text-rose-300 shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand/30 flex items-center justify-center text-brand-primary dark:text-brand-primary shrink-0">
             <Sparkles className="w-6 h-6" />
           </div>
           <div>
@@ -612,7 +612,7 @@ export function ShopProductGrid({
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-600 dark:text-rose-300 shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand/30 flex items-center justify-center text-brand-primary dark:text-brand-primary shrink-0">
             <Sparkles className="w-6 h-6" />
           </div>
           <div>

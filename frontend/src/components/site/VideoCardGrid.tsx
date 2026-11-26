@@ -75,8 +75,8 @@ export function VideoCardGrid({
         {/* ─── Part 4: Section Header Row ─── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-black/10 dark:border-white/10">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-rose-600 dark:text-rose-300 text-xs font-medium mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-rose-500 dark:text-rose-400" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-brand-primary dark:text-brand-primary text-xs font-medium mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-brand-primary dark:text-brand-primary" />
               <span>{locale === "gu" ? "ભાટ સિમરોલી લાઈવ કલેક્શન" : "Live Floral Catalog"}</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-serif font-bold tracking-tight text-zinc-900 dark:text-white">
@@ -140,7 +140,7 @@ export function VideoCardGrid({
               href={`/${locale}/shop`}
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-zinc-900 text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-zinc-200 text-sm font-semibold shadow-[0_12px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.8)] border border-black/10 dark:border-white/20 hover:scale-105 active:scale-95 transition-all group"
             >
-              <Sparkles className="w-4 h-4 text-rose-500 fill-rose-500 group-hover:rotate-12 transition-transform" />
+              <Sparkles className="w-4 h-4 text-brand-primary fill-rose-500 group-hover:rotate-12 transition-transform" />
               <span>
                 {locale === "gu"
                   ? "બધી ડિઝાઇન એક્સપ્લોર કરો"

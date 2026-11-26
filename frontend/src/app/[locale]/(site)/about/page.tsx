@@ -11,7 +11,7 @@ export default async function AboutPage({
     <div className="py-14 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 min-h-screen transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
             About Shivam Full Ghar
           </span>
           <h1 className="text-3xl sm:text-5xl font-serif font-black text-zinc-900 dark:text-white">
@@ -42,7 +42,7 @@ export default async function AboutPage({
               </p>
             </div>
             <div className="p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 space-y-1.5">
-              <Heart className="w-5 h-5 text-rose-500" />
+              <Heart className="w-5 h-5 text-brand-primary" />
               <h4 className="font-bold text-zinc-900 dark:text-white text-sm">Artisan Strung</h4>
               <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Hand-woven using time-honoured techniques for balanced weight and comfort.

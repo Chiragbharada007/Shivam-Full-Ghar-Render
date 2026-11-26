@@ -159,9 +159,9 @@ export default async function HomePage({
       <HomeBannerSlider banners={liveBanners} locale={locale} />
 
       {/* ─── Hero Section (Ultra-Modern Dual-Theme Aesthetic) ────────────────────────── */}
-      <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 border-b border-black/10 dark:border-white/10 bg-gradient-to-b from-rose-50/50 via-[#faf9f6] to-[#faf9f6] dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-rose-950/25 dark:via-[#060606] dark:to-[#060606]">
+      <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 border-b border-black/10 dark:border-white/10 bg-gradient-to-b from-brand-surface via-[#faf9f6] to-[#faf9f6] dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-brand-surface dark:via-[#060606] dark:to-[#060606]">
         {/* Ambient Glow Orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-rose-500/10 blur-3xl pointer-events-none animate-ambient-glow" />
+        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-brand-surface blur-3xl pointer-events-none animate-ambient-glow" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none animate-ambient-glow" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -169,8 +169,8 @@ export default async function HomePage({
             {/* Left Column: Headlines & CTA */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/15 text-rose-600 dark:text-rose-300 text-xs sm:text-sm font-medium shadow-xs">
-                <Sparkles className="w-4 h-4 text-rose-500 dark:text-rose-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/15 text-brand-primary dark:text-brand-primary text-xs sm:text-sm font-medium shadow-xs">
+                <Sparkles className="w-4 h-4 text-brand-primary dark:text-brand-primary" />
                 <span>{heroBadge}</span>
               </div>
 
@@ -212,7 +212,7 @@ export default async function HomePage({
                   <span>{trust2}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                  <ShieldCheck className="w-4 h-4 text-brand-primary dark:text-brand-primary shrink-0" />
                   <span>{trust3}</span>
                 </span>
               </div>
@@ -232,7 +232,7 @@ export default async function HomePage({
                   {/* Overlay Badges */}
                   <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl backdrop-blur-xl bg-white/80 dark:bg-black/60 border border-white/20 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider text-rose-600 dark:text-rose-400 font-bold block">
+                      <span className="text-[10px] uppercase tracking-wider text-brand-primary dark:text-brand-primary font-bold block">
                         Signature Collection
                       </span>
                       <h3 className="font-serif font-bold text-zinc-900 dark:text-white text-sm">
@@ -271,7 +271,7 @@ export default async function HomePage({
                     />
                   </div>
                   <div className="overflow-hidden">
-                    <h4 className="font-serif font-bold text-zinc-900 dark:text-white text-xs sm:text-sm group-hover:text-rose-600 dark:group-hover:text-rose-300 transition-colors truncate">
+                    <h4 className="font-serif font-bold text-zinc-900 dark:text-white text-xs sm:text-sm group-hover:text-brand-primary dark:group-hover:text-rose-300 transition-colors truncate">
                       {catTitle}
                     </h4>
                     {catDesc && (
@@ -302,7 +302,7 @@ export default async function HomePage({
       <section className="py-16 sm:py-20 bg-[#f4f3ef] dark:bg-[#080808] border-b border-black/10 dark:border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center mb-12 space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
               {packagesBadge}
             </span>
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-white">
@@ -572,7 +572,7 @@ export default async function HomePage({
               >
                 <summary className="font-serif font-semibold text-zinc-900 dark:text-white cursor-pointer list-none flex items-center justify-between gap-3 text-sm sm:text-base">
                   <span>{faq.q}</span>
-                  <span className="text-rose-600 dark:text-rose-400 font-bold transition-transform group-open:rotate-45 text-lg">
+                  <span className="text-brand-primary dark:text-brand-primary font-bold transition-transform group-open:rotate-45 text-lg">
                     +
                   </span>
                 </summary>

@@ -84,8 +84,8 @@ export default async function PackagesPage({
     <div className="py-14 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 min-h-screen transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-rose-600 dark:text-rose-300 text-xs font-semibold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-rose-500" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-brand-primary dark:text-brand-primary text-xs font-semibold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-brand-primary" />
             <span>All-In-One Curated Floral Combos</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-serif font-black text-zinc-900 dark:text-white">
@@ -102,7 +102,7 @@ export default async function PackagesPage({
               key={pkg.slug}
               className={`rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 relative group ${
                 pkg.popular
-                  ? "bg-white dark:bg-[#0c0c0c] border-2 border-rose-600 shadow-xl ring-4 ring-rose-500/10"
+                  ? "bg-white dark:bg-[#0c0c0c] border-2 border-brand shadow-xl ring-4 ring-rose-500/10"
                   : "bg-white dark:bg-[#0c0c0c] border border-black/10 dark:border-white/10 shadow-sm hover:shadow-lg"
               }`}
             >
@@ -116,7 +116,7 @@ export default async function PackagesPage({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 {pkg.popular && (
-                  <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-rose-600 text-white font-bold text-[10px] shadow-md uppercase tracking-wide">
+                  <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-brand-primary text-white font-bold text-[10px] shadow-md uppercase tracking-wide">
                     ★ Most Popular
                   </span>
                 )}

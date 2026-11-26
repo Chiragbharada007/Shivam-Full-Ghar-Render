@@ -121,19 +121,19 @@ export default function CustomDesignPage() {
   if (submittedRequestNumber) {
     return (
       <div className="py-20 bg-[#FAF7EF] text-[#282A26] min-h-[70vh] flex items-center justify-center px-4">
-        <div className="max-w-md w-full rounded-3xl bg-white border border-[#244C38]/20 shadow-md p-8 text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-[#244C38]/10 text-[#244C38] flex items-center justify-center mx-auto">
+        <div className="max-w-md w-full rounded-3xl bg-white border border-brand shadow-md p-8 text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-9 h-9" />
           </div>
-          <h2 className="text-2xl font-serif font-bold text-[#163526]">{t("successTitle")}</h2>
+          <h2 className="text-2xl font-serif font-bold text-brand-deep">{t("successTitle")}</h2>
           <p className="text-xs text-[#282A26]/75 leading-relaxed">{t("successDesc")}</p>
-          <div className="p-4 rounded-2xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#9F333E] font-mono-tech font-bold text-lg">
+          <div className="p-4 rounded-2xl bg-[#FAF7EF] border border-brand text-brand-primary font-mono-tech font-bold text-lg">
             {submittedRequestNumber}
           </div>
           <p className="text-xs text-[#282A26]/70">{t("trackNotice")}</p>
           <Link
             href={`/${locale}`}
-            className="inline-block px-8 py-3 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] font-semibold text-xs transition-colors"
+            className="inline-block px-8 py-3 rounded-xl bg-brand-primary hover:bg-brand-deep text-[#FAF7EF] font-semibold text-xs transition-colors"
           >
             Back to Home
           </Link>
@@ -146,18 +146,18 @@ export default function CustomDesignPage() {
     <div className="py-14 bg-[#FAF7EF] text-[#282A26] min-h-screen">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-2.5">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-[#244C38]/10 text-[#244C38] text-xs font-semibold uppercase tracking-widest">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-semibold uppercase tracking-widest">
             Bespoke Indian Wedding Florals
           </span>
-          <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[#163526]">{t("title")}</h1>
+          <h1 className="text-3xl sm:text-5xl font-serif font-bold text-brand-deep">{t("title")}</h1>
           <p className="text-sm text-[#282A26]/75 max-w-xl mx-auto leading-relaxed">{t("subtitle")}</p>
         </div>
 
         <CustomGarlandBuilder onApplyConfig={handleApplyConfig} locale={locale} />
 
-        <div id="inquiry-form" className="p-6 sm:p-8 rounded-3xl bg-white border border-[#244C38]/15 shadow-sm space-y-6">
-          <div className="border-b border-[#244C38]/12 pb-4">
-            <h2 className="text-2xl font-serif font-bold text-[#163526]">
+        <div id="inquiry-form" className="p-6 sm:p-8 rounded-3xl bg-white border border-brand shadow-sm space-y-6">
+          <div className="border-b border-brand pb-4">
+            <h2 className="text-2xl font-serif font-bold text-brand-deep">
               Submit Custom Floral Inquiry
             </h2>
             <p className="text-xs text-[#282A26]/70 mt-1">
@@ -167,7 +167,7 @@ export default function CustomDesignPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5 text-xs">
             {error && (
-              <div className="p-3.5 rounded-xl bg-[#9F333E]/10 border border-[#9F333E]/25 text-[#9F333E] font-medium flex items-center gap-2">
+              <div className="p-3.5 rounded-xl bg-brand-primary/10 border border-[#9F333E]/25 text-brand-primary font-medium flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{error}</span>
               </div>
@@ -175,19 +175,19 @@ export default function CustomDesignPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">{t("name")} *</label>
+                <label className="font-semibold text-brand-deep">{t("name")} *</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Priya Shah"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">{t("mobile")} *</label>
+                <label className="font-semibold text-brand-deep">{t("mobile")} *</label>
                 <input
                   type="tel"
                   required
@@ -195,26 +195,26 @@ export default function CustomDesignPage() {
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
                   placeholder="10-digit WhatsApp number"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">{t("eventDate")}</label>
+                <label className="font-semibold text-brand-deep">{t("eventDate")}</label>
                 <input
                   type="date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">Event Type</label>
+                <label className="font-semibold text-brand-deep">Event Type</label>
                 <select
                   value={eventType}
                   onChange={(e) => setEventType(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 >
                   <option>Wedding Varmala</option>
                   <option>Bridal Hair Veni & Gajra</option>
@@ -225,57 +225,57 @@ export default function CustomDesignPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">Required Flowers</label>
+                <label className="font-semibold text-brand-deep">Required Flowers</label>
                 <input
                   type="text"
                   value={flowers}
                   onChange={(e) => setFlowers(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">Color Preferences</label>
+                <label className="font-semibold text-brand-deep">Color Preferences</label>
                 <input
                   type="text"
                   value={colors}
                   onChange={(e) => setColors(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">Quantity</label>
+                <label className="font-semibold text-brand-deep">Quantity</label>
                 <input
                   type="text"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="e.g. 1 Pair / 10 Gajras"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-semibold text-[#163526]">{t("budget")} (Optional)</label>
+                <label className="font-semibold text-brand-deep">{t("budget")} (Optional)</label>
                 <input
                   type="number"
                   placeholder="e.g. 5000"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="sm:col-span-2 space-y-1.5">
-                <label className="font-semibold text-[#163526] block">Delivery or Store Pickup</label>
+                <label className="font-semibold text-brand-deep block">Delivery or Store Pickup</label>
                 <div className="flex gap-3">
                   <button
                     type="button"
                     onClick={() => setFulfillment("PICKUP")}
                     className={`flex-1 py-2.5 px-4 rounded-xl font-semibold border transition-colors ${
                       fulfillment === "PICKUP"
-                        ? "bg-[#244C38] text-[#FAF7EF] border-[#244C38]"
-                        : "bg-[#FAF7EF] text-[#282A26] border-[#244C38]/20"
+                        ? "bg-brand-primary text-[#FAF7EF] border-brand"
+                        : "bg-[#FAF7EF] text-[#282A26] border-brand"
                     }`}
                   >
                     Free Bhat Simroli Store Pickup
@@ -285,8 +285,8 @@ export default function CustomDesignPage() {
                     onClick={() => setFulfillment("DELIVERY")}
                     className={`flex-1 py-2.5 px-4 rounded-xl font-semibold border transition-colors ${
                       fulfillment === "DELIVERY"
-                        ? "bg-[#244C38] text-[#FAF7EF] border-[#244C38]"
-                        : "bg-[#FAF7EF] text-[#282A26] border-[#244C38]/20"
+                        ? "bg-brand-primary text-[#FAF7EF] border-brand"
+                        : "bg-[#FAF7EF] text-[#282A26] border-brand"
                     }`}
                   >
                     Local Event Delivery
@@ -295,19 +295,19 @@ export default function CustomDesignPage() {
               </div>
 
               <div className="sm:col-span-2 space-y-1.5">
-                <label className="font-semibold text-[#163526]">{t("description")} *</label>
+                <label className="font-semibold text-brand-deep">{t("description")} *</label>
                 <textarea
                   required
                   rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Share garland length, ceremony timing, or special floral notes..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-[#244C38]/20 text-[#282A26] focus:outline-hidden focus:border-[#244C38]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7EF] border border-brand text-[#282A26] focus:outline-hidden focus:border-brand"
                 />
               </div>
 
               <div className="sm:col-span-2 space-y-2">
-                <label className="font-semibold text-[#163526]">{t("uploadTitle")}</label>
+                <label className="font-semibold text-brand-deep">{t("uploadTitle")}</label>
                 <div className="border-2 border-dashed border-[#D7B77C] rounded-2xl p-6 text-center hover:bg-[#FAF7EF] transition-colors flex flex-col items-center justify-center cursor-pointer relative">
                   <input
                     type="file"
@@ -316,8 +316,8 @@ export default function CustomDesignPage() {
                     onChange={handlePhotoUpload}
                     className="absolute inset-0 opacity-0 cursor-pointer"
                   />
-                  <UploadCloud className="w-8 h-8 text-[#244C38] mb-2" />
-                  <span className="font-semibold text-[#163526]">Click to select reference photos</span>
+                  <UploadCloud className="w-8 h-8 text-brand-primary mb-2" />
+                  <span className="font-semibold text-brand-deep">Click to select reference photos</span>
                   <span className="text-[11px] text-[#282A26]/60 mt-1">
                     PNG, JPG, WebP up to 5MB each (Max 5 photos)
                   </span>
@@ -326,12 +326,12 @@ export default function CustomDesignPage() {
                 {photos.length > 0 && (
                   <div className="flex flex-wrap gap-2.5 pt-2">
                     {photos.map((src, i) => (
-                      <div key={i} className="relative w-16 h-16 rounded-xl border border-[#244C38]/20 overflow-hidden">
+                      <div key={i} className="relative w-16 h-16 rounded-xl border border-brand overflow-hidden">
                         <img src={src} alt={`Reference ${i + 1}`} className="w-full h-full object-cover" />
                         <button
                           type="button"
                           onClick={() => setPhotos((prev) => prev.filter((_, idx) => idx !== i))}
-                          className="absolute top-0.5 right-0.5 p-0.5 rounded-full bg-[#163526] text-white"
+                          className="absolute top-0.5 right-0.5 p-0.5 rounded-full bg-brand-deep text-white"
                           aria-label="Remove photo"
                         >
                           <X className="w-3 h-3" />
@@ -346,7 +346,7 @@ export default function CustomDesignPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-xl bg-[#244C38] hover:bg-[#163526] text-[#FAF7EF] font-bold text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 rounded-xl bg-brand-primary hover:bg-brand-deep text-[#FAF7EF] font-bold text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <span>{isSubmitting ? t("submitting") : t("submitBtn")}</span>
               <ArrowRight className="w-4 h-4 text-[#D7B77C]" />
