@@ -11,8 +11,8 @@ export async function gatewayFetch<T = any>(
   const url = path.startsWith("http") ? path : `${GATEWAY_BASE}${path.startsWith("/") ? path : `/${path}`}`;
   try {
     const res = await fetch(url, {
+      cache: "no-store",
       ...options,
-      next: { revalidate: 30 },
     });
     if (!res.ok) return null;
     return (await res.json()) as T;

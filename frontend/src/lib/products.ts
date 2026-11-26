@@ -30,10 +30,7 @@ export interface AdminProductView {
 }
 
 function normalizeCategory(slug?: string): ProductCatalogItem["category"] {
-  if (slug === "car-decoration" || slug === "hair-flowers" || slug === "gajra" || slug === "floral-jewellery") {
-    return slug;
-  }
-  return "garlands";
+  return (slug || "garlands") as ProductCatalogItem["category"];
 }
 
 function mapApiProductToCatalog(p: any): ProductCatalogItem {
