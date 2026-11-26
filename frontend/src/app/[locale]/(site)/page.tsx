@@ -250,7 +250,7 @@ export default async function HomePage({
       <DesignExperienceSection locale={locale} products={catalogItems} />
 
       {/* ─── Category Quick Nav Row (Dynamic from PostgreSQL - P8-T18) ─────── */}
-      <section className="py-12 border-b border-black/10 dark:border-white/10 bg-white dark:bg-[#080808] transition-colors duration-300">
+      <section className="py-12 border-b border-white/10 bg-black/15 backdrop-blur-[1px] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
             {dynamicCategories.map((cat) => {
@@ -260,7 +260,7 @@ export default async function HomePage({
                 <Link
                   key={cat.slug}
                   href={`/${locale}/shop?category=${cat.slug}`}
-                  className="group p-3 sm:p-4 rounded-2xl bg-stone-50 dark:bg-[#0d0d0d] border border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/25 transition-all flex items-center gap-3.5 hover:scale-[1.02] shadow-xs hover:shadow-md cursor-pointer"
+                  className="group p-3 sm:p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-white/30 hover:border-white/60 transition-all flex items-center gap-3.5 hover:scale-[1.02] shadow-lg cursor-pointer"
                 >
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shrink-0 relative bg-zinc-100 dark:bg-zinc-900 border border-black/10 dark:border-white/10">
                     <img
@@ -298,16 +298,16 @@ export default async function HomePage({
       />
 
       {/* ─── Packages Preview (Luxury Aesthetic) ──────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#f4f3ef] dark:bg-[#080808] border-b border-black/10 dark:border-white/10 transition-colors duration-300">
+      <section className="py-16 sm:py-20 bg-black/15 backdrop-blur-[1px] border-b border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center mb-12 space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-light">
               {packagesBadge}
             </span>
-            <h2 className="text-2xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-white">
+            <h2 className="text-2xl sm:text-4xl font-serif font-bold text-white">
               {packagesTitle}
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">{packagesSubtitle}</p>
+            <p className="text-xs sm:text-sm text-white/75">{packagesSubtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -382,13 +382,13 @@ export default async function HomePage({
       </section>
 
       {/* ─── How It Works (Glass Cards) ───────────────────────────────── */}
-      <section className="py-16 bg-[#faf9f6] dark:bg-[#060606] border-b border-black/10 dark:border-white/10 transition-colors duration-300">
+      <section className="py-16 bg-transparent border-b border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white">
               {t("howItWorksTitle")}
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-2">
+            <p className="text-xs sm:text-sm text-white/75 mt-2">
               {t("howItWorksSubtitle")}
             </p>
           </div>
@@ -443,38 +443,38 @@ export default async function HomePage({
       </section>
 
       {/* ─── Trust Stats ───────────────────────────────────────────────────────────── */}
-      <section className="py-14 bg-white dark:bg-[#080808] border-b border-black/10 dark:border-white/10 transition-colors duration-300">
+      <section className="py-14 bg-black/15 backdrop-blur-[1px] border-b border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            <div className="p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
-              <span className="font-serif font-black text-3xl sm:text-4xl text-zinc-900 dark:text-white block">
+            <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+              <span className="font-serif font-black text-3xl sm:text-4xl text-white block">
                 {t("trustStat1")}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 mt-1 block">
+              <span className="text-xs sm:text-sm font-medium text-white/80 mt-1 block">
                 {t("trustLabel1")}
               </span>
             </div>
-            <div className="p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
-              <span className="font-serif font-black text-3xl sm:text-4xl text-zinc-900 dark:text-white block">
+            <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+              <span className="font-serif font-black text-3xl sm:text-4xl text-white block">
                 {t("trustStat2")}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 mt-1 block">
+              <span className="text-xs sm:text-sm font-medium text-white/80 mt-1 block">
                 {t("trustLabel2")}
               </span>
             </div>
-            <div className="p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
-              <span className="font-serif font-black text-3xl sm:text-4xl text-zinc-900 dark:text-white block">
+            <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+              <span className="font-serif font-black text-3xl sm:text-4xl text-white block">
                 {t("trustStat3")}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 mt-1 block">
+              <span className="text-xs sm:text-sm font-medium text-white/80 mt-1 block">
                 {t("trustLabel3")}
               </span>
             </div>
-            <div className="p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
-              <span className="font-serif font-black text-3xl sm:text-4xl text-zinc-900 dark:text-white block">
+            <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+              <span className="font-serif font-black text-3xl sm:text-4xl text-white block">
                 {t("trustStat4")}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 mt-1 block">
+              <span className="text-xs sm:text-sm font-medium text-white/80 mt-1 block">
                 {t("trustLabel4")}
               </span>
             </div>
@@ -483,10 +483,10 @@ export default async function HomePage({
       </section>
 
       {/* ─── Customer Reviews ──────────────────────────────────────────────────────── */}
-      <section className="py-16 bg-[#faf9f6] dark:bg-[#060606] border-b border-black/10 dark:border-white/10 transition-colors duration-300">
+      <section className="py-16 bg-transparent border-b border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white">
               {t("reviewsTitle")}
             </h2>
           </div>
@@ -537,13 +537,13 @@ export default async function HomePage({
       </section>
 
       {/* ─── FAQ Section ───────────────────────────────────────────────────────────── */}
-      <section className="py-16 bg-white dark:bg-[#080808] transition-colors duration-300">
+      <section className="py-16 bg-black/15 backdrop-blur-[1px] transition-colors duration-300">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white">
               {t("faqTitle")}
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-2">{t("faqSubtitle")}</p>
+            <p className="text-xs sm:text-sm text-white/75 mt-2">{t("faqSubtitle")}</p>
           </div>
 
           <div className="space-y-4">

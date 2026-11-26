@@ -70,20 +70,20 @@ export function VideoCardGrid({
     locale === "gu" ? "બધી ડિઝાઇન જુઓ →" : locale === "hi" ? "सभी डिज़ाइन देखें →" : "All Templates →";
 
   return (
-    <section className="relative w-full py-16 sm:py-24 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-white transition-colors duration-300">
+    <section className="relative w-full py-16 sm:py-24 bg-transparent text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ─── Part 4: Section Header Row ─── */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-black/10 dark:border-white/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 border-b border-white/15">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-brand-primary dark:text-brand-primary text-xs font-medium mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-brand-primary dark:text-brand-primary" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-light text-xs font-medium mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-brand-light" />
               <span>{locale === "gu" ? "ભાટ સિમરોલી લાઈવ કલેક્શન" : "Live Floral Catalog"}</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-serif font-bold tracking-tight text-zinc-900 dark:text-white">
+            <h2 className="text-2xl sm:text-4xl font-serif font-bold tracking-tight text-white">
               {sectionTitle || defaultTitle}
             </h2>
             {sectionSubtitle && (
-              <p className="mt-2 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl font-sans">
+              <p className="mt-2 text-sm sm:text-base text-white/75 max-w-2xl font-sans">
                 {sectionSubtitle}
               </p>
             )}
@@ -92,7 +92,7 @@ export function VideoCardGrid({
           <div className="flex items-center gap-3">
             <Link
               href={`/${locale}${viewAllLink}`}
-              className="group inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-colors"
+              className="group inline-flex items-center gap-1.5 text-sm font-semibold text-white/85 hover:text-white transition-colors"
             >
               <span>{viewAllText || defaultViewAll}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -109,8 +109,8 @@ export function VideoCardGrid({
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all shrink-0 cursor-pointer ${
                 selectedCategory === cat.id
-                  ? "bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold shadow-md scale-102"
-                  : "bg-black/5 text-zinc-600 hover:text-black hover:bg-black/10 dark:bg-white/5 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/10 border border-black/10 dark:border-white/10"
+                  ? "bg-white text-zinc-900 font-semibold shadow-md scale-102"
+                  : "bg-white/10 text-white/80 hover:text-white hover:bg-white/20 border border-white/20 backdrop-blur-sm"
               }`}
             >
               {cat.label}
@@ -132,13 +132,13 @@ export function VideoCardGrid({
           </div>
 
           {/* ─── Part 7: Dynamic Fade-Out Blur Mask at Bottom ─── */}
-          <div className="pointer-events-none absolute bottom-0 inset-x-0 h-48 sm:h-64 bg-gradient-to-t from-[#faf9f6] via-[#faf9f6]/90 to-transparent dark:from-[#060606] dark:via-[#060606]/90 dark:to-transparent backdrop-blur-[2px] transition-colors duration-300" />
+          <div className="pointer-events-none absolute bottom-0 inset-x-0 h-48 sm:h-64 bg-gradient-to-t from-black/60 via-black/25 to-transparent backdrop-blur-[1px] transition-colors duration-300" />
 
           {/* ─── Part 8: Centered Floating CTA Pill ─── */}
           <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
             <Link
               href={`/${locale}/shop`}
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-zinc-900 text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-zinc-200 text-sm font-semibold shadow-[0_12px_40px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.8)] border border-black/10 dark:border-white/20 hover:scale-105 active:scale-95 transition-all group"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full btn-brand text-sm font-semibold shadow-[0_12px_40px_rgba(0,0,0,0.45)] border border-white/20 hover:scale-105 active:scale-95 transition-all group"
             >
               <Sparkles className="w-4 h-4 text-brand-primary fill-rose-500 group-hover:rotate-12 transition-transform" />
               <span>

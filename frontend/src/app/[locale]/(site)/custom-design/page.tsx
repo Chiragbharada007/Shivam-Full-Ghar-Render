@@ -143,8 +143,8 @@ export default function CustomDesignPage() {
   }
 
   return (
-    <div className="py-14 bg-[#FAF7EF] text-[#282A26] min-h-screen">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <div className="py-8 sm:py-14 px-3 sm:px-6 bg-transparent text-[#282A26] min-h-screen">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-10 rounded-3xl bg-white/88 backdrop-blur-md border border-white/25 shadow-2xl">
         <div className="text-center space-y-2.5">
           <span className="inline-block px-3.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-semibold uppercase tracking-widest">
             Bespoke Indian Wedding Florals

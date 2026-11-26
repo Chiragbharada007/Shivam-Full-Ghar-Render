@@ -8,8 +8,8 @@ export default async function AboutPage({
   const { locale } = await params;
 
   return (
-    <div className="py-14 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-zinc-100 min-h-screen transition-colors duration-300">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="py-8 sm:py-14 px-3 sm:px-6 bg-transparent text-zinc-900 min-h-screen transition-colors duration-300">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-12 rounded-3xl bg-white/88 backdrop-blur-md border border-white/25 shadow-2xl">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-semibold uppercase tracking-wider text-brand-primary dark:text-brand-primary">
             About Shivam Full Ghar

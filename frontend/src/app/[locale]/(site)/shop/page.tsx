@@ -29,8 +29,8 @@ export default async function ShopPage({
   const categories = await getStorefrontCategories();
 
   return (
-    <div className="py-12 bg-[#FAF7EF] text-[#282A26] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="py-8 sm:py-12 px-3 sm:px-6 bg-transparent text-[#282A26] min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 rounded-3xl bg-white/88 backdrop-blur-md border border-white/25 shadow-2xl">
         {/* Editorial Heading */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-primary/10 border border-brand text-brand-primary text-xs font-semibold uppercase tracking-wider">

@@ -45,7 +45,7 @@ export function DesignExperienceSection({
       <div className="space-y-4">
         <HaleShowcase />
         <div className="flex flex-wrap items-center justify-center gap-3 py-2">
-          <span className="text-xs font-semibold text-brand-deep">
+          <span className="text-xs font-semibold text-white/90">
             Switch Floral Colour World:
           </span>
           <ThemeToggle />
@@ -56,10 +56,10 @@ export function DesignExperienceSection({
       <section className="space-y-6">
         <div className="text-center space-y-2">
           <LotusCrest className="w-9 h-9 mx-auto" />
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-primary block">
+          <span className="text-xs font-semibold uppercase tracking-widest text-brand-light block">
             Craftsmanship Story
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-brand-deep">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
             From Keshod Garden to Wedding Garland
           </h2>
           <FloralDivider />
@@ -92,16 +92,16 @@ export function DesignExperienceSection({
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#9F333E]">
+            <span className="text-xs font-semibold uppercase tracking-widest text-brand-light">
               Best Sellers
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#163526] mt-1">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mt-1">
               Handcrafted Floral Favorites
             </h2>
           </div>
           <Link
             href={`/${locale}/shop`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#244C38] hover:text-[#9F333E] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-light hover:text-white transition-colors"
           >
             <span>Explore Full Catalogue</span>
             <ArrowRight className="w-3.5 h-3.5" />

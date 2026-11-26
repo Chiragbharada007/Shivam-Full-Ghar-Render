@@ -65,12 +65,12 @@ export default async function ProductDetailPage({
   };
 
   return (
-    <div className="py-12 bg-[#faf9f6] text-zinc-900 dark:bg-[#060606] dark:text-white min-h-screen transition-colors duration-300">
+    <div className="py-8 sm:py-12 px-3 sm:px-6 bg-transparent text-zinc-900 min-h-screen transition-colors duration-300">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 rounded-3xl bg-white/88 backdrop-blur-md border border-white/25 shadow-2xl">
         <ProductView
           product={currentProduct}
           earliestDate={earliestDate}
