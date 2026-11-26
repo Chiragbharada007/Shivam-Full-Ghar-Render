@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Search, Menu, X, ShoppingBag, Flower2, Home, Sparkles, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearchModal } from "./GlobalSearchModal";
@@ -91,8 +92,8 @@ export function FloatingNavbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          {/* Desktop Navigation (CodeXr Glassy Sliding Pill) */}
+          <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-brand-surface/70 border border-brand">
             {navLinks.map((link) => {
               const isActive =
                 link.href === `/${locale}`
@@ -102,13 +103,18 @@ export function FloatingNavbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive
-                      ? "bg-brand-primary text-[#FAF7EF]"
-                      : "text-[#282A26] hover:text-brand-primary hover:bg-brand-surface"
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                    isActive ? "text-[#FAF7EF]" : "text-[#282A26] hover:text-brand-primary"
                   }`}
                 >
-                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navActivePill"
+                      transition={{ type: "spring", stiffness: 360, damping: 28 }}
+                      className="absolute inset-0 rounded-full bg-brand-primary -z-0"
+                    />
+                  )}
+                  <span className="relative z-10">{link.label}</span>
                 </Link>
               );
             })}

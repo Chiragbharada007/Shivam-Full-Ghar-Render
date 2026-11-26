@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Flower2, Car, Gem, Sparkles, ArrowRight, MessageCircle, MapPin } from "lucide-react";
 import { PerfectCard } from "@/components/ui/PerfectCard";
 import { HaleShowcase } from "@/components/site/HaleShowcase";
+import { ScrollZoomFloralStage } from "@/components/site/ScrollZoomFloralStage";
 import { CountUpNumber, BlurInReveal } from "@/components/shared/ScrollEffects";
 import { FloralDivider, LotusCrest } from "@/components/graphics/FloralGraphics";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
@@ -83,6 +84,9 @@ export function DesignExperienceSection({
           ))}
         </div>
       </section>
+
+      {/* 2c. 3D Scroll Zoom Parallax Stage */}
+      <ScrollZoomFloralStage />
 
       {/* 3. Best-Selling Wedding Designs */}
       <section className="space-y-6">

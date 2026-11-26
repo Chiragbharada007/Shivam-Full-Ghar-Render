@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { formatPrice, getPriceDisplay } from "@/lib/utils";
 import { SmartImage } from "@/components/shared/SmartImage";
+import { Interactive3DCard } from "@/components/site/Interactive3DCard";
 
 interface ProductViewProps {
   product: {
@@ -81,14 +82,15 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start text-zinc-900 dark:text-zinc-100">
       {/* ── VISUAL IMAGE SHOWCASE ── */}
       <div className="space-y-4 sticky top-28">
-        <div className="aspect-4/3 sm:aspect-square rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-black/10 dark:border-white/10 overflow-hidden relative shadow-lg group">
+        <Interactive3DCard>
+        <div className="aspect-4/3 sm:aspect-square rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-brand overflow-hidden relative shadow-xl group">
           <SmartImage
             src={activeImage}
             alt={product.name}
             variant="med"
             aspectRatio="auto"
             className="w-full h-full"
-            imageClassName="group-hover:scale-105 transition-transform duration-500"
+            imageClassName="group-hover:scale-108 transition-transform duration-500"
             priority
           />
 
@@ -98,7 +100,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
               {product.categoryName}
             </span>
             <span className="px-3 py-1 rounded-full bg-brand-deep text-white text-xs font-bold shadow-xs">
-              🌿 100% Morning Plucked
+              100% Morning Plucked
             </span>
           </div>
 
@@ -108,6 +110,7 @@ export function ProductView({ product, earliestDate, showPrices = false }: Produ
             </span>
           </div>
         </div>
+        </Interactive3DCard>
 
         {/* Thumbnail selector row */}
         <div className="grid grid-cols-3 gap-3">

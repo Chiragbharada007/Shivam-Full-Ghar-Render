@@ -30,6 +30,7 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
   const [index, setIndex] = useState(0);
   const [sizeIdx, setSizeIdx] = useState(1);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [cursorOffset, setCursorOffset] = useState({ x: 0, y: 0 });
   const [bagOpen, setBagOpen] = useState(false);
   const [bag, setBag] = useState<{ item: ShowcaseItem; size: string }[]>([]);
   const { notify } = useNotifications();
@@ -42,10 +43,10 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setTilt({
-      x: ((e.clientY - rect.top) / rect.height - 0.5) * -14,
-      y: ((e.clientX - rect.left) / rect.width - 0.5) * 18,
-    });
+    const nx = (e.clientX - rect.left) / rect.width - 0.5;
+    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: ny * -16, y: nx * 20 });
+    setCursorOffset({ x: nx * -26, y: ny * -22 });
   };
 
   const handleAdd = () => {
@@ -90,10 +91,31 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
 
           <div
             onMouseMove={handleMove}
-            onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+            onMouseLeave={() => {
+              setTilt({ x: 0, y: 0 });
+              setCursorOffset({ x: 0, y: 0 });
+            }}
             style={{ perspective: "1100px" }}
             className="relative h-72 sm:h-88 rounded-2xl bg-brand-surface border border-brand flex items-center justify-center overflow-hidden"
           >
+            {/* Cursor-Repelling Floating Floral Petals (GetLayers Soda-inspired) */}
+            {[
+              "top-6 left-10 w-4 h-6 rotate-12",
+              "top-10 right-14 w-5 h-7 -rotate-45",
+              "bottom-12 left-16 w-4 h-6 rotate-45",
+              "bottom-10 right-12 w-5 h-7 -rotate-12",
+            ].map((cls, pIdx) => (
+              <motion.span
+                key={pIdx}
+                animate={{
+                  x: cursorOffset.x * (pIdx % 2 === 0 ? 1 : -1.2),
+                  y: cursorOffset.y * (pIdx < 2 ? 1 : -1.2),
+                }}
+                transition={{ type: "spring", stiffness: 120, damping: 14 }}
+                className={`pointer-events-none absolute rounded-full bg-brand-primary/35 blur-[0.5px] ${cls}`}
+              />
+            ))}
+
             {/* 3D Pedestal Shadow */}
             <div className="absolute bottom-6 w-52 h-8 rounded-full bg-brand-deep/20 blur-md" />
 
@@ -102,10 +124,10 @@ export function HaleShowcase({ items = DEFAULT_SHOWCASE }: { items?: ShowcaseIte
                 key={active.id}
                 src={active.image}
                 alt={active.name}
-                initial={{ opacity: 0, rotateY: -16, scale: 0.94 }}
+                initial={{ opacity: 0, rotateY: -45, scale: 0.88 }}
                 animate={{ opacity: 1, rotateX: tilt.x, rotateY: tilt.y, scale: 1 }}
-                exit={{ opacity: 0, rotateY: 16, scale: 0.94 }}
-                transition={{ duration: 0.28 }}
+                exit={{ opacity: 0, rotateY: 45, scale: 0.88 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
                 className="h-60 sm:h-76 w-auto object-contain rounded-xl shadow-2xl will-change-transform"
               />
             </AnimatePresence>
